@@ -2,7 +2,7 @@ language: node_js
 node_js:
 - '6'
 script:
-- npm test && npm run make-clean && npm run make-lib && npm run make-dist
+- npm test && npm run compile
 deploy:
   provider: npm
   api_key:
