@@ -1,0 +1,41 @@
+{
+  "name": "@deskpro/token-field",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "private": false,
+  "scripts": {
+    "compile": "rm -rf lib/* && babel --loose es6.modules -d lib/ src/",
+    "prepublish": "npm run compile",
+    "storybook:dev": "start-storybook -p 9002 -c .storybook",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deskpro/token-field.git"
+  },
+  "author": "DeskPRO <team@deskpro.com>",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/deskpro/token-field/issues"
+  },
+  "homepage": "https://github.com/deskpro/token-field#readme",
+  "dependencies": {
+    "prop-types": "^15.5.10",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "devDependencies": {
+    "@storybook/addon-info": "^3.2.9",
+    "@storybook/react": "^3.2.8",
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.0.0",
+    "babel-plugin-module-resolver": "^2.7.1",
+    "eslint": "^4.7.1",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-import-resolver-babel-module": "^3.0.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.3.0"
+  }
+}
