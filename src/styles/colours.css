@@ -1,0 +1,47 @@
+/******************************
+    Colours
+******************************/
+
+@value tailsPrimary: #fbb03b;
+@value nightSky: #28323c;
+@value morningSky: #e9f7ff;
+@value sunShine: #fffcc2;
+
+@value knucklesSecondary: #f16071;
+@value knucklesPrimary: #ed4954;
+@value knucklesTertiary: #dc3b4f;
+@value knucklesMidnight: #aa2222;
+
+@value sonicSecondary: #59a8e2;
+@value sonicPrimary: #4696dc;
+@value sonicTertiary: #3c90ce;
+@value sonicMidnight: #3c82b4;
+
+@value emeraldSecondary: #54c66a;
+@value emeraldPrimary: #47bf61;
+@value emeraldTertiary: #42b257;
+@value emeraldMidnight: #459b51;
+
+/******************************
+    Greyscale colours
+*******************************/
+@value greyscale1000: #2b2f2f;
+@value greyscale950: #323636;
+@value greyscale900: #3a3c3d;
+@value greyscale850: #4c4f50;
+@value greyscale800: #535657;
+@value greyscale750: #646869;
+@value greyscale700: #707576;
+@value greyscale650: #747a7b;
+@value greyscale600: #7f8383;
+@value greyscale550: #878d8f;
+@value greyscale500: #8c9395;
+@value greyscale450: #aab0b1;
+@value greyscale400: #c0c4c4;
+@value greyscale350: #cacece;
+@value greyscale300: #d4d7d8;
+@value greyscale250: #e3e3e3;
+@value greyscale200: #ebecec;
+@value greyscale150: #f4f5f5;
+@value greyscale100: #fcfcfc;
+@value greyscale00: #ffffff;

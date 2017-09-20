@@ -1,0 +1,12 @@
+@value colours: "./colours.css";
+
+@value greyscale300, greyscale750 from colours;
+
+.input {
+    border: 1px solid greyscale750;
+    border-radius: 2px;
+}
+.label {
+    background-color: greyscale300;
+    display: inline-block;
+}
