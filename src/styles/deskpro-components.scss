@@ -1,0 +1,5 @@
+$dp-styles-font-path: '../../node_modules/deskpro-components/src/styles/fonts/';
+
+:global {
+  @import '~deskpro-components/src/styles/main_no_apps.scss';
+}

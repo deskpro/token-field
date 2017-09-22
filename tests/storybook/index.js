@@ -1,1 +1,2 @@
-import './components/input/testInput';
+import '../../src/styles/deskpro-components.scss';
+import './components/input/inputs';

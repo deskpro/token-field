@@ -1,12 +1,44 @@
 @value colours: "./colours.css";
 
-@value greyscale300, greyscale750 from colours;
+@value sonicPrimary,  greyscale300, greyscale400 from colours;
 
-.input {
-    border: 1px solid greyscale750;
-    border-radius: 2px;
+.token {
+    display: inline-block;
+    white-space: nowrap;
+    margin-right: 5px;
+    font-family: 'Open Sans', sans-serif;
+}
+.token:hover {
+    border-color: sonicPrimary;
+}
+.value {
+    display: inline-block;
+    padding: 1px 5px 0 8px;
+    vertical-align: middle;
+    border: 1px solid greyscale400;
+    border-radius: 0 2px 2px 0;
+    font-size: 12px;
+}
+.value:hover {
+    color: sonicPrimary;
+    text-decoration: underline;
 }
 .label {
+    border: 1px solid greyscale400;
+    border-right: 0;
+    border-radius: 2px 0 0 2px;
     background-color: greyscale300;
+    vertical-align: middle;
     display: inline-block;
+    padding: 1px 5px;
+    font-size: 14px;
+}
+.input input{
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 20px;
+    vertical-align: middle;
+    border: 1px solid greyscale400;
+    border-radius: 0 2px 2px 0;
+    width: auto;
 }
