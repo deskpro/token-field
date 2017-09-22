@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Input } from 'deskpro-components/lib/Components/Forms';
 import styles from '../../styles/input.css';
+import TokenInput from './TokenInput';
 import ClickOutsideInput from './ClickOutsideInput';
 
 export default class NumericRangeInput extends React.Component {
@@ -40,16 +41,44 @@ export default class NumericRangeInput extends React.Component {
       to = this.props.token.value[1];
     }
     this.state = {
-      editMode: false,
       from,
       to,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.getInput = this.getInput.bind(this);
     this.getValue = this.getValue.bind(this);
-    this.clickOutside = this.clickOutside.bind(this);
-    this.enableEditMode = this.enableEditMode.bind(this);
-    this.disableEditMode = this.disableEditMode.bind(this);
+  }
+
+  getInput() {
+    const { unitPhrase } = this.props;
+    const { from, to } = this.state;
+    return (
+      <span>
+        <Input
+          value={this.props.convertFromValue(from)}
+          name="from"
+          className={classNames(styles.input)}
+          onChange={this.handleChange}
+          onKeyDown={this.handleKeyDown}
+          ref={(c) => { this.inputFrom = c; }}
+          onFocus={NumericRangeInput.moveCaretAtEnd}
+          placeholder="__"
+        />
+        {unitPhrase} to
+        <Input
+          value={this.props.convertFromValue(to)}
+          name="to"
+          className={classNames(styles.input)}
+          onChange={this.handleChange}
+          onKeyDown={this.handleKeyDown}
+          ref={(c) => { this.inputTo = c; }}
+          onFocus={NumericRangeInput.moveCaretAtEnd}
+          placeholder="__"
+        />
+        {unitPhrase}
+      </span>
+    );
   }
 
   getValue() {
@@ -77,88 +106,47 @@ export default class NumericRangeInput extends React.Component {
   }
 
   handleKeyDown(e) {
-    switch (e.which) {
-      case 27:
+    switch (e.key) {
+      case 'Escape':
         this.setState({
           value: this.props.token.value
         });
-        this.disableEditMode();
-        return;
-      case 13:
-        if (e.target.name === 'from') {
-          this.inputTo.focus();
+        this.tokenInput.disableEditMode();
+        break;
+      case 'Tab':
+      case 'Enter':
+        if (!e.shiftKey) {
+          if (e.target.name === 'from') {
+            this.inputTo.focus();
+          } else {
+            this.tokenInput.disableEditMode();
+          }
         } else {
-          this.disableEditMode();
-        }
-        return;
-      case 9:
-        if (e.target.name === 'to') {
-          this.disableEditMode();
+          if (e.target.name === 'to') {
+            this.inputFrom.focus();
+          } else {
+            this.tokenInput.disableEditMode();
+          }
         }
         break;
       default:
         // Do nothing
-        break;
+        return;
     }
-  }
-
-  clickOutside() {
-    this.disableEditMode();
-  }
-
-  enableEditMode() {
-    this.setState({
-      editMode: true
-    });
-    setTimeout(() => {
-      this.inputFrom.focus();
-    }, 10);
-  }
-
-  disableEditMode() {
-    this.setState({
-      editMode: false
-    });
+    e.preventDefault();
   }
 
   render() {
-    const { token, className, unitPhrase } = this.props;
-    const { from, to, editMode } = this.state;
+    const { token, className } = this.props;
     return (
-      <div className={classNames(styles.token, className)}>
-        <div className={classNames(styles.label, 'dp-code')}>
-          {token.type}:
-        </div>
-        { editMode ?
-          <ClickOutsideInput
-            onClickOutside={this.clickOutside}
-          >
-            <Input
-              value={this.props.convertFromValue(from)}
-              name="from"
-              className={classNames(styles.input)}
-              onChange={this.handleChange}
-              onKeyDown={this.handleKeyDown}
-              ref={(c) => { this.inputFrom = c; }}
-              onFocus={NumericRangeInput.moveCaretAtEnd}
-              placeholder="__"
-            />
-            {unitPhrase} to
-            <Input
-              value={this.props.convertFromValue(to)}
-              name="to"
-              className={classNames(styles.input)}
-              onChange={this.handleChange}
-              onKeyDown={this.handleKeyDown}
-              ref={(c) => { this.inputTo = c; }}
-              onFocus={NumericRangeInput.moveCaretAtEnd}
-              placeholder="__"
-            />
-            {unitPhrase}
-          </ClickOutsideInput>
-          : <span className={styles.value} onClick={this.enableEditMode}>{this.getValue()}</span>
-        }
-      </div>
+      <TokenInput
+        ref={(c) => { this.tokenInput = c; }}
+        className={className}
+        type={token.type}
+        getInput={this.getInput}
+        getValue={this.getValue}
+        focusInput={this.focusInput}
+      />
     );
   }
 }

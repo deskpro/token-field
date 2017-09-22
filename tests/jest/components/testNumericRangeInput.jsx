@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import ReactDOM from 'react-dom';
+import { shallow, mount } from 'enzyme';
+import { expect } from 'chai';
 import NumericRangeInput from 'Components/Input/NumericRangeInput';
 
 let wrapper;
@@ -15,7 +15,7 @@ beforeEach(() => {
     type:  'user-message',
     value: [12582912, 20971520]
   };
-  wrapper = shallow(
+  wrapper = mount(
     <NumericRangeInput
       token={token}
       unitPhrase="MB"
@@ -27,18 +27,37 @@ beforeEach(() => {
 });
 
 it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<NumericRangeInput token={token} />, div);
+  const textInput = shallow(<NumericRangeInput token={token} />);
+  expect(textInput).exist;
 });
 
 it('should render the input label', () => {
-  expect(wrapper.contains(token.type)).toEqual(true);
+  expect(wrapper.contains(<div className="dp-code label">{token.type}:</div>)).to.equal(true);
 });
 
 it('should render the input value', () => {
-  expect(wrapper.contains('12 MB to 20 MB')).toEqual(true);
+  const span = wrapper.find('span');
+  expect(span.text()).to.equal('12 MB to 20 MB');
+});
+
+it('should render empty value', () => {
+  const emptyToken = {
+    type:  'user-message',
+    value: []
+  };
+  const emptyWrapper = mount(
+    <NumericRangeInput
+      token={emptyToken}
+      unitPhrase="MB"
+      className="test"
+      convertToValue={convertToValue}
+      convertFromValue={convertFromValue}
+    />
+  );
+  const span = emptyWrapper.find('span');
+  expect(span.text()).to.equal('__ MB to __ MB');
 });
 
 it('should have the class passed', () => {
-  expect(wrapper.first().hasClass('test')).toEqual(true);
+  expect(wrapper.first().hasClass('test')).to.equal(true);
 });

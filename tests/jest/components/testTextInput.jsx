@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import ReactDOM from 'react-dom';
+import { shallow, mount } from 'enzyme';
+import { expect } from 'chai';
 import TextInput from 'Components/Input/TextInput';
 
 let wrapper;
@@ -11,22 +11,45 @@ beforeEach(() => {
     type:  'user-message',
     value: 'help upgrading'
   };
-  wrapper = shallow(<TextInput token={token} className="test" />);
+  wrapper = mount(<TextInput token={token} className="test" />);
 });
 
 it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<TextInput token={token} />, div);
+  const textInput = shallow(<TextInput token={token} />);
+  expect(textInput).exist;
 });
 
 it('should render the input label', () => {
-  expect(wrapper.contains(token.type)).toEqual(true);
+  expect(wrapper.contains(<div className="dp-code label">{token.type}:</div>)).to.equal(true);
 });
 
 it('should render the input value', () => {
-  expect(wrapper.contains(token.value)).toEqual(true);
+  const span = wrapper.find('span');
+  expect(span.text()).to.equal(token.value);
 });
 
 it('should have the class passed', () => {
-  expect(wrapper.first().hasClass('test')).toEqual(true);
+  expect(wrapper.first().hasClass('test')).to.equal(true);
 });
+// it('should display an input when clicked', () => {
+//   const value = wrapper.find('span').first();
+//
+//   console.log(wrapper.debug());
+//
+//   value.simulate('click');
+//
+//   const input = wrapper.find('Input');
+//
+//   expect(input.length).to.equal(1);
+//
+//   input.simulate('keyDown', { key: 'Escape' });
+//
+//   const label = wrapper.find('.label');
+//
+//   label.simulate('click');
+//   console.log(wrapper.debug());
+//   console.log(label.debug());
+//   console.log(input.debug());
+//
+//   expect(wrapper.find('Input').length).to.equal(0);
+// });

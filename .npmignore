@@ -6,6 +6,7 @@
 .cache/
 .storybook/
 bin/
+coverage/
 node_modules/
 src/Components/
 src/utils/

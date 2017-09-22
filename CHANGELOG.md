@@ -1,4 +1,4 @@
-## 0.0.4 - 2017-09-21
+## 0.0.4 - 2017-09-22
 
 * [FEATURE] Adds Numeric Range Input
 

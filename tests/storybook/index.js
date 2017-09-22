@@ -1,2 +1,4 @@
 import '../../src/styles/deskpro-components.scss';
-import './components/input/inputs';
+import './components/input/TextInput';
+import './components/input/NumericRangeInput';
+import './components/input/SelectInput';
