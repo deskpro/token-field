@@ -33,6 +33,22 @@ const options = [
   { label: 'United Kingdom', value: 'GB' }
 ];
 
+const optionsWithIcon = [
+  { id: 1, label: 'Cold', icon: 'thermometer-empty' },
+  { id: 2, label: 'Cool', icon: 'thermometer-quarter' },
+  { id: 3, label: 'Medium', icon: 'thermometer-half' },
+  { id: 4, label: 'Warm', icon: 'thermometer-three-quarters' },
+  { id: 5, label: 'Hot', icon: 'thermometer-full' },
+];
+
+const optionsWithHierarchy = [
+  { id: 1,  title: 'OS' },
+  { id: 2,  title: 'Windows', parent: 1 },
+  { id: 20, title: 'Win 8',   parent: 2 },
+  { id: 21, title: 'Win 10',  parent: 2 },
+  { id: 3,  title: 'Mac',     parent: 1 },
+];
+
 const selectToken = {
   type:  'country',
   value: 'GB'
@@ -43,6 +59,16 @@ const selectTokenEmpty = {
   value: ''
 };
 
+const selectTokenIcon = {
+  type:  'temperature',
+  value: null,
+};
+
+const selectTokenHierarchy = {
+  type:  'operating-system',
+  value: [20, 21],
+};
+
 storiesOf('Inputs', module)
   .add('SelectInput', () => (
     <div>
@@ -50,10 +76,22 @@ storiesOf('Inputs', module)
         dataSource={{ getOptions: options }}
         token={selectToken}
         className="test"
+        renderHeader={<h3>Countries</h3>}
       />
       <SelectInput
         dataSource={{ getOptions: options }}
         token={selectTokenEmpty}
+        className="test"
+      />
+      <SelectInput
+        dataSource={{ getOptions: optionsWithIcon }}
+        token={selectTokenIcon}
+        className="test"
+      />
+      <SelectInput
+        dataSource={{ getOptions: optionsWithHierarchy }}
+        token={selectTokenHierarchy}
+        isMultiple
         className="test"
       />
     </div>
