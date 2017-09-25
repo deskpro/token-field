@@ -63,7 +63,7 @@ it('should render the input label', () => {
 });
 
 it('should render the input value', () => {
-  const span = wrapper.find('span');
+  const span = wrapper.find('span.value');
   expect(span.text()).to.equal('United Kingdom');
 });
 

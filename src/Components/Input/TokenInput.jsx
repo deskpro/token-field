@@ -58,7 +58,7 @@ export default class TokenInput extends React.Component {
           <ClickOutsideInput onClickOutside={this.clickOutside}>
             {getInput()}
           </ClickOutsideInput>
-          : <span className={styles.value} onClick={this.enableEditMode}>
+          : <span className={classNames(styles.value, 'value')} onClick={this.enableEditMode}>
             {getValue()}
           </span>
         }
