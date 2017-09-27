@@ -16,7 +16,10 @@ beforeEach(() => {
 
 it('renders without crashing', () => {
   const textInput = shallow(<TextInput token={token} />);
-  expect(textInput).exist;
+  if (!expect(textInput).exist) {
+    return false;
+  }
+  return undefined;
 });
 
 it('should render the input label', () => {

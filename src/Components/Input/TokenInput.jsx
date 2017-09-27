@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import styles from '../../styles/input.css';
+import styles from '../../styles/style.css';
 import ClickOutsideInput from './ClickOutsideInput';
 
 export default class TokenInput extends React.Component {
@@ -65,4 +65,4 @@ export default class TokenInput extends React.Component {
       </div>
     );
   }
-};
+}

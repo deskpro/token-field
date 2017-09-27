@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Input } from 'deskpro-components/lib/Components/Forms';
-import styles from '../../styles/input.css';
+import styles from '../../styles/style.css';
 import TokenInput from './TokenInput';
-import ClickOutsideInput from './ClickOutsideInput';
 
 export default class NumericRangeInput extends React.Component {
   static propTypes = {
@@ -121,12 +120,10 @@ export default class NumericRangeInput extends React.Component {
           } else {
             this.tokenInput.disableEditMode();
           }
+        } else if (e.target.name === 'to') {
+          this.inputFrom.focus();
         } else {
-          if (e.target.name === 'to') {
-            this.inputFrom.focus();
-          } else {
-            this.tokenInput.disableEditMode();
-          }
+          this.tokenInput.disableEditMode();
         }
         break;
       default:

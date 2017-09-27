@@ -55,7 +55,10 @@ it('renders without crashing', () => {
     token={token}
     className="test"
   />);
-  expect(selectInput).exist;
+  if (!expect(selectInput).exist) {
+    return false;
+  }
+  return undefined;
 });
 
 it('should render the input label', () => {

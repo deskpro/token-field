@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Input } from 'deskpro-components/lib/Components/Forms';
-import styles from '../../styles/input.css';
+import styles from '../../styles/style.css';
 import TokenInput from './TokenInput';
 
 

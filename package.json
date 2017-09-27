@@ -25,7 +25,8 @@
   "homepage": "https://github.com/deskpro/token-field#readme",
   "dependencies": {
     "classnames": "^2.2.5",
-    "deskpro-components": "^0.5.17",
+    "deskpro-components": "^0.5.19",
+    "moment": "^2.18.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-addons-test-utils": "^15.6.0",
