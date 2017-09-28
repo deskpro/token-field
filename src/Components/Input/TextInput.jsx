@@ -9,12 +9,14 @@ export default class TextInput extends React.Component {
   static propTypes = {
     token: PropTypes.shape({
       type:  PropTypes.string,
-      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     }).isRequired,
     className: PropTypes.string,
+    onChange:  PropTypes.func,
   };
   static defaultProps = {
-    className: ''
+    className: '',
+    onChange() {},
   };
 
   static moveCaretAtEnd(e) {
@@ -28,10 +30,12 @@ export default class TextInput extends React.Component {
     this.state = {
       value: props.token.value,
     };
+    this.handleBlur = this.handleBlur.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.getInput = this.getInput.bind(this);
     this.getValue = this.getValue.bind(this);
+    this.focus = this.focus.bind(this);
     this.focusInput = this.focusInput.bind(this);
   }
 
@@ -57,6 +61,10 @@ export default class TextInput extends React.Component {
     return '________';
   }
 
+  focus() {
+    this.tokenInput.focus();
+  }
+
   focusInput() {
     this.input.focus();
   }
@@ -65,6 +73,10 @@ export default class TextInput extends React.Component {
     this.setState({
       value
     });
+  }
+
+  handleBlur() {
+    this.props.onChange(this.state.value);
   }
 
   handleKeyDown(e) {
@@ -92,6 +104,7 @@ export default class TextInput extends React.Component {
         getInput={this.getInput}
         getValue={this.getValue}
         focusInput={this.focusInput}
+        onBlur={this.handleBlur}
       />
     );
   }

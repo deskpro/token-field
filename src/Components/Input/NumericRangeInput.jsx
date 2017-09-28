@@ -47,6 +47,7 @@ export default class NumericRangeInput extends React.Component {
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.getInput = this.getInput.bind(this);
     this.getValue = this.getValue.bind(this);
+    this.focus = this.focus.bind(this);
   }
 
   getInput() {
@@ -98,6 +99,10 @@ export default class NumericRangeInput extends React.Component {
     return `${displayFrom} ${unitPhrase} to ${displayTo} ${unitPhrase}`;
   }
 
+  focus() {
+    this.tokenInput.focus();
+  }
+
   handleChange(value, name) {
     this.setState({
       [name]: this.props.convertToValue(value)
@@ -142,7 +147,6 @@ export default class NumericRangeInput extends React.Component {
         type={token.type}
         getInput={this.getInput}
         getValue={this.getValue}
-        focusInput={this.focusInput}
       />
     );
   }

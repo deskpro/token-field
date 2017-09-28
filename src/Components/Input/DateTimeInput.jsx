@@ -12,13 +12,14 @@ export default class DateTimeInput extends React.Component {
   static propTypes = {
     token: PropTypes.shape({
       type:  PropTypes.string,
-      value: PropTypes.object.isRequired,
+      value: PropTypes.object,
     }).isRequired,
     locale:       PropTypes.string,
     showSwitcher: PropTypes.bool,
     defaultInput: PropTypes.oneOf(['date', 'time']),
     className:    PropTypes.string,
     translations: PropTypes.object,
+    onChange:     PropTypes.func,
   };
   static defaultProps = {
     showSwitcher: true,
@@ -41,7 +42,8 @@ export default class DateTimeInput extends React.Component {
       before:    '< before',
       range:     'range',
       custom:    'custom',
-    }
+    },
+    onChange() {},
   };
 
   constructor(props) {
@@ -252,6 +254,10 @@ export default class DateTimeInput extends React.Component {
     }
   }
 
+  focus() {
+    this.tokenInput.focus();
+  }
+
   handleChange(inputType, value) {
     let newValue;
     switch (inputType) {
@@ -277,6 +283,7 @@ export default class DateTimeInput extends React.Component {
       value: newValue,
       op:    null,
     });
+    this.props.onChange(newValue);
     this.tokenInput.disableEditMode();
   }
 

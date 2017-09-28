@@ -11,10 +11,12 @@ export default class TokenInput extends React.Component {
     getValue:   PropTypes.func.isRequired,
     className:  PropTypes.string,
     focusInput: PropTypes.func,
+    onBlur:     PropTypes.func,
   };
   static defaultProps = {
     className: '',
     focusInput() {},
+    onBlur() {},
   };
 
   constructor(props) {
@@ -24,11 +26,16 @@ export default class TokenInput extends React.Component {
     };
     this.clickOutside = this.clickOutside.bind(this);
     this.enableEditMode = this.enableEditMode.bind(this);
+    this.focus = this.focus.bind(this);
     this.disableEditMode = this.disableEditMode.bind(this);
   }
 
   clickOutside() {
     this.disableEditMode();
+  }
+
+  focus() {
+    this.enableEditMode();
   }
 
   enableEditMode() {
@@ -41,6 +48,7 @@ export default class TokenInput extends React.Component {
   }
 
   disableEditMode() {
+    this.props.onBlur();
     this.setState({
       editMode: false
     });

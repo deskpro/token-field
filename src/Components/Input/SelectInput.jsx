@@ -76,6 +76,7 @@ export default class SelectInput extends React.Component {
     this.handleFilter = this.handleFilter.bind(this);
     this.getInput = this.getInput.bind(this);
     this.getValue = this.getValue.bind(this);
+    this.focus = this.focus.bind(this);
     this.renderHeader = this.renderHeader.bind(this);
     this.renderItem = this.renderItem.bind(this);
     this.renderOptions = this.renderOptions.bind(this);
@@ -136,6 +137,10 @@ export default class SelectInput extends React.Component {
       return this.props.renderItem(valueOption);
     }
     return this.renderItem(valueOption);
+  }
+
+  focus() {
+    this.tokenInput.focus();
   }
 
   handleChange(option) {
@@ -246,7 +251,6 @@ export default class SelectInput extends React.Component {
         type={token.type}
         getInput={this.getInput}
         getValue={this.getValue}
-        focusInput={this.focusInput}
       />
     );
   }

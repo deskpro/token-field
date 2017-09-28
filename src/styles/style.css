@@ -1,11 +1,15 @@
-@value colours: "./colours.css";
-
-@value sonicPrimary,  greyscale300, greyscale400 from colours;
+@value (
+    sonicPrimary,
+    greyscale00,
+    greyscale300,
+    greyscale400,
+    greyscale500,
+    greyscale850
+) from "./colours.css";
 
 .token {
     display: inline-block;
     white-space: nowrap;
-    margin-right: 5px;
     font-family: 'Open Sans', sans-serif;
 }
 .token:hover {
@@ -41,4 +45,38 @@
     border: 1px solid greyscale400;
     border-radius: 0 2px 2px 0;
     width: auto;
+}
+.token-field {
+    display: flex;
+}
+.search {
+    margin-right: 5px;
+    vertical-align: bottom;
+}
+.token-suggestion {
+    white-space: nowrap;
+    color: greyscale850;
+}
+.description {
+    font-size: 10px;
+    color: greyscale500;
+}
+:global(.dp-selectable-list--selected) .description {
+    color: greyscale00;
+}
+.raw-text {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    /*border: 0;*/
+    padding: 0 5px;
+}
+.raw-text:focus {
+    outline: 0;
+}
+.input-box {
+    cursor: text;
+    flex-grow: 1;
+    height: 20px;
+    vertical-align: baseline;
+    display: inline-block;
 }
