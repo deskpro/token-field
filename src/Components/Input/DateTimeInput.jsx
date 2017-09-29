@@ -20,6 +20,7 @@ export default class DateTimeInput extends React.Component {
     className:    PropTypes.string,
     translations: PropTypes.object,
     onChange:     PropTypes.func,
+    removeToken:  PropTypes.func.isRequired,
   };
   static defaultProps = {
     showSwitcher: true,
@@ -60,6 +61,7 @@ export default class DateTimeInput extends React.Component {
     this.getInput = this.getInput.bind(this);
     this.getValue = this.getValue.bind(this);
     this.getTimePresets = this.getTimePresets.bind(this);
+    this.focus = this.focus.bind(this);
   }
 
   componentDidUpdate() {
@@ -302,14 +304,15 @@ export default class DateTimeInput extends React.Component {
   }
 
   render() {
-    const { token, className } = this.props;
+    const { token, className, removeToken } = this.props;
     return (
       <TokenInput
         ref={(c) => { this.tokenInput = c; }}
         className={className}
         type={token.type}
-        getInput={this.getInput}
-        getValue={this.getValue}
+        renderInput={this.getInput}
+        renderValue={this.getValue}
+        removeToken={removeToken}
       />
     );
   }

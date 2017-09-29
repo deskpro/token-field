@@ -9,18 +9,23 @@ export default class NumericRangeInput extends React.Component {
   static propTypes = {
     token: PropTypes.shape({
       type:  PropTypes.string,
-      value: PropTypes.array.isRequired,
+      value: PropTypes.array,
     }).isRequired,
-    className:        PropTypes.string,
-    unitPhrase:       PropTypes.string,
-    convertToValue:   PropTypes.func,
-    convertFromValue: PropTypes.func,
+    className:           PropTypes.string,
+    unitPhrase:          PropTypes.string,
+    onChange:            PropTypes.func,
+    convertToValue:      PropTypes.func,
+    convertFromValue:    PropTypes.func,
+    selectPreviousToken: PropTypes.func.isRequired,
+    selectNextToken:     PropTypes.func.isRequired,
+    removeToken:         PropTypes.func.isRequired,
   };
   static defaultProps = {
     className:  '',
     unitPhrase: '',
     convertToValue(v) { return v; },
     convertFromValue(v) { return v; },
+    onChange() {},
   };
 
   static moveCaretAtEnd(e) {
@@ -33,30 +38,34 @@ export default class NumericRangeInput extends React.Component {
     super(props);
     let from = '';
     let to = '';
-    if (this.props.token.value.length) {
+    if (this.props.token.value && this.props.token.value.length) {
       from = this.props.token.value[0];
     }
-    if (this.props.token.value.length > 1) {
+    if (this.props.token.value && this.props.token.value.length > 1) {
       to = this.props.token.value[1];
     }
     this.state = {
       from,
       to,
     };
+    this.handleBlur = this.handleBlur.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.getInput = this.getInput.bind(this);
     this.getValue = this.getValue.bind(this);
     this.focus = this.focus.bind(this);
+    this.focusInput = this.focusInput.bind(this);
   }
 
   getInput() {
     const { unitPhrase } = this.props;
     const { from, to } = this.state;
+    const fromValue = (from) ? this.props.convertFromValue(from) : '';
+    const toValue = (to) ? this.props.convertFromValue(to) : '';
     return (
       <span>
         <Input
-          value={this.props.convertFromValue(from)}
+          value={fromValue}
           name="from"
           className={classNames(styles.input)}
           onChange={this.handleChange}
@@ -67,7 +76,7 @@ export default class NumericRangeInput extends React.Component {
         />
         {unitPhrase} to
         <Input
-          value={this.props.convertFromValue(to)}
+          value={toValue}
           name="to"
           className={classNames(styles.input)}
           onChange={this.handleChange}
@@ -103,10 +112,18 @@ export default class NumericRangeInput extends React.Component {
     this.tokenInput.focus();
   }
 
+  focusInput() {
+    this.inputFrom.focus();
+  }
+
   handleChange(value, name) {
     this.setState({
       [name]: this.props.convertToValue(value)
     });
+  }
+
+  handleBlur() {
+    this.props.onChange([this.state.from, this.state.to]);
   }
 
   handleKeyDown(e) {
@@ -123,11 +140,13 @@ export default class NumericRangeInput extends React.Component {
           if (e.target.name === 'from') {
             this.inputTo.focus();
           } else {
+            this.props.selectNextToken();
             this.tokenInput.disableEditMode();
           }
         } else if (e.target.name === 'to') {
           this.inputFrom.focus();
         } else {
+          this.props.selectPreviousToken();
           this.tokenInput.disableEditMode();
         }
         break;
@@ -139,14 +158,17 @@ export default class NumericRangeInput extends React.Component {
   }
 
   render() {
-    const { token, className } = this.props;
+    const { token, className, removeToken } = this.props;
     return (
       <TokenInput
         ref={(c) => { this.tokenInput = c; }}
         className={className}
         type={token.type}
-        getInput={this.getInput}
-        getValue={this.getValue}
+        renderInput={this.getInput}
+        renderValue={this.getValue}
+        onFocus={this.focusInput}
+        onBlur={this.handleBlur}
+        removeToken={removeToken}
       />
     );
   }

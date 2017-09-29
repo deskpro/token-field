@@ -1,16 +1,20 @@
 @value (
+    morningSky,
+    sunShine,
     sonicPrimary,
     greyscale00,
     greyscale300,
     greyscale400,
     greyscale500,
-    greyscale850
+    greyscale850,
+    greyscale1000
 ) from "./colours.css";
 
 .token {
     display: inline-block;
     white-space: nowrap;
     font-family: 'Open Sans', sans-serif;
+    position: relative;
 }
 .token:hover {
     border-color: sonicPrimary;
@@ -26,6 +30,39 @@
 .value:hover {
     color: sonicPrimary;
     text-decoration: underline;
+}
+.token-remove {
+    width: 9px;
+    height: 9px;
+    background-color: greyscale1000;
+    position: absolute;
+    top: -2px;
+    right: -5px;
+    border-radius: 50%;
+    text-align: center;
+    color: transparent;
+    cursor: pointer;
+    user-select: none;
+    display: none;
+    z-index: 1;
+}
+.token:hover .token-remove {
+    display: block;
+}
+.token-remove:before, .token-remove:after {
+    position: absolute;
+    left: 4px;
+    top: 2px;
+    content: ' ';
+    height: 6px;
+    width: 1px;
+    background-color: #FFF;
+}
+.token-remove:before {
+    transform: rotate(45deg);
+}
+.token-remove:after {
+    transform: rotate(-45deg);
 }
 .label {
     border: 1px solid greyscale400;
@@ -57,12 +94,23 @@
     white-space: nowrap;
     color: greyscale850;
 }
+.selected {
+    color: sonicPrimary;
+    background-color: morningSky;
+}
+.current-value {
+    color: greyscale00;
+    background-color: sonicPrimary;
+}
 .description {
     font-size: 10px;
     color: greyscale500;
 }
 :global(.dp-selectable-list--selected) .description {
     color: greyscale00;
+}
+.highlight {
+    background-color: sunShine;
 }
 .raw-text {
     font-family: 'Open Sans', sans-serif;

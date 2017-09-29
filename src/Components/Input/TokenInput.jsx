@@ -6,16 +6,17 @@ import ClickOutsideInput from './ClickOutsideInput';
 
 export default class TokenInput extends React.Component {
   static propTypes = {
-    type:       PropTypes.string.isRequired,
-    getInput:   PropTypes.func.isRequired,
-    getValue:   PropTypes.func.isRequired,
-    className:  PropTypes.string,
-    focusInput: PropTypes.func,
-    onBlur:     PropTypes.func,
+    type:        PropTypes.string.isRequired,
+    renderInput: PropTypes.func.isRequired,
+    renderValue: PropTypes.func.isRequired,
+    className:   PropTypes.string,
+    onFocus:     PropTypes.func,
+    onBlur:      PropTypes.func,
+    removeToken: PropTypes.func.isRequired,
   };
   static defaultProps = {
     className: '',
-    focusInput() {},
+    onFocus() {},
     onBlur() {},
   };
 
@@ -24,10 +25,19 @@ export default class TokenInput extends React.Component {
     this.state = {
       editMode: false,
     };
+    this.hasToFocus = false;
+
     this.clickOutside = this.clickOutside.bind(this);
     this.enableEditMode = this.enableEditMode.bind(this);
     this.focus = this.focus.bind(this);
     this.disableEditMode = this.disableEditMode.bind(this);
+  }
+
+  componentDidUpdate() {
+    if (this.hasToFocus) {
+      this.hasToFocus = false;
+      this.props.onFocus();
+    }
   }
 
   clickOutside() {
@@ -42,9 +52,7 @@ export default class TokenInput extends React.Component {
     this.setState({
       editMode: true
     });
-    setTimeout(() => {
-      this.props.focusInput();
-    }, 10);
+    this.hasToFocus = true;
   }
 
   disableEditMode() {
@@ -55,7 +63,7 @@ export default class TokenInput extends React.Component {
   }
 
   render() {
-    const { type, getValue, getInput, className } = this.props;
+    const { type, renderValue, renderInput, className } = this.props;
     const { editMode } = this.state;
     return (
       <div className={classNames(styles.token, className)}>
@@ -64,12 +72,13 @@ export default class TokenInput extends React.Component {
         </div>
         { editMode ?
           <ClickOutsideInput onClickOutside={this.clickOutside}>
-            {getInput()}
+            {renderInput()}
           </ClickOutsideInput>
           : <span className={classNames(styles.value, 'value')} onClick={this.enableEditMode}>
-            {getValue()}
+            {renderValue()}
           </span>
         }
+        <div className={styles['token-remove']} onClick={this.props.removeToken}>X</div>
       </div>
     );
   }

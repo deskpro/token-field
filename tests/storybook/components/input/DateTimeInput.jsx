@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 import DateTimeInput from 'Components/Input/DateTimeInput';
 
 const dateTimeToken = {
@@ -34,10 +35,31 @@ const dateTimeTokenRange = {
 storiesOf('Inputs', module)
   .add('DateTimeInput', () => (
     <div>
-      <DateTimeInput token={dateTimeToken} />
-      <DateTimeInput token={dateTimeTokenEmpty} locale="it" />
-      <DateTimeInput token={dateTimeTokenAbsolute} />
-      <DateTimeInput token={dateTimeTokenRange} />
+      <DateTimeInput
+        token={dateTimeToken}
+        selectPreviousToken={action('SelectPreviousToken')}
+        selectNextToken={action('selectNextToken')}
+        removeToken={action('removeToken')}
+      />
+      <DateTimeInput
+        token={dateTimeTokenEmpty}
+        locale="it"
+        selectPreviousToken={action('SelectPreviousToken')}
+        selectNextToken={action('selectNextToken')}
+        removeToken={action('removeToken')}
+      />
+      <DateTimeInput
+        token={dateTimeTokenAbsolute}
+        selectPreviousToken={action('SelectPreviousToken')}
+        selectNextToken={action('selectNextToken')}
+        removeToken={action('removeToken')}
+      />
+      <DateTimeInput
+        token={dateTimeTokenRange}
+        selectPreviousToken={action('SelectPreviousToken')}
+        selectNextToken={action('selectNextToken')}
+        removeToken={action('removeToken')}
+      />
     </div>
   ))
 ;

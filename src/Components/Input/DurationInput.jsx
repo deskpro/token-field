@@ -14,6 +14,7 @@ export default class DurationInput extends React.Component {
     locale:       PropTypes.string,
     className:    PropTypes.string,
     translations: PropTypes.object,
+    removeToken:  PropTypes.func.isRequired,
   };
   static defaultProps = {
     className:    '',
@@ -216,14 +217,15 @@ export default class DurationInput extends React.Component {
   }
 
   render() {
-    const { token, className } = this.props;
+    const { token, className, removeToken } = this.props;
     return (
       <TokenInput
         ref={(c) => { this.tokenInput = c; }}
         className={className}
         type={token.type}
-        getInput={this.getInput}
-        getValue={this.getValue}
+        renderInput={this.getInput}
+        renderValue={this.getValue}
+        removeToken={removeToken}
       />
     );
   }

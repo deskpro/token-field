@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 import NumericRangeInput from 'Components/Input/NumericRangeInput';
 
 const numericRangeToken = {
@@ -22,6 +23,9 @@ storiesOf('Inputs', module)
         className="test"
         convertToValue={convertToValue}
         convertFromValue={convertFromValue}
+        selectPreviousToken={action('SelectPreviousToken')}
+        selectNextToken={action('selectNextToken')}
+        removeToken={action('removeToken')}
       />
       <NumericRangeInput
         token={numericRangeTokenEmpty}
@@ -29,6 +33,9 @@ storiesOf('Inputs', module)
         className="test"
         convertToValue={convertToValue}
         convertFromValue={convertFromValue}
+        selectPreviousToken={action('SelectPreviousToken')}
+        selectNextToken={action('selectNextToken')}
+        removeToken={action('removeToken')}
       />
     </div>
   ))

@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { Checkbox, Input } from 'deskpro-components/lib/Components/Forms';
 import Icon from 'deskpro-components/lib/Components/Icon';
 import { List, ListElement, Scrollbar } from 'deskpro-components/lib/Components/Common';
 import TokenInput from './TokenInput';
+import styles from '../../styles/style.css';
 
 export default class SelectInput extends React.Component {
   static propTypes = {
@@ -15,9 +17,12 @@ export default class SelectInput extends React.Component {
       getOptions:  PropTypes.oneOfType([PropTypes.func, PropTypes.array]),
       findOptions: PropTypes.func,
     }).isRequired,
-    isMultiple:   PropTypes.bool,
-    className:    PropTypes.string,
-    renderHeader: PropTypes.oneOfType([
+    isMultiple:          PropTypes.bool,
+    className:           PropTypes.string,
+    onChange:            PropTypes.func,
+    selectPreviousToken: PropTypes.func.isRequired,
+    selectNextToken:     PropTypes.func.isRequired,
+    renderHeader:        PropTypes.oneOfType([
       PropTypes.func,
       PropTypes.node,
       PropTypes.string,
@@ -30,10 +35,12 @@ export default class SelectInput extends React.Component {
     ]),
     showSearch:            PropTypes.bool,
     selectionsTranslation: PropTypes.string,
+    removeToken:           PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     className:             '',
+    onChange() {},
     isMultiple:            false,
     renderHeader:          null,
     renderItem:            null,
@@ -67,23 +74,132 @@ export default class SelectInput extends React.Component {
 
   constructor(props) {
     super(props);
+
+    const options = this.props.dataSource.getOptions;
+
     this.state = {
-      value:  props.token.value,
-      filter: '',
+      value:          props.token.value,
+      selectedOption: options[0],
+      options,
+      filter:         '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeMultiple = this.handleChangeMultiple.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
-    this.getInput = this.getInput.bind(this);
-    this.getValue = this.getValue.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.renderInput = this.renderInput.bind(this);
+    this.renderValue = this.renderValue.bind(this);
     this.focus = this.focus.bind(this);
+    this.onFocus = this.onFocus.bind(this);
+    this.onBlur = this.onBlur.bind(this);
     this.renderHeader = this.renderHeader.bind(this);
     this.renderItem = this.renderItem.bind(this);
     this.renderOptions = this.renderOptions.bind(this);
     this.renderFooter = this.renderFooter.bind(this);
   }
 
-  getInput() {
+  onFocus() {
+    if (this.props.showSearch) {
+      this.searchInput.focus();
+    }
+    window.document.addEventListener('keydown', this.handleKeyDown);
+  }
+
+  onBlur() {
+    window.document.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  focus() {
+    this.tokenInput.focus();
+  }
+
+  handleChange(option) {
+    const value = option.id || option.value;
+    this.setState({
+      value,
+      filter: ''
+    });
+    this.props.onChange(value);
+    this.tokenInput.disableEditMode();
+  }
+
+  handleKeyDown(e) {
+    switch (e.key) {
+      case 'ArrowDown':
+      case 'ArrowUp': {
+        const { options } = this.state;
+        const index = options.findIndex(option => option === this.state.selectedOption);
+        if (e.key === 'ArrowDown' && index < options.length - 1) {
+          this.setState({
+            selectedOption: options[index + 1]
+          });
+        }
+        if (e.key === 'ArrowUp' && index > 0) {
+          this.setState({
+            selectedOption: options[index - 1]
+          });
+        }
+        break;
+      }
+      case 'Escape':
+        this.setState({
+          value: this.props.token.value
+        });
+        this.tokenInput.disableEditMode();
+        break;
+      case 'Tab':
+        if (e.shiftKey) {
+          this.props.selectPreviousToken();
+        } else {
+          this.handleChange(this.state.selectedOption);
+          this.props.selectNextToken();
+        }
+        this.tokenInput.disableEditMode();
+        break;
+      case 'Enter':
+        this.handleChange(this.state.selectedOption);
+        this.props.selectNextToken();
+        break;
+      default:
+        return true;
+    }
+    e.preventDefault();
+    return true;
+  }
+
+  handleChangeMultiple(checked, value) {
+    const values = this.state.value;
+    if (checked) {
+      values.push(value);
+    } else {
+      const index = values.indexOf(value);
+      values.splice(index, 1);
+    }
+    this.setState({
+      value: values
+    });
+  }
+
+  handleFilter(filter) {
+    let { selectedOption } = this.state;
+    const options = this.props.dataSource.getOptions
+      .filter(option => filter === ''
+        || SelectInput.getLabel(option).toLowerCase().indexOf(filter.toLowerCase()) !== -1);
+    if (options.length) {
+      if (!selectedOption || options.indexOf(selectedOption) === -1) {
+        selectedOption = options[0];
+      }
+    } else {
+      selectedOption = null;
+    }
+    this.setState({
+      filter,
+      options,
+      selectedOption,
+    });
+  }
+
+  renderInput() {
     const { isMultiple, showSearch } = this.props;
     return (
       <div className="dp-select">
@@ -95,6 +211,7 @@ export default class SelectInput extends React.Component {
                   name="search"
                   icon="search"
                   value={this.state.filter}
+                  ref={(c) => { this.searchInput = c; }}
                   onChange={this.handleFilter}
                 />
                 : null }
@@ -108,7 +225,7 @@ export default class SelectInput extends React.Component {
     );
   }
 
-  getValue() {
+  renderValue() {
     const { getOptions, findOptions } = this.props.dataSource;
     let valueOption;
     let value;
@@ -139,39 +256,6 @@ export default class SelectInput extends React.Component {
     return this.renderItem(valueOption);
   }
 
-  focus() {
-    this.tokenInput.focus();
-  }
-
-  handleChange(option) {
-    const value = option.id || option.value;
-    console.log(value);
-    this.setState({
-      value,
-      filter: ''
-    });
-    this.tokenInput.disableEditMode();
-  }
-
-  handleChangeMultiple(checked, value) {
-    const values = this.state.value;
-    if (checked) {
-      values.push(value);
-    } else {
-      const index = values.indexOf(value);
-      values.splice(index, 1);
-    }
-    this.setState({
-      value: values
-    });
-  }
-
-  handleFilter(filter) {
-    this.setState({
-      filter
-    });
-  }
-
   renderHeader() {
     const { renderHeader } = this.props;
     if (typeof renderHeader === 'function') {
@@ -181,18 +265,16 @@ export default class SelectInput extends React.Component {
   }
 
   renderOptions() {
-    const { getOptions } = this.props.dataSource;
-    const { filter, value } = this.state;
-    return (getOptions
-      .filter(option => filter === ''
-        || SelectInput.getLabel(option).toLowerCase().indexOf(filter.toLowerCase()) !== -1)
-      .map((option) => {
+    const { value, selectedOption, options } = this.state;
+    return (
+      options.map((option) => {
         const key = option.id || option.value;
-        const selected = key === value ? 'dp-selectable-list--selected' : '';
+        const currentValue = key === value ? styles['current-value'] : '';
+        const selected = option === selectedOption ? styles.selected : '';
         return (
           <ListElement
             key={key}
-            className={selected}
+            className={classNames(currentValue, selected)}
             onClick={() => this.handleChange(option)}
           >
             {this.renderItem(option)}
@@ -243,14 +325,17 @@ export default class SelectInput extends React.Component {
   }
 
   render() {
-    const { token, className } = this.props;
+    const { token, className, removeToken } = this.props;
     return (
       <TokenInput
         ref={(c) => { this.tokenInput = c; }}
         className={className}
         type={token.type}
-        getInput={this.getInput}
-        getValue={this.getValue}
+        renderInput={this.renderInput}
+        renderValue={this.renderValue}
+        onFocus={this.onFocus}
+        onBlur={this.onBlur}
+        removeToken={removeToken}
       />
     );
   }

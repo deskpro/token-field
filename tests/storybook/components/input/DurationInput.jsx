@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 import DurationInput from 'Components/Input/DurationInput';
 
 const durationToken = {
@@ -34,9 +35,27 @@ const durationTokenRange = {
 storiesOf('Inputs', module)
   .add('DurationInput', () => (
     <div>
-      <DurationInput token={durationToken} />
-      <DurationInput token={durationTokenEmpty} locale="it" />
-      <DurationInput token={durationTokenRange} locale="fr" translations={{ to: 'à' }} />
+      <DurationInput
+        token={durationToken}
+        selectPreviousToken={action('SelectPreviousToken')}
+        selectNextToken={action('selectNextToken')}
+        removeToken={action('removeToken')}
+      />
+      <DurationInput
+        token={durationTokenEmpty}
+        selectPreviousToken={action('SelectPreviousToken')}
+        selectNextToken={action('selectNextToken')}
+        removeToken={action('removeToken')}
+        locale="it"
+      />
+      <DurationInput
+        token={durationTokenRange}
+        locale="fr"
+        translations={{ to: 'à' }}
+        selectPreviousToken={action('SelectPreviousToken')}
+        selectNextToken={action('selectNextToken')}
+        removeToken={action('removeToken')}
+      />
     </div>
   ))
 ;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 import SelectInput from 'Components/Input/SelectInput';
 
 const options = [
@@ -76,22 +77,35 @@ storiesOf('Inputs', module)
         dataSource={{ getOptions: options }}
         token={selectToken}
         className="test"
+        selectPreviousToken={action('SelectPreviousToken')}
+        selectNextToken={action('selectNextToken')}
+        removeToken={action('removeToken')}
         renderHeader={<h3>Countries</h3>}
       />
       <SelectInput
         dataSource={{ getOptions: options }}
         token={selectTokenEmpty}
+        selectPreviousToken={action('SelectPreviousToken')}
+        selectNextToken={action('selectNextToken')}
+        removeToken={action('removeToken')}
+        showSearch={false}
         className="test"
       />
       <SelectInput
         dataSource={{ getOptions: optionsWithIcon }}
         token={selectTokenIcon}
+        selectPreviousToken={action('SelectPreviousToken')}
+        selectNextToken={action('selectNextToken')}
+        removeToken={action('removeToken')}
         className="test"
       />
       <SelectInput
         dataSource={{ getOptions: optionsWithHierarchy }}
         token={selectTokenHierarchy}
         isMultiple
+        selectPreviousToken={action('SelectPreviousToken')}
+        selectNextToken={action('selectNextToken')}
+        removeToken={action('removeToken')}
         className="test"
       />
     </div>
