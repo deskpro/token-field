@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { expect } from 'chai';
+import renderer from 'react-test-renderer';
+import { mount } from 'enzyme';
 import TextInput from 'Components/Input/TextInput';
 import noop from 'deskpro-components/lib/utils/noop';
 
@@ -23,32 +23,29 @@ beforeEach(() => {
   );
 });
 
-it('renders without crashing', () => {
-  const textInput = shallow(
+it('+++capturing Snapshot of TextInput', () => {
+  const renderedValue = renderer.create(
     <TextInput
       token={token}
       selectPreviousToken={noop}
       selectNextToken={noop}
       removeToken={noop}
     />
-  );
-  if (!expect(textInput).exist) {
-    return false;
-  }
-  return undefined;
+  ).toJSON();
+  expect(renderedValue).toMatchSnapshot();
 });
 
 it('should render the input label', () => {
-  expect(wrapper.contains(<div className="dp-code label">{token.type}:</div>)).to.equal(true);
+  expect(wrapper.contains(<div className="dp-code label">{token.type}:</div>)).toEqual(true);
 });
 
 it('should render the input value', () => {
   const span = wrapper.find('span');
-  expect(span.text()).to.equal(token.value);
+  expect(span.text()).toEqual(token.value);
 });
 
 it('should have the class passed', () => {
-  expect(wrapper.first().hasClass('test')).to.equal(true);
+  expect(wrapper.first().hasClass('test')).toEqual(true);
 });
 // it('should display an input when clicked', () => {
 //   const value = wrapper.find('span').first();

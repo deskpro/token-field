@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { expect } from 'chai';
+import renderer from 'react-test-renderer';
+import { mount } from 'enzyme';
 import SelectInput from 'Components/Input/SelectInput';
 import noop from 'deskpro-components/lib/utils/noop';
 
@@ -38,6 +38,19 @@ const options = [
   { label: 'United Kingdom', value: 'GB' }
 ];
 
+it('+++capturing Snapshot of SelectInput', () => {
+  const renderedValue = renderer.create(
+    <SelectInput
+      dataSource={{ getOptions: options }}
+      token={token}
+      selectPreviousToken={noop}
+      selectNextToken={noop}
+      removeToken={noop}
+    />
+  ).toJSON();
+  expect(renderedValue).toMatchSnapshot();
+});
+
 beforeEach(() => {
   token = {
     type:  'country',
@@ -55,32 +68,15 @@ beforeEach(() => {
   );
 });
 
-it('renders without crashing', () => {
-  const selectInput = shallow(
-    <SelectInput
-      dataSource={{ getOptions: options }}
-      token={token}
-      className="test"
-      selectPreviousToken={noop}
-      selectNextToken={noop}
-      removeToken={noop}
-    />
-  );
-  if (!expect(selectInput).exist) {
-    return false;
-  }
-  return undefined;
-});
-
 it('should render the input label', () => {
-  expect(wrapper.contains(<div className="dp-code label">{token.type}:</div>)).to.equal(true);
+  expect(wrapper.contains(<div className="dp-code label">{token.type}:</div>)).toEqual(true);
 });
 
 it('should render the input value', () => {
   const span = wrapper.find('span.value');
-  expect(span.text()).to.equal('United Kingdom');
+  expect(span.text()).toEqual('United Kingdom');
 });
 
 it('should have the class passed', () => {
-  expect(wrapper.first().hasClass('test')).to.equal(true);
+  expect(wrapper.first().hasClass('test')).toEqual(true);
 });

@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { expect } from 'chai';
+import renderer from 'react-test-renderer';
+import { mount } from 'enzyme';
 import NumericRangeInput from 'Components/Input/NumericRangeInput';
 import noop from 'deskpro-components/lib/utils/noop';
 
@@ -10,6 +10,18 @@ let token;
 
 const convertFromValue = value => Math.round(value / 1024 / 1024);
 const convertToValue = value => value * 1024 * 1024;
+
+it('+++capturing Snapshot of NumericRangeInput', () => {
+  const renderedValue = renderer.create(
+    <NumericRangeInput
+      token={token}
+      selectPreviousToken={noop}
+      selectNextToken={noop}
+      removeToken={noop}
+    />
+  ).toJSON();
+  expect(renderedValue).toMatchSnapshot();
+});
 
 beforeEach(() => {
   token = {
@@ -30,30 +42,13 @@ beforeEach(() => {
   );
 });
 
-it('renders without crashing', () => {
-  const textInput = shallow(
-    <NumericRangeInput
-      token={token}
-      convertToValue={convertToValue}
-      convertFromValue={convertFromValue}
-      selectPreviousToken={noop}
-      selectNextToken={noop}
-      removeToken={noop}
-    />
-  );
-  if (!expect(textInput).exist) {
-    return false;
-  }
-  return undefined;
-});
-
 it('should render the input label', () => {
-  expect(wrapper.contains(<div className="dp-code label">{token.type}:</div>)).to.equal(true);
+  expect(wrapper.contains(<div className="dp-code label">{token.type}:</div>)).toEqual(true);
 });
 
 it('should render the input value', () => {
   const span = wrapper.find('span');
-  expect(span.text()).to.equal('12 MB to 20 MB');
+  expect(span.text()).toEqual('12 MB to 20 MB');
 });
 
 it('should render empty value', () => {
@@ -74,9 +69,9 @@ it('should render empty value', () => {
     />
   );
   const span = emptyWrapper.find('span');
-  expect(span.text()).to.equal('__ MB to __ MB');
+  expect(span.text()).toEqual('__ MB to __ MB');
 });
 
 it('should have the class passed', () => {
-  expect(wrapper.first().hasClass('test')).to.equal(true);
+  expect(wrapper.first().hasClass('test')).toEqual(true);
 });

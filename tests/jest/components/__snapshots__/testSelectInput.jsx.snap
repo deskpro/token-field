@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`+++capturing Snapshot of SelectInput 1`] = `
+<div
+  className=""
+>
+  <div
+    className="dp-code label"
+  >
+    country
+    :
+  </div>
+  <span
+    className="value"
+    onClick={[Function]}
+  >
+    <span>
+      United Kingdom
+    </span>
+  </span>
+  <div
+    className={undefined}
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;

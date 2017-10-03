@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`+++capturing Snapshot of NumericRangeInput 1`] = `
+<div
+  className=""
+>
+  <div
+    className="dp-code label"
+  >
+    user-message
+    :
+  </div>
+  <span
+    className="value"
+    onClick={[Function]}
+  >
+    12582912  to 20971520 
+  </span>
+  <div
+    className={undefined}
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;
