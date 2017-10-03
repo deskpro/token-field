@@ -48,16 +48,9 @@ export default class NumericRangeInput extends React.Component {
       from,
       to,
     };
-    this.handleBlur = this.handleBlur.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.getInput = this.getInput.bind(this);
-    this.getValue = this.getValue.bind(this);
-    this.focus = this.focus.bind(this);
-    this.focusInput = this.focusInput.bind(this);
   }
 
-  getInput() {
+  getInput = () => {
     const { unitPhrase } = this.props;
     const { from, to } = this.state;
     const fromValue = (from) ? this.props.convertFromValue(from) : '';
@@ -88,9 +81,9 @@ export default class NumericRangeInput extends React.Component {
         {unitPhrase}
       </span>
     );
-  }
+  };
 
-  getValue() {
+  getValue = () => {
     const { unitPhrase } = this.props;
     const { from, to } = this.state;
     let displayFrom;
@@ -106,27 +99,27 @@ export default class NumericRangeInput extends React.Component {
       displayTo = '__';
     }
     return `${displayFrom} ${unitPhrase} to ${displayTo} ${unitPhrase}`;
-  }
+  };
 
-  focus() {
+  focus = () => {
     this.tokenInput.focus();
-  }
+  };
 
-  focusInput() {
+  focusInput = () => {
     this.inputFrom.focus();
-  }
+  };
 
-  handleChange(value, name) {
+  handleChange = (value, name) => {
     this.setState({
       [name]: this.props.convertToValue(value)
     });
-  }
+  };
 
-  handleBlur() {
+  handleBlur = () => {
     this.props.onChange([this.state.from, this.state.to]);
-  }
+  };
 
-  handleKeyDown(e) {
+  handleKeyDown = (e) => {
     switch (e.key) {
       case 'Escape':
         this.setState({
@@ -155,7 +148,7 @@ export default class NumericRangeInput extends React.Component {
         return;
     }
     e.preventDefault();
-  }
+  };
 
   render() {
     const { token, className, removeToken } = this.props;

@@ -29,9 +29,6 @@ export default class TokenFieldInput extends React.Component {
       keyword:       '',
       selectedToken: null,
     };
-    this.handleBlur = this.handleBlur.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
   focus() {
@@ -55,15 +52,15 @@ export default class TokenFieldInput extends React.Component {
     this.popperRef.close();
   }
 
-  handleBlur() {
+  handleBlur = () => {
     if (this.state.value !== '') {
       this.props.onChange(this.state.tokenKey, this.state.value);
     } else {
       this.props.removeToken(this.state.tokenKey);
     }
-  }
+  };
 
-  handleChange(event) {
+  handleChange = (event) => {
     let { selectedToken } = this.state;
     const value = event.currentTarget.value;
     const match = value.match(/ ?([-a-z:]{2,})$/);
@@ -90,9 +87,9 @@ export default class TokenFieldInput extends React.Component {
       keyword,
       selectedToken,
     });
-  }
+  };
 
-  handleKeyDown(e) {
+  handleKeyDown = (e) => {
     const { tokens } = this.state;
     if (this.state.tokens.length > 0) {
       let index = 0;
@@ -150,7 +147,7 @@ export default class TokenFieldInput extends React.Component {
     }
     e.preventDefault();
     return true;
-  }
+  };
 
   renderTokens() {
     const { keyword } = this.state;

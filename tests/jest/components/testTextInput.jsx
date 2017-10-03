@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { expect } from 'chai';
 import TextInput from 'Components/Input/TextInput';
+import noop from 'deskpro-components/lib/utils/noop';
 
 let wrapper;
 let token;
@@ -11,11 +12,26 @@ beforeEach(() => {
     type:  'user-message',
     value: 'help upgrading'
   };
-  wrapper = mount(<TextInput token={token} className="test" />);
+  wrapper = mount(
+    <TextInput
+      token={token}
+      className="test"
+      selectPreviousToken={noop}
+      selectNextToken={noop}
+      removeToken={noop}
+    />
+  );
 });
 
 it('renders without crashing', () => {
-  const textInput = shallow(<TextInput token={token} />);
+  const textInput = shallow(
+    <TextInput
+      token={token}
+      selectPreviousToken={noop}
+      selectNextToken={noop}
+      removeToken={noop}
+    />
+  );
   if (!expect(textInput).exist) {
     return false;
   }

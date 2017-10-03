@@ -26,11 +26,6 @@ export default class TokenInput extends React.Component {
       editMode: false,
     };
     this.hasToFocus = false;
-
-    this.clickOutside = this.clickOutside.bind(this);
-    this.enableEditMode = this.enableEditMode.bind(this);
-    this.focus = this.focus.bind(this);
-    this.disableEditMode = this.disableEditMode.bind(this);
   }
 
   componentDidUpdate() {
@@ -40,27 +35,27 @@ export default class TokenInput extends React.Component {
     }
   }
 
-  clickOutside() {
+  clickOutside = () => {
     this.disableEditMode();
-  }
+  };
 
-  focus() {
+  focus = () => {
     this.enableEditMode();
-  }
+  };
 
-  enableEditMode() {
+  enableEditMode = () => {
     this.setState({
       editMode: true
     });
     this.hasToFocus = true;
-  }
+  };
 
-  disableEditMode() {
+  disableEditMode = () => {
     this.props.onBlur();
     this.setState({
       editMode: false
     });
-  }
+  };
 
   render() {
     const { type, renderValue, renderInput, className } = this.props;

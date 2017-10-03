@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`+++capturing Snapshot of TokenField 1`] = `
+<div>
+  <div
+    className={undefined}
+  >
+    <span>
+      <i
+        className="fa fa-search dp-icon dp-icon--s"
+      />
+    </span>
+    <div>
+      <div
+        className=""
+      >
+        <div
+          className="dp-code label"
+        >
+          date
+          :
+        </div>
+        <span
+          className="value"
+          onClick={[Function]}
+        >
+          Yesterday
+        </span>
+        <div
+          className={undefined}
+          onClick={[Function]}
+        >
+          X
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "inline-block",
+          }
+        }
+      >
+        <div
+          className={undefined}
+          style={
+            Object {
+              "display": "inline-block",
+              "fontSize": 14,
+            }
+          }
+        >
+          <style
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "input#undefined::-ms-clear {display: none;}",
+              }
+            }
+          />
+          <input
+            className={undefined}
+            id={undefined}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            style={
+              Object {
+                "boxSizing": "content-box",
+                "width": "1px",
+              }
+            }
+            value="pricing"
+          />
+          <div
+            style={
+              Object {
+                "height": 0,
+                "left": 0,
+                "overflow": "scroll",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "hidden",
+                "whiteSpace": "pre",
+              }
+            }
+          >
+            pricing
+          </div>
+        </div>
+        <div />
+      </div>
+      <div
+        className=""
+      >
+        <div
+          className="dp-code label"
+        >
+          user-message
+          :
+        </div>
+        <span
+          className="value"
+          onClick={[Function]}
+        >
+          help upgrading
+        </span>
+        <div
+          className={undefined}
+          onClick={[Function]}
+        >
+          X
+        </div>
+      </div>
+    </div>
+    <div
+      className={undefined}
+      onClick={[Function]}
+    />
+  </div>
+</div>
+`;

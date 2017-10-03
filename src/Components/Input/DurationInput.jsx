@@ -38,8 +38,6 @@ export default class DurationInput extends React.Component {
       value:  props.token.value,
       custom: false,
     };
-    this.getInput = this.getInput.bind(this);
-    this.getValue = this.getValue.bind(this);
   }
 
   getTimePresets() {
@@ -163,7 +161,7 @@ export default class DurationInput extends React.Component {
     );
   }
 
-  getInput() {
+  getInput = () => {
     const { custom } = this.state;
     if (custom) {
       return this.getCustomInput();
@@ -188,9 +186,9 @@ export default class DurationInput extends React.Component {
         </div>
       </div>
     );
-  }
+  };
 
-  getValue() {
+  getValue = () => {
     const translations = this.getTranslations();
     if (this.state.value.op === 'range') {
       const time = this.getDisplayFromTimeObject(this.state.value.time);
@@ -198,7 +196,7 @@ export default class DurationInput extends React.Component {
       return `${time} ${translations.to} ${timeEnd}`;
     }
     return this.getDisplayFromTimeObject(this.state.value.time);
-  }
+  };
 
   handleChange(timeObject) {
     this.setState({

@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { expect } from 'chai';
 import SelectInput from 'Components/Input/SelectInput';
+import noop from 'deskpro-components/lib/utils/noop';
 
 let wrapper;
 let token;
@@ -42,19 +43,29 @@ beforeEach(() => {
     type:  'country',
     value: 'GB'
   };
-  wrapper = mount(<SelectInput
-    dataSource={{ getOptions: options }}
-    token={token}
-    className="test"
-  />);
+  wrapper = mount(
+    <SelectInput
+      dataSource={{ getOptions: options }}
+      token={token}
+      className="test"
+      selectPreviousToken={noop}
+      selectNextToken={noop}
+      removeToken={noop}
+    />
+  );
 });
 
 it('renders without crashing', () => {
-  const selectInput = shallow(<SelectInput
-    dataSource={{ getOptions: options }}
-    token={token}
-    className="test"
-  />);
+  const selectInput = shallow(
+    <SelectInput
+      dataSource={{ getOptions: options }}
+      token={token}
+      className="test"
+      selectPreviousToken={noop}
+      selectNextToken={noop}
+      removeToken={noop}
+    />
+  );
   if (!expect(selectInput).exist) {
     return false;
   }

@@ -33,12 +33,6 @@ export class TokenField extends React.Component {
     };
 
     this.inputs = [];
-
-    this.getInputField = this.getInputField.bind(this);
-    this.handleTokenChange = this.handleTokenChange.bind(this);
-    this.addInputAndFocus = this.addInputAndFocus.bind(this);
-    this.addTokenAndFocus = this.addTokenAndFocus.bind(this);
-    this.removeToken = this.removeToken.bind(this);
   }
 
   componentDidUpdate() {
@@ -48,22 +42,20 @@ export class TokenField extends React.Component {
     }
   }
 
-  getInputField(key, value) {
-    return (
-      <TokenFieldInput
-        ref={(c) => { this.inputs[key] = c; }}
-        value={value}
-        key={key}
-        tokenKey={key}
-        tokenTypes={this.props.tokenTypes}
-        addToken={this.addTokenAndFocus}
-        onChange={this.handleTokenChange}
-        removeToken={this.removeToken}
-      />
-    );
-  }
+  getInputField = (key, value) => (
+    <TokenFieldInput
+      ref={(c) => { this.inputs[key] = c; }}
+      value={value}
+      key={key}
+      tokenKey={key}
+      tokenTypes={this.props.tokenTypes}
+      addToken={this.addTokenAndFocus}
+      onChange={this.handleTokenChange}
+      removeToken={this.removeToken}
+    />
+  );
 
-  addInputAndFocus(key) {
+  addInputAndFocus = (key) => {
     const { value } = this.state;
     const inputKey = (!key) ? value.length : key;
     if (inputKey === value.length && value[inputKey - 1].type === 'TEXT') {
@@ -76,18 +68,18 @@ export class TokenField extends React.Component {
       });
       this.props.onChange(value);
     }
-  }
+  };
 
-  addTokenAndFocus(key, id) {
+  addTokenAndFocus = (key, id) => {
     const { value } = this.state;
     value.splice(key, 0, { type: id });
     this.focusInput = key;
     this.setState({
       value
     });
-  }
+  };
 
-  removeToken(key, focusKey) {
+  removeToken = (key, focusKey) => {
     const { value } = this.state;
     value.splice(key, 1);
     if (focusKey !== undefined) {
@@ -96,7 +88,7 @@ export class TokenField extends React.Component {
     this.setState({
       value
     });
-  }
+  };
 
   selectPreviousToken(key) {
     if (key > 0) {
@@ -112,14 +104,14 @@ export class TokenField extends React.Component {
     }
   }
 
-  handleTokenChange(key, token) {
+  handleTokenChange = (key, token) => {
     const { value } = this.state;
     value[key].value = token;
     this.setState({
       value
     });
     this.props.onChange(value);
-  }
+  };
 
   renderInputs() {
     const { tokenTypes } = this.props;

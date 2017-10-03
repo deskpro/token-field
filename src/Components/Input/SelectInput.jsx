@@ -83,37 +83,24 @@ export default class SelectInput extends React.Component {
       options,
       filter:         '',
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleChangeMultiple = this.handleChangeMultiple.bind(this);
-    this.handleFilter = this.handleFilter.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.renderInput = this.renderInput.bind(this);
-    this.renderValue = this.renderValue.bind(this);
-    this.focus = this.focus.bind(this);
-    this.onFocus = this.onFocus.bind(this);
-    this.onBlur = this.onBlur.bind(this);
-    this.renderHeader = this.renderHeader.bind(this);
-    this.renderItem = this.renderItem.bind(this);
-    this.renderOptions = this.renderOptions.bind(this);
-    this.renderFooter = this.renderFooter.bind(this);
   }
 
-  onFocus() {
+  onFocus = () => {
     if (this.props.showSearch) {
       this.searchInput.focus();
     }
     window.document.addEventListener('keydown', this.handleKeyDown);
-  }
+  };
 
-  onBlur() {
+  onBlur = () => {
     window.document.removeEventListener('keydown', this.handleKeyDown);
-  }
+  };
 
-  focus() {
+  focus = () => {
     this.tokenInput.focus();
-  }
+  };
 
-  handleChange(option) {
+  handleChange = (option) => {
     const value = option.id || option.value;
     this.setState({
       value,
@@ -121,9 +108,9 @@ export default class SelectInput extends React.Component {
     });
     this.props.onChange(value);
     this.tokenInput.disableEditMode();
-  }
+  };
 
-  handleKeyDown(e) {
+  handleKeyDown = (e) => {
     switch (e.key) {
       case 'ArrowDown':
       case 'ArrowUp': {
@@ -165,9 +152,9 @@ export default class SelectInput extends React.Component {
     }
     e.preventDefault();
     return true;
-  }
+  };
 
-  handleChangeMultiple(checked, value) {
+  handleChangeMultiple = (checked, value) => {
     const values = this.state.value;
     if (checked) {
       values.push(value);
@@ -178,9 +165,9 @@ export default class SelectInput extends React.Component {
     this.setState({
       value: values
     });
-  }
+  };
 
-  handleFilter(filter) {
+  handleFilter = (filter) => {
     let { selectedOption } = this.state;
     const options = this.props.dataSource.getOptions
       .filter(option => filter === ''
@@ -197,9 +184,9 @@ export default class SelectInput extends React.Component {
       options,
       selectedOption,
     });
-  }
+  };
 
-  renderInput() {
+  renderInput = () => {
     const { isMultiple, showSearch } = this.props;
     return (
       <div className="dp-select">
@@ -223,9 +210,9 @@ export default class SelectInput extends React.Component {
         </div>
       </div>
     );
-  }
+  };
 
-  renderValue() {
+  renderValue = () => {
     const { getOptions, findOptions } = this.props.dataSource;
     let valueOption;
     let value;
@@ -254,17 +241,17 @@ export default class SelectInput extends React.Component {
       return this.props.renderItem(valueOption);
     }
     return this.renderItem(valueOption);
-  }
+  };
 
-  renderHeader() {
+  renderHeader = () => {
     const { renderHeader } = this.props;
     if (typeof renderHeader === 'function') {
       return renderHeader();
     }
     return renderHeader;
-  }
+  };
 
-  renderOptions() {
+  renderOptions = () => {
     const { value, selectedOption, options } = this.state;
     return (
       options.map((option) => {
@@ -281,9 +268,9 @@ export default class SelectInput extends React.Component {
           </ListElement>
         );
       }));
-  }
+  };
 
-  renderItem(option) {
+  renderItem = (option) => {
     if (this.props.renderItem) {
       return this.props.renderItem(option);
     }
@@ -293,7 +280,7 @@ export default class SelectInput extends React.Component {
         {SelectInput.getLabel(option)}
       </span>
     );
-  }
+  };
 
   renderMultipleOptions() {
     const { getOptions } = this.props.dataSource;
@@ -316,13 +303,13 @@ export default class SelectInput extends React.Component {
       }));
   }
 
-  renderFooter() {
+  renderFooter = () => {
     const { renderFooter } = this.props;
     if (typeof renderFooter === 'function') {
       return renderFooter();
     }
     return renderFooter;
-  }
+  };
 
   render() {
     const { token, className, removeToken } = this.props;

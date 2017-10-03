@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { expect } from 'chai';
 import NumericRangeInput from 'Components/Input/NumericRangeInput';
+import noop from 'deskpro-components/lib/utils/noop';
 
 let wrapper;
 let token;
@@ -22,12 +23,24 @@ beforeEach(() => {
       className="test"
       convertToValue={convertToValue}
       convertFromValue={convertFromValue}
+      selectPreviousToken={noop}
+      selectNextToken={noop}
+      removeToken={noop}
     />
   );
 });
 
 it('renders without crashing', () => {
-  const textInput = shallow(<NumericRangeInput token={token} />);
+  const textInput = shallow(
+    <NumericRangeInput
+      token={token}
+      convertToValue={convertToValue}
+      convertFromValue={convertFromValue}
+      selectPreviousToken={noop}
+      selectNextToken={noop}
+      removeToken={noop}
+    />
+  );
   if (!expect(textInput).exist) {
     return false;
   }
@@ -55,6 +68,9 @@ it('should render empty value', () => {
       className="test"
       convertToValue={convertToValue}
       convertFromValue={convertFromValue}
+      selectPreviousToken={noop}
+      selectNextToken={noop}
+      removeToken={noop}
     />
   );
   const span = emptyWrapper.find('span');

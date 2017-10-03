@@ -54,14 +54,6 @@ export default class DateTimeInput extends React.Component {
       active: props.defaultInput,
       op:     null,
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleOp = this.handleOp.bind(this);
-    this.handleTabChange = this.handleTabChange.bind(this);
-    this.getDatePicker = this.getDatePicker.bind(this);
-    this.getInput = this.getInput.bind(this);
-    this.getValue = this.getValue.bind(this);
-    this.getTimePresets = this.getTimePresets.bind(this);
-    this.focus = this.focus.bind(this);
   }
 
   componentDidUpdate() {
@@ -71,7 +63,7 @@ export default class DateTimeInput extends React.Component {
     }
   }
 
-  getTimePresets() {
+  getTimePresets = () => {
     moment.locale(this.props.locale);
     return [
       {
@@ -103,9 +95,9 @@ export default class DateTimeInput extends React.Component {
         }
       }
     ];
-  }
+  };
 
-  getDatePicker() {
+  getDatePicker = () => {
     moment.locale(this.props.locale);
     let date = moment();
     if (this.state.value.date) {
@@ -122,9 +114,9 @@ export default class DateTimeInput extends React.Component {
         months={moment.months()}
       />
     );
-  }
+  };
 
-  getInput() {
+  getInput = () => {
     const { active, op } = this.state;
     const { translations, showSwitcher } = this.props;
     const presets = [
@@ -199,9 +191,9 @@ export default class DateTimeInput extends React.Component {
         </div>
       </div>
     );
-  }
+  };
 
-  getValue() {
+  getValue = () => {
     const { translations } = this.props;
     const { value } = this.state;
     if (!value) {
@@ -254,13 +246,13 @@ export default class DateTimeInput extends React.Component {
       default:
         return '________';
     }
-  }
+  };
 
-  focus() {
+  focus = () => {
     this.tokenInput.focus();
-  }
+  };
 
-  handleChange(inputType, value) {
+  handleChange = (inputType, value) => {
     let newValue;
     switch (inputType) {
       case 'preset':
@@ -287,21 +279,21 @@ export default class DateTimeInput extends React.Component {
     });
     this.props.onChange(newValue);
     this.tokenInput.disableEditMode();
-  }
+  };
 
-  handleOp(op) {
+  handleOp = (op) => {
     this.openDatePicker = true;
     this.setState({
       op
     });
-  }
+  };
 
-  handleTabChange(active) {
+  handleTabChange = (active) => {
     this.setState({
       active,
       op: null,
     });
-  }
+  };
 
   render() {
     const { token, className, removeToken } = this.props;

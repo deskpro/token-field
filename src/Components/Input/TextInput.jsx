@@ -27,17 +27,9 @@ export default class TextInput extends React.Component {
     this.state = {
       value: props.token.value,
     };
-    this.handleBlur = this.handleBlur.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.getInput = this.getInput.bind(this);
-    this.getValue = this.getValue.bind(this);
-    this.focus = this.focus.bind(this);
-    this.focusInput = this.focusInput.bind(this);
-    this.moveCaretAtEnd = this.moveCaretAtEnd.bind(this);
   }
 
-  getInput() {
+  getInput = () => {
     const { value } = this.state;
     return (
       <Input
@@ -50,34 +42,34 @@ export default class TextInput extends React.Component {
         placeholder="________"
       />
     );
-  }
+  };
 
-  getValue() {
+  getValue = () => {
     if (this.state.value) {
       return this.state.value;
     }
     return '________';
-  }
+  };
 
-  focus() {
+  focus = () => {
     this.tokenInput.focus();
-  }
+  };
 
-  focusInput() {
+  focusInput = () => {
     this.input.focus();
-  }
+  };
 
-  handleChange(value) {
+  handleChange = (value) => {
     this.setState({
       value
     });
-  }
+  };
 
-  handleBlur() {
+  handleBlur = () => {
     this.props.onChange(this.state.value);
-  }
+  };
 
-  handleKeyDown(e) {
+  handleKeyDown = (e) => {
     switch (e.key) {
       case 'Escape':
         this.setState({
@@ -99,15 +91,15 @@ export default class TextInput extends React.Component {
         break;
       default:
     }
-  }
+  };
 
-  moveCaretAtEnd() {
+  moveCaretAtEnd = () => {
     const input = this.input.input;
     if (this.state.value) {
       const length = this.state.value.length;
       input.setSelectionRange(length, length);
     }
-  }
+  };
 
   render() {
     const { token, className, removeToken } = this.props;
