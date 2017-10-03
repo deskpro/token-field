@@ -101,12 +101,16 @@ export default class NumericRangeInput extends React.Component {
     return `${displayFrom} ${unitPhrase} to ${displayTo} ${unitPhrase}`;
   };
 
-  focus = () => {
-    this.tokenInput.focus();
+  focus = (end) => {
+    this.tokenInput.focus(end);
   };
 
-  focusInput = () => {
-    this.inputFrom.focus();
+  focusInput = (end) => {
+    if (end) {
+      this.inputTo.focus();
+    } else {
+      this.inputFrom.focus();
+    }
   };
 
   handleChange = (value, name) => {

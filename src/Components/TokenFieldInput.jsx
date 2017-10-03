@@ -8,12 +8,14 @@ import styles from '../styles/style.css';
 
 export default class TokenFieldInput extends React.Component {
   static propTypes = {
-    tokenTypes:  PropTypes.arrayOf(PropTypes.object).isRequired,
-    tokenKey:    PropTypes.number.isRequired,
-    onChange:    PropTypes.func,
-    addToken:    PropTypes.func.isRequired,
-    removeToken: PropTypes.func.isRequired,
-    value:       PropTypes.string.isRequired,
+    tokenTypes:          PropTypes.arrayOf(PropTypes.object).isRequired,
+    tokenKey:            PropTypes.number.isRequired,
+    onChange:            PropTypes.func,
+    addToken:            PropTypes.func.isRequired,
+    selectPreviousToken: PropTypes.func.isRequired,
+    selectNextToken:     PropTypes.func.isRequired,
+    removeToken:         PropTypes.func.isRequired,
+    value:               PropTypes.string.isRequired,
   };
 
   static defaultProps = {
@@ -42,15 +44,28 @@ export default class TokenFieldInput extends React.Component {
     if (match) {
       value = match[1];
     }
-    this.setState({
-      value,
-      tokenKey: tokenKey + 1,
-    }, () => {
-      this.props.addToken((value) ? tokenKey + 1 : tokenKey, token.id);
-      this.input.blur();
-    });
-    this.popperRef.close();
+    if (value) {
+      this.setState({
+        value,
+        tokenKey,
+      }, () => {
+        this.props.addToken(tokenKey + 1, token.id);
+        this.input.blur();
+      });
+    } else {
+      this.props.removeToken(tokenKey);
+      this.props.addToken(tokenKey, token.id);
+    }
+    this.closePopper();
   }
+
+  openPopper = () => {
+    this.popperRef.open();
+  };
+
+  closePopper = () => {
+    this.popperRef.close();
+  };
 
   handleBlur = () => {
     if (this.state.value !== '') {
@@ -76,10 +91,10 @@ export default class TokenFieldInput extends React.Component {
       if (!selectedToken || tokens.indexOf(selectedToken) === -1) {
         selectedToken = tokens[0];
       }
-      this.popperRef.open();
+      this.openPopper();
     } else {
       selectedToken = null;
-      this.popperRef.close();
+      this.closePopper();
     }
     this.setState({
       value,
@@ -141,11 +156,21 @@ export default class TokenFieldInput extends React.Component {
           return true;
         }
         break;
+      case 'Tab':
+        if (e.shiftKey) {
+          this.props.selectPreviousToken();
+        } else {
+          this.props.selectNextToken();
+        }
+        break;
+      case 'Enter':
+        this.props.selectNextToken();
+        break;
       default:
-        // Do nothing
         return true;
     }
     e.preventDefault();
+    this.input.blur();
     return true;
   };
 

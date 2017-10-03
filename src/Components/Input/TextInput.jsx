@@ -74,8 +74,9 @@ export default class TextInput extends React.Component {
       case 'Escape':
         this.setState({
           value: this.props.token.value
+        }, () => {
+          this.tokenInput.disableEditMode();
         });
-        this.tokenInput.disableEditMode();
         break;
       case 'Tab':
         if (e.shiftKey) {
@@ -90,7 +91,10 @@ export default class TextInput extends React.Component {
         this.tokenInput.disableEditMode();
         break;
       default:
+        return true;
     }
+    e.preventDefault();
+    return true;
   };
 
   moveCaretAtEnd = () => {

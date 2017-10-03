@@ -103,7 +103,6 @@ export default class DateTimeInput extends React.Component {
     if (this.state.value.date) {
       date = moment(this.state.value.date);
     }
-    console.log(date);
     return (
       <Datepicker
         ref={(c) => { this.datePicker = c; }}

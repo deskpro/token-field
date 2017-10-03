@@ -31,7 +31,7 @@ export default class TokenInput extends React.Component {
   componentDidUpdate() {
     if (this.hasToFocus) {
       this.hasToFocus = false;
-      this.props.onFocus();
+      this.props.onFocus(this.fromEnd);
     }
   }
 
@@ -39,15 +39,16 @@ export default class TokenInput extends React.Component {
     this.disableEditMode();
   };
 
-  focus = () => {
-    this.enableEditMode();
+  focus = (end) => {
+    this.enableEditMode(end);
   };
 
-  enableEditMode = () => {
+  enableEditMode = (end) => {
     this.setState({
       editMode: true
     });
     this.hasToFocus = true;
+    this.fromEnd = !!end;
   };
 
   disableEditMode = () => {

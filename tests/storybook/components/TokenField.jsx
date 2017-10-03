@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 import { TokenField, Token } from 'Components/TokenField';
+import styles from '../style.css';
 
 const countries = [
   { label: 'Austria', value: 'AT' },
@@ -80,32 +80,58 @@ const tokenTypes = [
   ),
 ];
 
-const value = [
-  {
-    type:  'date',
-    value: {
-      inputType: 'preset',
-      preset:    'yesterday',
-    }
-  },
-  {
-    type:  'TEXT',
-    value: 'pricing',
-  },
-  {
-    type:  'user-message',
-    value: 'help upgrading'
-  }
+const defaultValue = [
+  // {
+  //   type:  'date',
+  //   value: {
+  //     inputType: 'preset',
+  //     preset:    'yesterday',
+  //   }
+  // },
+  // {
+  //   type:  'TEXT',
+  //   value: 'pricing',
+  // },
+  // {
+  //   type:  'user-message',
+  //   value: 'help upgrading'
+  // }
 ];
+
+class TokenFieldStory extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: defaultValue,
+    };
+  }
+
+  handleChange = (value) => {
+    this.setState({
+      value
+    });
+  };
+
+  render() {
+    const { value } = this.state;
+    return (
+      <div>
+        <TokenField
+          tokenTypes={tokenTypes}
+          value={value}
+          onChange={this.handleChange}
+        />
+        <h3 className={styles.title}>Value</h3>
+        <pre className={styles.code}>
+          {JSON.stringify(value, null, 2)}
+        </pre>
+      </div>
+    );
+  }
+}
 
 storiesOf('TokenField', module)
   .add('TokenField', () => (
-    <div>
-      <TokenField
-        tokenTypes={tokenTypes}
-        value={value}
-        onChange={action('onChange')}
-      />
-    </div>
-  ))
-;
+    <TokenFieldStory />
+  ));
+

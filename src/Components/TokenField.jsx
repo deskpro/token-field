@@ -51,6 +51,8 @@ export class TokenField extends React.Component {
       tokenTypes={this.props.tokenTypes}
       addToken={this.addTokenAndFocus}
       onChange={this.handleTokenChange}
+      selectPreviousToken={() => this.selectPreviousToken(key)}
+      selectNextToken={() => this.selectNextToken(key)}
       removeToken={this.removeToken}
     />
   );
@@ -58,7 +60,7 @@ export class TokenField extends React.Component {
   addInputAndFocus = (key) => {
     const { value } = this.state;
     const inputKey = (!key) ? value.length : key;
-    if (inputKey === value.length && value[inputKey - 1].type === 'TEXT') {
+    if (value.length && inputKey === value.length && value[inputKey - 1].type === 'TEXT') {
       this.inputs[inputKey - 1].focus();
     } else {
       value.push({ type: 'TEXT', value: '' });
@@ -72,7 +74,7 @@ export class TokenField extends React.Component {
 
   addTokenAndFocus = (key, id) => {
     const { value } = this.state;
-    value.splice(key, 0, { type: id });
+    value.splice(key, 0, { type: id, value: undefined });
     this.focusInput = key;
     this.setState({
       value
@@ -88,11 +90,12 @@ export class TokenField extends React.Component {
     this.setState({
       value
     });
+    this.props.onChange(value);
   };
 
   selectPreviousToken(key) {
     if (key > 0) {
-      this.inputs[key - 1].focus();
+      this.inputs[key - 1].focus(true);
     }
   }
 
@@ -118,6 +121,7 @@ export class TokenField extends React.Component {
     const { value } = this.state;
     let key = 0;
     const elements = [];
+    this.inputs = [];
     value.forEach((token) => {
       const index = key;
       if (token.type === 'TEXT') {
