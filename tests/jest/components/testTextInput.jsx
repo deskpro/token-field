@@ -61,7 +61,6 @@ describe('testTextInput', () => {
   });
 
   it('should display an input when clicked', () => {
-
     const value = wrapper.find('span').first();
 
 
@@ -75,7 +74,6 @@ describe('testTextInput', () => {
   });
 
   it('should select the next token on Enter', () => {
-
     const value = wrapper.find('span').first();
 
     value.simulate('click');
@@ -90,7 +88,6 @@ describe('testTextInput', () => {
   });
 
   it('should select the next token on Tab', () => {
-
     const value = wrapper.find('span').first();
 
     value.simulate('click');
@@ -103,7 +100,6 @@ describe('testTextInput', () => {
   });
 
   it('should select the previous token on Shift + Tab', () => {
-
     const value = wrapper.find('span').first();
 
     value.simulate('click');
@@ -118,7 +114,6 @@ describe('testTextInput', () => {
   });
 
   it('should blur on Escape', () => {
-
     const value = wrapper.find('span').first();
 
     value.simulate('click');
@@ -132,7 +127,6 @@ describe('testTextInput', () => {
   });
 
   it('should handle change on other inputs', () => {
-
     const value = wrapper.find('span').first();
 
     value.simulate('click');
@@ -142,11 +136,12 @@ describe('testTextInput', () => {
     input.simulate('change', { target: { value: 'My new value' } });
     input.simulate('keyDown', { key: 'Enter' });
 
-    expect(onChange.mock.calls.length).toBeGreaterThan(1);
+    expect(onChange.mock.calls.length).toEqual(1);
   });
 
   afterEach(() => {
     selectNextToken.mockReset();
     selectPreviousToken.mockReset();
+    onChange.mockReset();
   });
 });

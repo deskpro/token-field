@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import { Checkbox, Input } from 'deskpro-components/lib/Components/Forms';
 import Icon from 'deskpro-components/lib/Components/Icon';
 import { List, ListElement, Scrollbar } from 'deskpro-components/lib/Components/Common';
+import styles from 'styles/style.css';
 import TokenInput from './TokenInput';
-import styles from '../../styles/style.css';
 
 export default class SelectInput extends React.Component {
   static propTypes = {

@@ -8,8 +8,7 @@ const durationToken = {
   value: {
     inputType: 'relative',
     time:      {
-      minutes: 15,
-      hours:   1,
+      hours: 1,
     },
     op: '=',
   }
@@ -40,6 +39,7 @@ storiesOf('Inputs', module)
         selectPreviousToken={action('SelectPreviousToken')}
         selectNextToken={action('selectNextToken')}
         removeToken={action('removeToken')}
+        onChange={action('onChange')}
       />
       <DurationInput
         token={durationTokenEmpty}
@@ -47,6 +47,7 @@ storiesOf('Inputs', module)
         selectNextToken={action('selectNextToken')}
         removeToken={action('removeToken')}
         locale="it"
+        onChange={action('onChange')}
       />
       <DurationInput
         token={durationTokenRange}
@@ -55,6 +56,7 @@ storiesOf('Inputs', module)
         selectPreviousToken={action('SelectPreviousToken')}
         selectNextToken={action('selectNextToken')}
         removeToken={action('removeToken')}
+        onChange={action('onChange')}
       />
     </div>
   ))

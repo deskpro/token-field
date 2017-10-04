@@ -25,7 +25,7 @@ exports[`+++capturing Snapshot of DurationInput 1`] = `
 </div>
 `;
 
-exports[`+++capturing Snapshot of DurationInput 2`] = `
+exports[`+++capturing Snapshot of DurationInput with empty value 1`] = `
 <div
   className="test-class"
 >
@@ -50,7 +50,32 @@ exports[`+++capturing Snapshot of DurationInput 2`] = `
 </div>
 `;
 
-exports[`+++capturing Snapshot of DurationInput 3`] = `
+exports[`+++capturing Snapshot of DurationInput with no value 1`] = `
+<div
+  className="test-class"
+>
+  <div
+    className="dp-code label"
+  >
+    user-waiting
+    :
+  </div>
+  <span
+    className="value"
+    onClick={[Function]}
+  >
+    ________
+  </span>
+  <div
+    className="remove"
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;
+
+exports[`+++capturing Snapshot of DurationInput with range value 1`] = `
 <div
   className="test-class"
 >

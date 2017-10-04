@@ -76,25 +76,28 @@ const tokenTypes = [
         getOptions: countries,
       },
       renderHeader: <h3>Countries</h3>,
+      showSearch:   false
     },
   ),
+  new Token(
+    'user-waiting',
+    'DurationInput',
+    {},
+    'Time waited by user'
+  )
 ];
 
 const defaultValue = [
   {
-    type:  'date',
-    value: {
-      inputType: 'preset',
-      preset:    'yesterday',
-    }
+    type:  'user-message',
+    value: 'help upgrading'
   },
   {
     type:  'TEXT',
     value: 'pricing',
   },
   {
-    type:  'user-message',
-    value: 'help upgrading'
+    type: 'user-waiting'
   }
 ];
 
