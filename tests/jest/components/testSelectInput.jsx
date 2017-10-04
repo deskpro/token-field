@@ -1,11 +1,12 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { mount } from 'enzyme';
 import SelectInput from 'Components/Input/SelectInput';
 import noop from 'deskpro-components/lib/utils/noop';
 
-let wrapper;
-let token;
+const token = {
+  type:  'country',
+  value: 'GB'
+};
 
 const options = [
   { label: 'Austria', value: 'AT' },
@@ -43,40 +44,11 @@ it('+++capturing Snapshot of SelectInput', () => {
     <SelectInput
       dataSource={{ getOptions: options }}
       token={token}
+      className="test"
       selectPreviousToken={noop}
       selectNextToken={noop}
       removeToken={noop}
     />
   ).toJSON();
   expect(renderedValue).toMatchSnapshot();
-});
-
-beforeEach(() => {
-  token = {
-    type:  'country',
-    value: 'GB'
-  };
-  wrapper = mount(
-    <SelectInput
-      dataSource={{ getOptions: options }}
-      token={token}
-      className="test"
-      selectPreviousToken={noop}
-      selectNextToken={noop}
-      removeToken={noop}
-    />
-  );
-});
-
-it('should render the input label', () => {
-  expect(wrapper.contains(<div className="dp-code label">{token.type}:</div>)).toEqual(true);
-});
-
-it('should render the input value', () => {
-  const span = wrapper.find('span.value');
-  expect(span.text()).toEqual('United Kingdom');
-});
-
-it('should have the class passed', () => {
-  expect(wrapper.first().hasClass('test')).toEqual(true);
 });

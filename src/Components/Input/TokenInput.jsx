@@ -74,7 +74,7 @@ export default class TokenInput extends React.Component {
             {renderValue()}
           </span>
         }
-        <div className={styles['token-remove']} onClick={this.props.removeToken}>X</div>
+        <div className={classNames(styles['token-remove'], 'remove')} onClick={this.props.removeToken}>X</div>
       </div>
     );
   }

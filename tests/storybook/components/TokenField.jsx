@@ -81,21 +81,21 @@ const tokenTypes = [
 ];
 
 const defaultValue = [
-  // {
-  //   type:  'date',
-  //   value: {
-  //     inputType: 'preset',
-  //     preset:    'yesterday',
-  //   }
-  // },
-  // {
-  //   type:  'TEXT',
-  //   value: 'pricing',
-  // },
-  // {
-  //   type:  'user-message',
-  //   value: 'help upgrading'
-  // }
+  {
+    type:  'date',
+    value: {
+      inputType: 'preset',
+      preset:    'yesterday',
+    }
+  },
+  {
+    type:  'TEXT',
+    value: 'pricing',
+  },
+  {
+    type:  'user-message',
+    value: 'help upgrading'
+  }
 ];
 
 class TokenFieldStory extends React.Component {

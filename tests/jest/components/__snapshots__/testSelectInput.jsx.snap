@@ -2,7 +2,7 @@
 
 exports[`+++capturing Snapshot of SelectInput 1`] = `
 <div
-  className=""
+  className="test"
 >
   <div
     className="dp-code label"
@@ -19,7 +19,7 @@ exports[`+++capturing Snapshot of SelectInput 1`] = `
     </span>
   </span>
   <div
-    className={undefined}
+    className="remove"
     onClick={[Function]}
   >
     X

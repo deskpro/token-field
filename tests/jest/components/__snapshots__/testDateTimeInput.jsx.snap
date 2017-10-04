@@ -2,7 +2,7 @@
 
 exports[`+++capturing Snapshot of DateTimeInput 1`] = `
 <div
-  className=""
+  className="test-class"
 >
   <div
     className="dp-code label"
@@ -17,7 +17,7 @@ exports[`+++capturing Snapshot of DateTimeInput 1`] = `
     Yesterday
   </span>
   <div
-    className={undefined}
+    className="remove"
     onClick={[Function]}
   >
     X

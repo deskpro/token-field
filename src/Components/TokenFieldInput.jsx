@@ -48,6 +48,7 @@ export default class TokenFieldInput extends React.Component {
       this.setState({
         value,
         tokenKey,
+        tokens: [],
       }, () => {
         this.props.addToken(tokenKey + 1, token.id);
         this.input.blur();
@@ -65,11 +66,15 @@ export default class TokenFieldInput extends React.Component {
 
   closePopper = () => {
     this.popperRef.close();
+    this.setState({
+      tokens: []
+    });
   };
 
   handleBlur = () => {
     if (this.state.value !== '') {
       this.props.onChange(this.state.tokenKey, this.state.value);
+      this.closePopper();
     } else {
       this.props.removeToken(this.state.tokenKey);
     }
@@ -124,6 +129,13 @@ export default class TokenFieldInput extends React.Component {
             this.setState({
               selectedToken: tokens[index - 1]
             });
+          }
+          break;
+        case 'Tab':
+          if (e.shiftKey) {
+            this.props.selectPreviousToken();
+          } else {
+            this.selectToken(this.state.selectedToken);
           }
           break;
         case 'Enter':

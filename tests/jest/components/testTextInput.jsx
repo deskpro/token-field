@@ -1,18 +1,14 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { mount } from 'enzyme';
 import TextInput from 'Components/Input/TextInput';
 import noop from 'deskpro-components/lib/utils/noop';
 
-let wrapper;
-let token;
-
-beforeEach(() => {
-  token = {
+it('+++capturing Snapshot of TextInput', () => {
+  const token = {
     type:  'user-message',
     value: 'help upgrading'
   };
-  wrapper = mount(
+  const renderedValue = renderer.create(
     <TextInput
       token={token}
       className="test"
@@ -20,32 +16,8 @@ beforeEach(() => {
       selectNextToken={noop}
       removeToken={noop}
     />
-  );
-});
-
-it('+++capturing Snapshot of TextInput', () => {
-  const renderedValue = renderer.create(
-    <TextInput
-      token={token}
-      selectPreviousToken={noop}
-      selectNextToken={noop}
-      removeToken={noop}
-    />
   ).toJSON();
   expect(renderedValue).toMatchSnapshot();
-});
-
-it('should render the input label', () => {
-  expect(wrapper.contains(<div className="dp-code label">{token.type}:</div>)).toEqual(true);
-});
-
-it('should render the input value', () => {
-  const span = wrapper.find('span');
-  expect(span.text()).toEqual(token.value);
-});
-
-it('should have the class passed', () => {
-  expect(wrapper.first().hasClass('test')).toEqual(true);
 });
 // it('should display an input when clicked', () => {
 //   const value = wrapper.find('span').first();

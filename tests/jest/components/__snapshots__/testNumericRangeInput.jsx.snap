@@ -2,7 +2,7 @@
 
 exports[`+++capturing Snapshot of NumericRangeInput 1`] = `
 <div
-  className=""
+  className="test"
 >
   <div
     className="dp-code label"
@@ -14,10 +14,60 @@ exports[`+++capturing Snapshot of NumericRangeInput 1`] = `
     className="value"
     onClick={[Function]}
   >
-    12582912  to 20971520 
+    12582912 MB to 20971520 MB
   </span>
   <div
-    className={undefined}
+    className="remove"
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;
+
+exports[`+++capturing Snapshot of NumericRangeInput with custom convert 1`] = `
+<div
+  className="test"
+>
+  <div
+    className="dp-code label"
+  >
+    user-message
+    :
+  </div>
+  <span
+    className="value"
+    onClick={[Function]}
+  >
+    12 MB to 20 MB
+  </span>
+  <div
+    className="remove"
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;
+
+exports[`+++capturing Snapshot of NumericRangeInput with empty value 1`] = `
+<div
+  className="test"
+>
+  <div
+    className="dp-code label"
+  >
+    user-message
+    :
+  </div>
+  <span
+    className="value"
+    onClick={[Function]}
+  >
+    __ MB to __ MB
+  </span>
+  <div
+    className="remove"
     onClick={[Function]}
   >
     X
