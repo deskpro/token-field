@@ -40,6 +40,7 @@ describe('testTextInput', () => {
   let wrapper;
   const selectNextToken = jest.fn();
   const selectPreviousToken = jest.fn();
+  const onChange = jest.fn();
 
   const token = {
     type:  'user-message',
@@ -53,6 +54,7 @@ describe('testTextInput', () => {
         className="test"
         selectPreviousToken={selectPreviousToken}
         selectNextToken={selectNextToken}
+        onChange={onChange}
         removeToken={noop}
       />
     );
@@ -140,7 +142,7 @@ describe('testTextInput', () => {
     input.simulate('change', { target: { value: 'My new value' } });
     input.simulate('keyDown', { key: 'Enter' });
 
-    expect(input.props().value).toEqual(token.value);
+    expect(onChange.mock.calls.length).toBeGreaterThan(1);
   });
 
   afterEach(() => {
