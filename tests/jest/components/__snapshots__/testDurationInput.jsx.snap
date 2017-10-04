@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`+++capturing Snapshot of DurationInput 1`] = `
+<div
+  className="test-class"
+>
+  <div
+    className="dp-code label"
+  >
+    user-waiting
+    :
+  </div>
+  <span
+    className="value"
+    onClick={[Function]}
+  >
+    an hour
+  </span>
+  <div
+    className="remove"
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;
+
+exports[`+++capturing Snapshot of DurationInput 2`] = `
+<div
+  className="test-class"
+>
+  <div
+    className="dp-code label"
+  >
+    user-waiting
+    :
+  </div>
+  <span
+    className="value"
+    onClick={[Function]}
+  >
+    ________
+  </span>
+  <div
+    className="remove"
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;
+
+exports[`+++capturing Snapshot of DurationInput 3`] = `
+<div
+  className="test-class"
+>
+  <div
+    className="dp-code label"
+  >
+    date
+    :
+  </div>
+  <span
+    className="value"
+    onClick={[Function]}
+  >
+    une heure à 2 jours
+  </span>
+  <div
+    className="remove"
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;
