@@ -26,3 +26,33 @@ exports[`+++capturing Snapshot of SelectInput 1`] = `
   </div>
 </div>
 `;
+
+exports[`+++capturing Snapshot of SelectInput 2`] = `
+<div
+  className="test"
+>
+  <div
+    className="dp-code label"
+  >
+    temperature
+    :
+  </div>
+  <span
+    className="value"
+    onClick={[Function]}
+  >
+    <span>
+      <i
+        className="fa fa-thermometer-three-quarters dp-icon dp-icon--s"
+      />
+      Warm
+    </span>
+  </span>
+  <div
+    className="remove"
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;

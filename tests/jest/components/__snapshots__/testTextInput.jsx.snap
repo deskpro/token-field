@@ -24,3 +24,28 @@ exports[`+++capturing Snapshot of TextInput 1`] = `
   </div>
 </div>
 `;
+
+exports[`+++capturing Snapshot of TextInput with empty value 1`] = `
+<div
+  className="test"
+>
+  <div
+    className="dp-code label"
+  >
+    user-message
+    :
+  </div>
+  <span
+    className="value"
+    onClick={[Function]}
+  >
+    ________
+  </span>
+  <div
+    className="remove"
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;

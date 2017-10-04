@@ -39,11 +39,37 @@ const options = [
   { label: 'United Kingdom', value: 'GB' }
 ];
 
+const optionsWithIcon = [
+  { value: 1, title: 'Cold', icon: 'thermometer-empty' },
+  { value: 2, title: 'Cool', icon: 'thermometer-quarter' },
+  { value: 3, title: 'Medium', icon: 'thermometer-half' },
+  { value: 4, title: 'Warm', icon: 'thermometer-three-quarters' },
+  { value: 5, title: 'Hot', icon: 'thermometer-full' },
+];
+
 it('+++capturing Snapshot of SelectInput', () => {
   const renderedValue = renderer.create(
     <SelectInput
       dataSource={{ getOptions: options }}
       token={token}
+      className="test"
+      selectPreviousToken={noop}
+      selectNextToken={noop}
+      removeToken={noop}
+    />
+  ).toJSON();
+  expect(renderedValue).toMatchSnapshot();
+});
+
+it('+++capturing Snapshot of SelectInput', () => {
+  const selectTokenIcon = {
+    type:  'temperature',
+    value: 4,
+  };
+  const renderedValue = renderer.create(
+    <SelectInput
+      dataSource={{ getOptions: optionsWithIcon }}
+      token={selectTokenIcon}
       className="test"
       selectPreviousToken={noop}
       selectNextToken={noop}

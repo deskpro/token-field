@@ -24,3 +24,203 @@ exports[`+++capturing Snapshot of DateTimeInput 1`] = `
   </div>
 </div>
 `;
+
+exports[`+++capturing Snapshot of DateTimeInput with absolute and empty value 1`] = `
+<div
+  className="test-class"
+>
+  <div
+    className="dp-code label"
+  >
+    user-message
+    :
+  </div>
+  <span
+    className="value"
+    onClick={[Function]}
+  >
+    &gt; ______
+  </span>
+  <div
+    className="remove"
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;
+
+exports[`+++capturing Snapshot of DateTimeInput with absolute value 1`] = `
+<div
+  className="test-class"
+>
+  <div
+    className="dp-code label"
+  >
+    date
+    :
+  </div>
+  <span
+    className="value"
+    onClick={[Function]}
+  >
+    &lt; 25/09/2017
+  </span>
+  <div
+    className="remove"
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;
+
+exports[`+++capturing Snapshot of DateTimeInput with empty preset 1`] = `
+<div
+  className="test-class"
+>
+  <div
+    className="dp-code label"
+  >
+    user-message
+    :
+  </div>
+  <span
+    className="value"
+    onClick={[Function]}
+  >
+    ________
+  </span>
+  <div
+    className="remove"
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;
+
+exports[`+++capturing Snapshot of DateTimeInput with empty value 1`] = `
+<div
+  className="test-class"
+>
+  <div
+    className="dp-code label"
+  >
+    user-message
+    :
+  </div>
+  <span
+    className="value"
+    onClick={[Function]}
+  >
+    ________
+  </span>
+  <div
+    className="remove"
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;
+
+exports[`+++capturing Snapshot of DateTimeInput with null value 1`] = `
+<div
+  className="test-class"
+>
+  <div
+    className="dp-code label"
+  >
+    user-message
+    :
+  </div>
+  <span
+    className="value"
+    onClick={[Function]}
+  >
+    ________
+  </span>
+  <div
+    className="remove"
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;
+
+exports[`+++capturing Snapshot of DateTimeInput with range 1`] = `
+<div
+  className="test-class"
+>
+  <div
+    className="dp-code label"
+  >
+    user-message
+    :
+  </div>
+  <span
+    className="value"
+    onClick={[Function]}
+  >
+    25/09/2017 - 05/10/2017
+  </span>
+  <div
+    className="remove"
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;
+
+exports[`+++capturing Snapshot of DateTimeInput with range and empty value 1`] = `
+<div
+  className="test-class"
+>
+  <div
+    className="dp-code label"
+  >
+    user-message
+    :
+  </div>
+  <span
+    className="value"
+    onClick={[Function]}
+  >
+    ______ - ______
+  </span>
+  <div
+    className="remove"
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;
+
+exports[`+++capturing Snapshot of DateTimeInput with time preset 1`] = `
+<div
+  className="test-class"
+>
+  <div
+    className="dp-code label"
+  >
+    user-message
+    :
+  </div>
+  <span
+    className="value"
+    onClick={[Function]}
+  >
+    2 hours ago
+  </span>
+  <div
+    className="remove"
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;
