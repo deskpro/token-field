@@ -60,6 +60,10 @@ export default class DurationInput extends React.Component {
     };
   }
 
+  componentWillUnmount() {
+    window.document.removeEventListener('keydown', this.handleKeyDown);
+  }
+
   onFocus = () => {
     window.document.addEventListener('keydown', this.handleKeyDown);
   };
@@ -207,6 +211,7 @@ export default class DurationInput extends React.Component {
     switch (e.key) {
       case 'ArrowDown':
       case 'ArrowUp': {
+        e.preventDefault();
         const presets = this.getTimePresets();
         const index = presets.findIndex(preset => preset.key === this.state.selectedOption.key);
         if (e.key === 'ArrowDown' && index < presets.length - 1) {
@@ -222,6 +227,7 @@ export default class DurationInput extends React.Component {
         break;
       }
       case 'Escape': {
+        e.preventDefault();
         const value = this.props.token.value ? this.props.token.value : { time: null };
         this.setState({
           value,
@@ -230,22 +236,23 @@ export default class DurationInput extends React.Component {
         break;
       }
       case 'Tab':
+        e.preventDefault();
         if (e.shiftKey) {
           this.props.selectPreviousToken();
         } else {
-          this.handleChange(this.state.selectedOption.timeObject);
           this.props.selectNextToken();
+          this.handleChange(this.state.selectedOption.timeObject);
         }
         this.tokenInput.disableEditMode();
         break;
       case 'Enter':
-        this.handleChange(this.state.selectedOption.timeObject);
+        e.preventDefault();
         this.props.selectNextToken();
+        this.handleChange(this.state.selectedOption.timeObject);
         break;
       default:
         return true;
     }
-    e.preventDefault();
     return true;
   };
 

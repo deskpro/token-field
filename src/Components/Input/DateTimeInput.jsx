@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import classNames from 'classnames';
 import { Datepicker } from 'deskpro-components/lib/Components/Forms';
 import { Tabs, TabLink } from 'deskpro-components/lib/Components/Tabs';
 import Section from 'deskpro-components/lib/Components/Section';
 import { List, ListElement } from 'deskpro-components/lib/Components/Common';
+import styles from 'styles/style.css';
 import TokenInput from './TokenInput';
 
 
@@ -14,13 +16,15 @@ export default class DateTimeInput extends React.Component {
       type:  PropTypes.string,
       value: PropTypes.object,
     }).isRequired,
-    locale:       PropTypes.string,
-    showSwitcher: PropTypes.bool,
-    defaultInput: PropTypes.oneOf(['date', 'time']),
-    className:    PropTypes.string,
-    translations: PropTypes.object,
-    onChange:     PropTypes.func,
-    removeToken:  PropTypes.func.isRequired,
+    locale:              PropTypes.string,
+    showSwitcher:        PropTypes.bool,
+    defaultInput:        PropTypes.oneOf(['date', 'time']),
+    className:           PropTypes.string,
+    translations:        PropTypes.object,
+    onChange:            PropTypes.func,
+    selectPreviousToken: PropTypes.func.isRequired,
+    selectNextToken:     PropTypes.func.isRequired,
+    removeToken:         PropTypes.func.isRequired,
   };
   static defaultProps = {
     showSwitcher: true,
@@ -49,10 +53,12 @@ export default class DateTimeInput extends React.Component {
 
   constructor(props) {
     super(props);
+    const presets = (props.defaultInput === 'date') ? this.getDatePresets() : this.getTimePresets();
     this.state = {
-      value:  props.token.value,
-      active: props.defaultInput,
-      op:     null,
+      value:          props.token.value,
+      active:         props.defaultInput,
+      selectedPreset: presets[0],
+      op:             null,
     };
   }
 
@@ -62,6 +68,18 @@ export default class DateTimeInput extends React.Component {
       this.datePicker.focus();
     }
   }
+
+  componentWillUnmount() {
+    window.document.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  onFocus = () => {
+    window.document.addEventListener('keydown', this.handleKeyDown);
+  };
+
+  onBlur = () => {
+    window.document.removeEventListener('keydown', this.handleKeyDown);
+  };
 
   getTimePresets = () => {
     moment.locale(this.props.locale);
@@ -97,10 +115,28 @@ export default class DateTimeInput extends React.Component {
     ];
   };
 
+  getDatePresets = () => {
+    const presets = [
+      'today',
+      'yesterday',
+      'thisWeek',
+      'lastWeek',
+      'thisMonth',
+      'lastMonth',
+      'thisYear',
+      'lastYear',
+    ];
+    return presets.map(preset => ({
+      key:   preset,
+      label: this.props.translations[preset],
+    })
+    );
+  };
+
   getDatePicker = () => {
     moment.locale(this.props.locale);
     let date = moment();
-    if (this.state.value.date) {
+    if (this.state.value && this.state.value.date) {
       date = moment(this.state.value.date);
     }
     return (
@@ -115,19 +151,146 @@ export default class DateTimeInput extends React.Component {
     );
   };
 
-  getInput = () => {
+  focus = () => {
+    this.tokenInput.focus();
+  };
+
+  handleChange = (inputType, value) => {
+    let newValue;
+    switch (inputType) {
+      case 'preset':
+        newValue = {
+          inputType,
+          preset: value
+        };
+        break;
+      case 'absolute':
+        newValue = {
+          inputType,
+          date: value,
+          op:   this.state.op,
+        };
+        break;
+      case 'relative':
+        break;
+      default:
+        newValue = {};
+    }
+    this.setState({
+      value: newValue,
+      op:    null,
+    });
+    this.props.onChange(newValue);
+    this.tokenInput.disableEditMode();
+  };
+
+  handleOp = (op) => {
+    this.openDatePicker = true;
+    this.setState({
+      op
+    });
+  };
+
+  handleTabChange = (active) => {
+    this.setState({
+      active,
+      op: null,
+    });
+  };
+
+  handleKeyDown = (e) => {
+    switch (e.key) {
+      case 'ArrowDown':
+      case 'ArrowUp': {
+        e.preventDefault();
+        const presets = this.state.active === 'time' ? this.getTimePresets() : this.getDatePresets();
+        const index = presets.findIndex(preset => preset.key === this.state.selectedPreset.key);
+        if (e.key === 'ArrowDown' && index < presets.length - 1) {
+          this.setState({
+            selectedPreset: presets[index + 1]
+          });
+        }
+        if (e.key === 'ArrowUp' && index > 0) {
+          this.setState({
+            selectedPreset: presets[index - 1]
+          });
+        }
+        break;
+      }
+      case 'ArrowRight': {
+        e.preventDefault();
+        if (this.props.showSwitcher && this.state.active === 'date') {
+          const timePresets = this.getTimePresets();
+          this.setState({
+            active:         'time',
+            selectedPreset: timePresets[0]
+          });
+        }
+        break;
+      }
+      case 'ArrowLeft': {
+        e.preventDefault();
+        if (this.props.showSwitcher && this.state.active === 'time') {
+          const datePresets = this.getDatePresets();
+          this.setState({
+            active:         'date',
+            selectedPreset: datePresets[0]
+          });
+        }
+        break;
+      }
+      case 'Escape': {
+        e.preventDefault();
+        const value = this.props.token.value ? this.props.token.value : { time: null };
+        this.setState({
+          value,
+        });
+        this.tokenInput.disableEditMode();
+        break;
+      }
+      case 'Tab':
+        e.preventDefault();
+        if (e.shiftKey) {
+          this.props.selectPreviousToken();
+        } else {
+          this.props.selectNextToken();
+          this.handleChange('preset', this.state.selectedPreset.key);
+        }
+        this.tokenInput.disableEditMode();
+        break;
+      case 'Enter':
+        e.preventDefault();
+        this.props.selectNextToken();
+        this.handleChange('preset', this.state.selectedPreset.key);
+        break;
+      default:
+        return true;
+    }
+    return true;
+  };
+
+  renderPresets = (presets) => {
+    const { value, selectedPreset } = this.state;
+    const valuePreset = (value) ? value.preset : null;
+    return presets.map((preset) => {
+      const currentValue = JSON.stringify(preset.key) === valuePreset ? styles['current-value'] : '';
+      const selected = (preset.key === selectedPreset.key) ? styles.selected : '';
+      return (
+        <ListElement
+          key={preset.key}
+          className={classNames(currentValue, selected)}
+          onClick={() => this.handleChange('preset', preset.key)}
+        >
+          {preset.label}
+        </ListElement>
+      );
+    });
+  };
+
+  renderInput = () => {
     const { active, op } = this.state;
     const { translations, showSwitcher } = this.props;
-    const presets = [
-      'today',
-      'yesterday',
-      'thisWeek',
-      'lastWeek',
-      'thisMonth',
-      'lastMonth',
-      'thisYear',
-      'lastYear',
-    ];
+
     if (op) {
       return this.getDatePicker();
     }
@@ -148,14 +311,7 @@ export default class DateTimeInput extends React.Component {
           }
           <Section hidden={active !== 'date'}>
             <List className="dp-selectable-list">
-              {presets.map(preset =>
-                (<ListElement
-                  key={preset}
-                  onClick={() => this.handleChange('preset', preset)}
-                >
-                  {translations[preset]}
-                </ListElement>)
-              )}
+              {this.renderPresets(this.getDatePresets())}
               <hr />
               <ListElement onClick={() => this.handleOp('=')}>
                 {translations.is}
@@ -173,14 +329,7 @@ export default class DateTimeInput extends React.Component {
           </Section>
           <Section hidden={active !== 'time'}>
             <List className="dp-selectable-list">
-              {this.getTimePresets().map(preset =>
-                (<ListElement
-                  key={preset.key}
-                  onClick={() => this.handleChange('preset', preset.key)}
-                >
-                  {preset.label}
-                </ListElement>)
-              )}
+              {this.renderPresets(this.getTimePresets())}
               <hr />
               <ListElement>
                 {translations.custom}
@@ -192,7 +341,7 @@ export default class DateTimeInput extends React.Component {
     );
   };
 
-  getValue = () => {
+  renderValue = () => {
     const { translations } = this.props;
     const { value } = this.state;
     if (!value) {
@@ -247,53 +396,6 @@ export default class DateTimeInput extends React.Component {
     }
   };
 
-  focus = () => {
-    this.tokenInput.focus();
-  };
-
-  handleChange = (inputType, value) => {
-    let newValue;
-    switch (inputType) {
-      case 'preset':
-        newValue = {
-          inputType,
-          preset: value
-        };
-        break;
-      case 'absolute':
-        newValue = {
-          inputType,
-          date: value,
-          op:   this.state.op,
-        };
-        break;
-      case 'relative':
-        break;
-      default:
-        newValue = {};
-    }
-    this.setState({
-      value: newValue,
-      op:    null,
-    });
-    this.props.onChange(newValue);
-    this.tokenInput.disableEditMode();
-  };
-
-  handleOp = (op) => {
-    this.openDatePicker = true;
-    this.setState({
-      op
-    });
-  };
-
-  handleTabChange = (active) => {
-    this.setState({
-      active,
-      op: null,
-    });
-  };
-
   render() {
     const { token, className, removeToken } = this.props;
     return (
@@ -301,8 +403,10 @@ export default class DateTimeInput extends React.Component {
         ref={(c) => { this.tokenInput = c; }}
         className={className}
         type={token.type}
-        renderInput={this.getInput}
-        renderValue={this.getValue}
+        onBlur={this.onBlur}
+        onFocus={this.onFocus}
+        renderInput={this.renderInput}
+        renderValue={this.renderValue}
         removeToken={removeToken}
       />
     );

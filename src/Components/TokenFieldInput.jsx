@@ -118,6 +118,7 @@ export default class TokenFieldInput extends React.Component {
       }
       switch (e.key) {
         case 'ArrowDown':
+          e.preventDefault();
           if (index < tokens.length - 1) {
             this.setState({
               selectedToken: tokens[index + 1]
@@ -125,6 +126,7 @@ export default class TokenFieldInput extends React.Component {
           }
           break;
         case 'ArrowUp':
+          e.preventDefault();
           if (index > 0) {
             this.setState({
               selectedToken: tokens[index - 1]
@@ -132,6 +134,7 @@ export default class TokenFieldInput extends React.Component {
           }
           break;
         case 'Tab':
+          e.preventDefault();
           if (e.shiftKey) {
             this.props.selectPreviousToken();
           } else {
@@ -139,9 +142,11 @@ export default class TokenFieldInput extends React.Component {
           }
           break;
         case 'Enter':
+          e.preventDefault();
           this.selectToken(this.state.selectedToken);
           break;
         case ':': {
+          e.preventDefault();
           let value = '';
           const match = this.state.value.match(/ ?([-a-z:]{2,})$/);
           if (match) {
@@ -157,11 +162,11 @@ export default class TokenFieldInput extends React.Component {
           // Do nothing
           return true;
       }
-      e.preventDefault();
       return false;
     }
     switch (e.key) {
       case 'Backspace':
+        e.preventDefault();
         if (this.state.tokenKey > 0 && this.state.value === '') {
           this.props.removeToken(this.state.tokenKey - 1, this.state.tokenKey - 1);
         } else {
@@ -169,6 +174,7 @@ export default class TokenFieldInput extends React.Component {
         }
         break;
       case 'Tab':
+        e.preventDefault();
         if (e.shiftKey) {
           this.props.selectPreviousToken();
         } else {
@@ -176,12 +182,12 @@ export default class TokenFieldInput extends React.Component {
         }
         break;
       case 'Enter':
+        e.preventDefault();
         this.props.selectNextToken();
         break;
       default:
         return true;
     }
-    e.preventDefault();
     this.input.blur();
     return true;
   };

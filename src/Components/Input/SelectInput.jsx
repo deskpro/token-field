@@ -85,6 +85,10 @@ export default class SelectInput extends React.Component {
     };
   }
 
+  componentWillUnmount() {
+    window.document.removeEventListener('keydown', this.handleKeyDown);
+  }
+
   onFocus = () => {
     if (this.props.showSearch) {
       this.searchInput.focus();
