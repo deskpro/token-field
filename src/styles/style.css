@@ -132,3 +132,7 @@
     vertical-align: baseline;
     display: inline-block;
 }
+.option :global(.dp-icon) {
+    position: static;
+    color: inherit;
+}

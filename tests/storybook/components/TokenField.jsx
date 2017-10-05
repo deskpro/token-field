@@ -97,7 +97,7 @@ const defaultValue = [
     value: 'pricing',
   },
   {
-    type: 'user-waiting'
+    type: 'user-waitinggg'
   }
 ];
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import classNames from 'classnames/bind';
 import { Checkbox, Input } from 'deskpro-components/lib/Components/Forms';
 import Icon from 'deskpro-components/lib/Components/Icon';
 import { List, ListElement, Scrollbar } from 'deskpro-components/lib/Components/Common';
@@ -49,7 +49,7 @@ export default class SelectInput extends React.Component {
 
   static getIcon(option) {
     if (typeof option.icon === 'string') {
-      return <Icon name={option.icon} />;
+      return [<Icon name={option.icon} />, ' '];
     }
     return null;
   }
@@ -81,6 +81,7 @@ export default class SelectInput extends React.Component {
       options,
       filter:         '',
     };
+    this.cx = classNames.bind(styles);
   }
 
   componentWillUnmount() {
@@ -260,7 +261,7 @@ export default class SelectInput extends React.Component {
         return (
           <ListElement
             key={key}
-            className={classNames(currentValue, selected)}
+            className={this.cx(currentValue, selected, 'option')}
             onClick={() => this.handleChange(option)}
           >
             {this.renderItem(option)}
@@ -293,6 +294,7 @@ export default class SelectInput extends React.Component {
         return (
           <ListElement
             key={key}
+            className={styles.option}
           >
             <Checkbox checked={checked} value={key} onChange={this.handleChangeMultiple}>
               {this.renderItem(option)}

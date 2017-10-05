@@ -19,4 +19,69 @@ npm install @deskpro/token-field --save
 
 ## Usage
 
-Token-field provide a few input types
+Token-field provide a [few input types](docs/components/inputs.md)
+
+### Props
+
+**tokenTypes={Token[]}**
+
+Pass all available tokens for users to use. These tokens will be offered will typing
+
+```javascript
+class Token(id, widget, props, description)
+```
+
+Token example
+
+```javascript
+new Token(
+  'date',
+  'DateTimeInput',
+  {},
+  'Date the ticket was submitted'
+)
+```
+
+Or with extra props
+
+```javascript
+new Token(
+  'attach-size',
+  'NumericRangeInput',
+  {
+    unitPhrase:       'MB',
+    convertFromValue: value => Math.round(value / 1024 / 1024),
+    convertToValue:   value => value * 1024 * 1024,
+  }
+)
+```
+
+**value={object[]}**
+
+Initial value of the field
+
+Example value
+
+```javascript
+[
+  {
+    type:  'user-message',
+    value: 'help upgrading'
+  },
+  {
+    type:  'TEXT',
+    value: 'pricing',
+  },
+  {
+    type: 'user-waiting'
+  }
+]
+``` 
+
+**onChange={function}**
+
+Callback to persist changes
+
+## Styling
+
+`src/styles/deskpro-components.scss` has to be imported if deskpro-components are not in used on your project

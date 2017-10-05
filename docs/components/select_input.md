@@ -28,7 +28,8 @@ Where your options come from
 Options format : 
 * JS array with:
   * id or value as identifier
-  * optionnaly label, name or time to be displayed (if not provided the identifier will be used)
+  * optional: label, name or time to be displayed (if not provided the identifier will be used)
+  * optional: {string} Font-awesome icon name
 
 
 **isMultiple={boolean}**

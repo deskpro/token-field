@@ -1,5 +1,7 @@
 $dp-styles-font-path: '../../node_modules/deskpro-components/src/styles/fonts/';
+$fa-font-path: "//netdna.bootstrapcdn.com/font-awesome/4.7.0/fonts" !default;
 
+@import "../../node_modules/deskpro-components/node_modules/font-awesome/scss/font-awesome";
 :global {
   @import '~deskpro-components/src/styles/main_no_apps.scss';
 }
