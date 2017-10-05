@@ -1,3 +1,8 @@
+## 0.1.1 - 2017-10-05
+
+* Fix styling
+* Remove useless Token class
+
 ## 0.1.0 - 2017-10-05
 
 * Working version, a couple of fixes needed and styling issues remaining
