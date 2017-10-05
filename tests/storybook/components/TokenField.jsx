@@ -124,6 +124,16 @@ class TokenFieldStory extends React.Component {
           value={value}
           onChange={this.handleChange}
         />
+        <h4 className={styles.title}>Available types</h4>
+        <ul className={styles.title}>
+          <li>attach-size (<i>NumericRangeInput</i>)</li>
+          <li>country (<i>SelectInput</i>)</li>
+          <li>date (<i>DateTimeInput</i>)</li>
+          <li>date-ticket-created (<i>DateTimeInput</i>)</li>
+          <li>date-ticket-resolved (<i>DateTimeInput</i>)</li>
+          <li>user-message (<i>TextInput</i>)</li>
+          <li>user-waiting (<i>DurationInput</i>)</li>
+        </ul>
         <h3 className={styles.title}>Value</h3>
         <pre className={styles.code}>
           {JSON.stringify(value, null, 2)}

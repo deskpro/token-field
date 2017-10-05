@@ -126,6 +126,9 @@ exports[`+++capturing Snapshot of SelectInput with icon 1`] = `
       <i
         className="fa fa-thermometer-three-quarters dp-icon dp-icon--s"
       />
+      <span>
+         
+      </span>
       Warm
     </span>
   </span>
