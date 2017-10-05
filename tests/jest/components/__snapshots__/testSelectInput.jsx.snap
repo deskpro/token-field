@@ -19,7 +19,7 @@ exports[`+++capturing Snapshot of SelectInput 1`] = `
     </span>
   </span>
   <div
-    className="remove"
+    className="token-remove remove"
     onClick={[Function]}
   >
     X
@@ -46,7 +46,7 @@ exports[`+++capturing Snapshot of SelectInput simple 1`] = `
     </span>
   </span>
   <div
-    className="remove"
+    className="token-remove remove"
     onClick={[Function]}
   >
     X
@@ -73,7 +73,7 @@ exports[`+++capturing Snapshot of SelectInput value 1`] = `
     </span>
   </span>
   <div
-    className="remove"
+    className="token-remove remove"
     onClick={[Function]}
   >
     X
@@ -100,7 +100,7 @@ exports[`+++capturing Snapshot of SelectInput value 2`] = `
     </span>
   </span>
   <div
-    className="remove"
+    className="token-remove remove"
     onClick={[Function]}
   >
     X
@@ -133,7 +133,7 @@ exports[`+++capturing Snapshot of SelectInput with icon 1`] = `
     </span>
   </span>
   <div
-    className="remove"
+    className="token-remove remove"
     onClick={[Function]}
   >
     X

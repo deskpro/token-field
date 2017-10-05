@@ -17,7 +17,7 @@ exports[`+++capturing Snapshot of DurationInput 1`] = `
     an hour
   </span>
   <div
-    className="remove"
+    className="token-remove remove"
     onClick={[Function]}
   >
     X
@@ -42,7 +42,7 @@ exports[`+++capturing Snapshot of DurationInput with empty value 1`] = `
     ________
   </span>
   <div
-    className="remove"
+    className="token-remove remove"
     onClick={[Function]}
   >
     X
@@ -67,7 +67,7 @@ exports[`+++capturing Snapshot of DurationInput with no value 1`] = `
     ________
   </span>
   <div
-    className="remove"
+    className="token-remove remove"
     onClick={[Function]}
   >
     X
@@ -92,7 +92,7 @@ exports[`+++capturing Snapshot of DurationInput with range value 1`] = `
     une heure à 2 jours
   </span>
   <div
-    className="remove"
+    className="token-remove remove"
     onClick={[Function]}
   >
     X

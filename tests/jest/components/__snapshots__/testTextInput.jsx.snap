@@ -17,7 +17,7 @@ exports[`+++capturing Snapshot of TextInput 1`] = `
     help upgrading
   </span>
   <div
-    className="remove"
+    className="token-remove remove"
     onClick={[Function]}
   >
     X
@@ -42,7 +42,7 @@ exports[`+++capturing Snapshot of TextInput with empty value 1`] = `
     ________
   </span>
   <div
-    className="remove"
+    className="token-remove remove"
     onClick={[Function]}
   >
     X

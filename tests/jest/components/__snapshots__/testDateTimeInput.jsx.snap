@@ -17,7 +17,7 @@ exports[`+++capturing Snapshot of DateTimeInput 1`] = `
     Yesterday
   </span>
   <div
-    className="remove"
+    className="token-remove remove"
     onClick={[Function]}
   >
     X
@@ -42,7 +42,7 @@ exports[`+++capturing Snapshot of DateTimeInput with absolute and empty value 1`
     &gt; ______
   </span>
   <div
-    className="remove"
+    className="token-remove remove"
     onClick={[Function]}
   >
     X
@@ -67,7 +67,7 @@ exports[`+++capturing Snapshot of DateTimeInput with absolute value 1`] = `
     &lt; 25/09/2017
   </span>
   <div
-    className="remove"
+    className="token-remove remove"
     onClick={[Function]}
   >
     X
@@ -92,7 +92,7 @@ exports[`+++capturing Snapshot of DateTimeInput with empty preset 1`] = `
     ________
   </span>
   <div
-    className="remove"
+    className="token-remove remove"
     onClick={[Function]}
   >
     X
@@ -117,7 +117,7 @@ exports[`+++capturing Snapshot of DateTimeInput with empty value 1`] = `
     ________
   </span>
   <div
-    className="remove"
+    className="token-remove remove"
     onClick={[Function]}
   >
     X
@@ -142,7 +142,7 @@ exports[`+++capturing Snapshot of DateTimeInput with null value 1`] = `
     ________
   </span>
   <div
-    className="remove"
+    className="token-remove remove"
     onClick={[Function]}
   >
     X
@@ -167,7 +167,7 @@ exports[`+++capturing Snapshot of DateTimeInput with range 1`] = `
     25/09/2017 - 05/10/2017
   </span>
   <div
-    className="remove"
+    className="token-remove remove"
     onClick={[Function]}
   >
     X
@@ -192,7 +192,7 @@ exports[`+++capturing Snapshot of DateTimeInput with range and empty value 1`] =
     ______ - ______
   </span>
   <div
-    className="remove"
+    className="token-remove remove"
     onClick={[Function]}
   >
     X
@@ -217,7 +217,7 @@ exports[`+++capturing Snapshot of DateTimeInput with time preset 1`] = `
     2 hours ago
   </span>
   <div
-    className="remove"
+    className="token-remove remove"
     onClick={[Function]}
   >
     X
