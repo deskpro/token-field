@@ -23,37 +23,33 @@ Token-field provide a [few input types](docs/components/inputs.md)
 
 ### Props
 
-**tokenTypes={Token[]}**
+**tokenTypes={object[]}**
 
 Pass all available tokens for users to use. These tokens will be offered will typing
-
-```javascript
-class Token(id, widget, props, description)
-```
 
 Token example
 
 ```javascript
-new Token(
-  'date',
-  'DateTimeInput',
-  {},
-  'Date the ticket was submitted'
-)
+{
+  id:          'date',
+  widget:      'DateTimeInput',
+  props:       {},
+  description: 'Date the ticket was submitted'
+}
 ```
 
 Or with extra props
 
 ```javascript
-new Token(
-  'attach-size',
-  'NumericRangeInput',
-  {
+{
+  id:     'attach-size',
+  widget: 'NumericRangeInput',
+  props:  {
     unitPhrase:       'MB',
     convertFromValue: value => Math.round(value / 1024 / 1024),
     convertToValue:   value => value * 1024 * 1024,
   }
-)
+}
 ```
 
 **value={object[]}**

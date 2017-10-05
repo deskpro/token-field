@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { TokenField, Token } from 'Components/TokenField';
+import { TokenField } from 'Components/TokenField';
 import noop from 'deskpro-components/lib/utils/noop';
 
 const countries = [
@@ -35,49 +35,56 @@ const countries = [
 ];
 
 const tokenTypes = [
-  new Token(
-    'date',
-    'DateTimeInput',
-    {},
-    'Date the ticket was submitted'
-  ),
-  new Token(
-    'date-ticket-created',
-    'DateTimeInput',
-    {},
-    'When the ticket was created'
-  ),
-  new Token(
-    'date-ticket-resolved',
-    'DateTimeInput',
-    {},
-    'When the ticket was resolved'
-  ),
-  new Token(
-    'user-message',
-    'TextInput',
-    {},
-    'Message entered initially by the user'
-  ),
-  new Token(
-    'attach-size',
-    'NumericRangeInput',
-    {
+  {
+    id:          'date',
+    widget:      'DateTimeInput',
+    props:       {},
+    description: 'Date the ticket was submitted'
+  },
+  {
+    id:          'date-ticket-created',
+    widget:      'DateTimeInput',
+    props:       {},
+    description: 'When the ticket was created'
+  },
+  {
+    id:          'date-ticket-resolved',
+    widget:      'DateTimeInput',
+    props:       {},
+    description: 'When the ticket was resolved'
+  },
+  {
+    id:          'user-message',
+    widget:      'TextInput',
+    props:       {},
+    description: 'Message entered initially by the user'
+  },
+  {
+    id:     'attach-size',
+    widget: 'NumericRangeInput',
+    props:  {
       unitPhrase:       'MB',
       convertFromValue: value => Math.round(value / 1024 / 1024),
       convertToValue:   value => value * 1024 * 1024,
     }
-  ),
-  new Token(
-    'country',
-    'SelectInput',
-    {
+  },
+  {
+    id:     'country',
+    widget: 'SelectInput',
+    props:  {
       dataSource: {
         getOptions: countries,
       },
       renderHeader: <h3>Countries</h3>,
+      showSearch:   false
     },
-  ),
+  },
+  {
+    id:          'user-waiting',
+    widget:      'DurationInput',
+    props:       {},
+    description: 'Time waited by user'
+  }
 ];
 
 const value = [

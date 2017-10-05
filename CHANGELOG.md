@@ -2,10 +2,6 @@
 
 * Working version, a couple of fixes needed and styling issues remaining
 
-## 0.0.4 - 2017-09-22
-
-* [FEATURE] Adds Numeric Range Input
-
 ## 0.0.3 - 2017-09-20
 
 * Adds postcss

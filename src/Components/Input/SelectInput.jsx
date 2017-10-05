@@ -49,7 +49,7 @@ export default class SelectInput extends React.Component {
 
   static getIcon(option) {
     if (typeof option.icon === 'string') {
-      return [<Icon key="icon" name={option.icon} />, <span key="space"> </span>];
+      return [<Icon key="icon" name={option.icon} />, <span key="space">&nbsp;</span>];
     }
     return null;
   }

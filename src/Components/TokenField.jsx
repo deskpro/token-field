@@ -5,21 +5,16 @@ import * as inputs from './Input';
 import TokenFieldInput from './TokenFieldInput';
 import styles from '../styles/style.css';
 
-export class Token {
-  constructor(id, widget, props, description) {
-    this.id = id;
-    this.widget = widget;
-    this.props = props;
-    this.description = description;
-  }
-}
-
-
 export class TokenField extends React.Component {
   static propTypes = {
-    tokenTypes: PropTypes.arrayOf(PropTypes.object).isRequired,
-    onChange:   PropTypes.func,
-    value:      PropTypes.array.isRequired,
+    tokenTypes: PropTypes.arrayOf(PropTypes.shape({
+      id:          PropTypes.string.isRequired,
+      widget:      PropTypes.oneOf(['TextInput', 'DateTimeInput', 'DurationInput', 'SelectInput', 'NumericRangeInput']),
+      props:       PropTypes.object,
+      description: PropTypes.string,
+    })).isRequired,
+    onChange: PropTypes.func,
+    value:    PropTypes.array.isRequired,
   };
 
   static defaultProps = {
