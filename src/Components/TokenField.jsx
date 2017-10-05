@@ -8,8 +8,10 @@ import styles from '../styles/style.css';
 export class TokenField extends React.Component {
   static propTypes = {
     tokenTypes: PropTypes.arrayOf(PropTypes.shape({
-      id:          PropTypes.string.isRequired,
-      widget:      PropTypes.oneOf(['TextInput', 'DateTimeInput', 'DurationInput', 'SelectInput', 'NumericRangeInput']),
+      id:     PropTypes.string.isRequired,
+      widget: PropTypes.oneOf(
+        ['TextInput', 'DateTimeInput', 'DurationInput', 'SelectInput', 'NumericRangeInput']
+      ).isRequired,
       props:       PropTypes.object,
       description: PropTypes.string,
     })).isRequired,

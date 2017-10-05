@@ -26,7 +26,7 @@
 .value {
     display: inline-block;
     padding: 1px 5px 0 8px;
-    vertical-align: middle;
+    vertical-align: top;
     border: 1px solid greyscale400;
     border-radius: 0 2px 2px 0;
     font-size: 12px;
@@ -40,7 +40,7 @@
     height: 9px;
     background-color: greyscale1000;
     position: absolute;
-    top: -2px;
+    top: -4px;
     right: -5px;
     border-radius: 50%;
     text-align: center;
@@ -52,6 +52,9 @@
 }
 .token:hover .token-remove {
     display: block;
+}
+.active:hover .token-remove {
+    display: none;
 }
 .token-remove:before, .token-remove:after {
     position: absolute;
@@ -68,12 +71,16 @@
 .token-remove:after {
     transform: rotate(-45deg);
 }
+.click-outside {
+    display: inline-block;
+    height: 17px;
+}
 .label {
     border: 1px solid greyscale400;
     border-right: 0;
     border-radius: 2px 0 0 2px;
     background-color: greyscale300;
-    vertical-align: middle;
+    vertical-align: top;
     display: inline-block;
     padding: 1px 5px;
     font-size: 14px;
@@ -82,7 +89,7 @@
     padding-top: 0;
     padding-bottom: 0;
     height: 20px;
-    vertical-align: middle;
+    vertical-align: top;
     border: 1px solid greyscale400;
     border-radius: 0 2px 2px 0;
     width: auto;

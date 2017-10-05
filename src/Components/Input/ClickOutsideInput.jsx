@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
 import { objectKeyFilter } from 'deskpro-components/lib/utils/objects';
 import noop from 'deskpro-components/lib/utils/noop';
+import styles from 'styles/style.css';
 
 class InputContent extends React.Component {
   static propTypes = {
@@ -56,11 +57,8 @@ class InputContent extends React.Component {
 
   render() {
     const { children, ...props } = this.props;
-    const style = {
-      display: 'inline-block'
-    };
     return (
-      <div {...objectKeyFilter(props, InputContent.propTypes)} style={style}>{children}</div>
+      <div {...objectKeyFilter(props, InputContent.propTypes)} className={styles['click-outside']}>{children}</div>
     );
   }
 }

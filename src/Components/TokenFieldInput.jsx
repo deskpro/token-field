@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import AutosizeInput from 'react-input-autosize';
 import Highlighter from 'react-highlight-words';
 import { List, ListElement, Scrollbar, Popper } from 'deskpro-components/lib/Components/Common';
-import styles from '../styles/style.css';
+import styles from 'styles/style.css';
 
 export default class TokenFieldInput extends React.Component {
   static propTypes = {
