@@ -25,13 +25,11 @@ export default class SelectInput extends React.Component {
     renderHeader:        PropTypes.oneOfType([
       PropTypes.func,
       PropTypes.node,
-      PropTypes.string,
     ]),
     renderItem:   PropTypes.func,
     renderFooter: PropTypes.oneOfType([
       PropTypes.func,
       PropTypes.node,
-      PropTypes.string,
     ]),
     showSearch:            PropTypes.bool,
     selectionsTranslation: PropTypes.string,
@@ -240,9 +238,6 @@ export default class SelectInput extends React.Component {
     }
     if (!valueOption) {
       return '________';
-    }
-    if (this.props.renderItem) {
-      return this.props.renderItem(valueOption);
     }
     return this.renderItem(valueOption);
   };

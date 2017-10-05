@@ -11,6 +11,7 @@
     "precommit": "lint-staged",
     "prepublish": "npm run compile",
     "storybook:dev": "start-storybook -p 9003 -c .storybook",
+    "storybook:deploy": "storybook-to-ghpages",
     "test": "node scripts/test.js --env=jsdom",
     "travis-test": "npm run test -- --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
@@ -26,7 +27,7 @@
   "homepage": "https://github.com/deskpro/token-field#readme",
   "dependencies": {
     "classnames": "^2.2.5",
-    "deskpro-components": "^1.0.1",
+    "deskpro-components": "^1.0.2",
     "moment": "^2.18.1",
     "prop-types": "^15.6.0",
     "react": "^15.6.2",
@@ -40,6 +41,7 @@
     "@storybook/addon-actions": "^3.2.12",
     "@storybook/addon-info": "^3.2.12",
     "@storybook/react": "^3.2.12",
+    "@storybook/storybook-deployer": "^2.0.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",
