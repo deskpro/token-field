@@ -12,7 +12,7 @@ exports[`+++capturing Snapshot of TokenField 1`] = `
     </span>
     <div>
       <div
-        className=""
+        className="token"
       >
         <div
           className="dp-code label"
@@ -89,7 +89,7 @@ exports[`+++capturing Snapshot of TokenField 1`] = `
         <div />
       </div>
       <div
-        className=""
+        className="token"
       >
         <div
           className="dp-code label"

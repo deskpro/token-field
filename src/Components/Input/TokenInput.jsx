@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import classNames from 'classnames/bind';
 import styles from '../../styles/style.css';
 import ClickOutsideInput from './ClickOutsideInput';
 
@@ -26,6 +26,7 @@ export default class TokenInput extends React.Component {
       editMode: false,
     };
     this.hasToFocus = false;
+    this.cx = classNames.bind(styles);
   }
 
   componentDidUpdate() {
@@ -62,7 +63,7 @@ export default class TokenInput extends React.Component {
     const { type, renderValue, renderInput, className } = this.props;
     const { editMode } = this.state;
     return (
-      <div className={classNames(styles.token, className)}>
+      <div className={this.cx('token', { active: editMode }, className)}>
         <div className={classNames(styles.label, 'dp-code', 'label')}>
           {type}:
         </div>

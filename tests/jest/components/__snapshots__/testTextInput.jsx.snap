@@ -2,7 +2,7 @@
 
 exports[`+++capturing Snapshot of TextInput 1`] = `
 <div
-  className="test"
+  className="token test"
 >
   <div
     className="dp-code label"
@@ -27,7 +27,7 @@ exports[`+++capturing Snapshot of TextInput 1`] = `
 
 exports[`+++capturing Snapshot of TextInput with empty value 1`] = `
 <div
-  className="test"
+  className="token test"
 >
   <div
     className="dp-code label"

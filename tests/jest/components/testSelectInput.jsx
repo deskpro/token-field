@@ -1,12 +1,8 @@
 import React from 'react';
+import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 import SelectInput from 'Components/Input/SelectInput';
 import noop from 'deskpro-components/lib/utils/noop';
-
-const token = {
-  type:  'country',
-  value: 'GB'
-};
 
 const options = [
   { label: 'Austria', value: 'AT' },
@@ -47,7 +43,32 @@ const optionsWithIcon = [
   { value: 5, title: 'Hot', icon: 'thermometer-full' },
 ];
 
+const optionsSimple = [
+  { id: 1 },
+  { id: 2 },
+  { id: 3 },
+  { id: 4 },
+];
+
+const optionsValue = [
+  { value: 1 },
+  { value: 2 },
+  { value: 3 },
+  { value: 4 },
+];
+
+const optionsName = [
+  { value: 1, name: 'small' },
+  { value: 2, name: 'medium'  },
+  { value: 3, name: 'large'  },
+  { value: 4, name: 'extra large'  },
+];
+
 it('+++capturing Snapshot of SelectInput', () => {
+  const token = {
+    type:  'country',
+    value: 'GB'
+  };
   const renderedValue = renderer.create(
     <SelectInput
       dataSource={{ getOptions: options }}
@@ -61,7 +82,7 @@ it('+++capturing Snapshot of SelectInput', () => {
   expect(renderedValue).toMatchSnapshot();
 });
 
-it('+++capturing Snapshot of SelectInput', () => {
+it('+++capturing Snapshot of SelectInput with icon', () => {
   const selectTokenIcon = {
     type:  'temperature',
     value: 4,
@@ -77,4 +98,229 @@ it('+++capturing Snapshot of SelectInput', () => {
     />
   ).toJSON();
   expect(renderedValue).toMatchSnapshot();
+});
+
+it('+++capturing Snapshot of SelectInput simple', () => {
+  const selectTokenIcon = {
+    type:  'level',
+    value: 3,
+  };
+  const renderedValue = renderer.create(
+    <SelectInput
+      dataSource={{ getOptions: optionsSimple }}
+      token={selectTokenIcon}
+      className="test"
+      selectPreviousToken={noop}
+      selectNextToken={noop}
+      removeToken={noop}
+    />
+  ).toJSON();
+  expect(renderedValue).toMatchSnapshot();
+});
+
+it('+++capturing Snapshot of SelectInput value', () => {
+  const selectTokenIcon = {
+    type:  'level',
+    value: 3,
+  };
+  const renderedValue = renderer.create(
+    <SelectInput
+      dataSource={{ getOptions: optionsValue }}
+      token={selectTokenIcon}
+      className="test"
+      selectPreviousToken={noop}
+      selectNextToken={noop}
+      removeToken={noop}
+    />
+  ).toJSON();
+  expect(renderedValue).toMatchSnapshot();
+});
+
+it('+++capturing Snapshot of SelectInput value', () => {
+  const selectTokenIcon = {
+    type:  'size',
+    value: 3,
+  };
+  const renderedValue = renderer.create(
+    <SelectInput
+      dataSource={{ getOptions: optionsName }}
+      token={selectTokenIcon}
+      className="test"
+      selectPreviousToken={noop}
+      selectNextToken={noop}
+      removeToken={noop}
+    />
+  ).toJSON();
+  expect(renderedValue).toMatchSnapshot();
+});
+
+describe('testSelectInput', () => {
+  let wrapper;
+  const map = {};
+  const selectNextToken = jest.fn();
+  const selectPreviousToken = jest.fn();
+  const onChange = jest.fn();
+
+  const token = {
+    type:  'country',
+    value: 'GB'
+  };
+
+  beforeEach(() => {
+    document.addEventListener = jest.fn((event, cb) => {
+      map[event] = cb;
+    });
+    wrapper = mount(
+      <SelectInput
+        dataSource={{ getOptions: options }}
+        token={token}
+        className="test"
+        renderHeader={() => <h4>Countries</h4>}
+        renderFooter={() => <span className="footer">Footer</span>}
+        renderItem={option => <span>{option.value} - {option.label}</span>}
+        selectPreviousToken={selectPreviousToken}
+        selectNextToken={selectNextToken}
+        onChange={onChange}
+        removeToken={noop}
+      />
+    );
+  });
+
+  it('should show the option list when clicked', () => {
+    const value = wrapper.find('span').first();
+
+    value.simulate('click');
+
+    expect(wrapper.find('input').exists()).toEqual(true);
+  });
+
+  it('should select the next token on Tab', () => {
+    const value = wrapper.find('span').first();
+
+    value.simulate('click');
+
+    map.keydown({ key: 'Tab', preventDefault: noop });
+
+    setTimeout(() => expect(selectNextToken.mock.calls.length).toEqual(1), 250);
+  });
+
+  it('should select the previous token on Shift + Tab', () => {
+    const value = wrapper.find('span').first();
+
+    value.simulate('click');
+
+    map.keydown({ key: 'Tab', shiftKey: true, preventDefault: noop });
+
+    jest.useFakeTimers();
+    setTimeout(() => expect(selectPreviousToken.mock.calls.length).toEqual(1), 250);
+    jest.runAllTimers();
+  });
+
+  it('should blur on Escape', () => {
+    const value = wrapper.find('span').first();
+
+    value.simulate('click');
+
+    expect(wrapper.find('span.value').exists()).toEqual(false);
+
+    map.keydown({ key: 'Escape', preventDefault: noop });
+
+    expect(wrapper.find('span.value').exists()).toEqual(true);
+  });
+
+  it('should select the first option on Enter', () => {
+    const value = wrapper.find('span').first();
+
+    value.simulate('click');
+
+    map.keydown({ key: 'Enter', preventDefault: noop });
+
+    expect(onChange.mock.calls.length).toEqual(1);
+    expect(onChange.mock.calls[0]).toEqual(['AT']);
+  });
+
+  it('should select the second option on Enter', () => {
+    const value = wrapper.find('span').first();
+
+    value.simulate('click');
+
+    map.keydown({ key: 'ArrowDown', preventDefault: noop });
+    map.keydown({ key: 'Enter', preventDefault: noop });
+
+    expect(onChange.mock.calls.length).toEqual(1);
+    expect(onChange.mock.calls[0]).toEqual(['BE']);
+  });
+
+  it('should select the previous options on ArrowUp', () => {
+    const value = wrapper.find('span').first();
+
+    value.simulate('click');
+
+    map.keydown({ key: 'ArrowDown', preventDefault: noop });
+    map.keydown({ key: 'ArrowUp', preventDefault: noop });
+    map.keydown({ key: 'Enter', preventDefault: noop });
+
+    expect(onChange.mock.calls.length).toEqual(1);
+    expect(onChange.mock.calls[0]).toEqual(['AT']);
+  });
+
+  afterEach(() => {
+    selectNextToken.mockReset();
+    selectPreviousToken.mockReset();
+    onChange.mockReset();
+  });
+});
+
+let showSearch = true;
+describe('testSelectInput test render of input', () => {
+  let wrapper;
+  const selectNextToken = jest.fn();
+  const selectPreviousToken = jest.fn();
+  const onChange = jest.fn();
+
+  const token = {
+    type:  'country',
+    value: 'GB'
+  };
+
+
+  beforeEach(() => {
+    wrapper = mount(
+      <SelectInput
+        dataSource={{ getOptions: options }}
+        token={token}
+        showSearch={showSearch}
+        className="test"
+        selectPreviousToken={selectPreviousToken}
+        selectNextToken={selectNextToken}
+        removeToken={noop}
+      />
+    );
+
+    const value = wrapper.find('span').first();
+
+    value.simulate('click');
+  });
+
+  it('should display the filter field', () => {
+    showSearch = true;
+
+    const input = wrapper.find('input');
+
+    expect(input.length).toEqual(1);
+  });
+
+  it('should hide the filter field', () => {
+    showSearch = false;
+
+    const input = wrapper.find('input');
+
+    expect(input.length).toEqual(1);
+  });
+
+  afterEach(() => {
+    selectNextToken.mockReset();
+    selectPreviousToken.mockReset();
+    onChange.mockReset();
+  });
 });

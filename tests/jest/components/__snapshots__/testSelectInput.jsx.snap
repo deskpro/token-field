@@ -2,7 +2,7 @@
 
 exports[`+++capturing Snapshot of SelectInput 1`] = `
 <div
-  className="test"
+  className="token test"
 >
   <div
     className="dp-code label"
@@ -27,9 +27,90 @@ exports[`+++capturing Snapshot of SelectInput 1`] = `
 </div>
 `;
 
-exports[`+++capturing Snapshot of SelectInput 2`] = `
+exports[`+++capturing Snapshot of SelectInput simple 1`] = `
 <div
-  className="test"
+  className="token test"
+>
+  <div
+    className="dp-code label"
+  >
+    level
+    :
+  </div>
+  <span
+    className="value"
+    onClick={[Function]}
+  >
+    <span>
+      3
+    </span>
+  </span>
+  <div
+    className="remove"
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;
+
+exports[`+++capturing Snapshot of SelectInput value 1`] = `
+<div
+  className="token test"
+>
+  <div
+    className="dp-code label"
+  >
+    level
+    :
+  </div>
+  <span
+    className="value"
+    onClick={[Function]}
+  >
+    <span>
+      3
+    </span>
+  </span>
+  <div
+    className="remove"
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;
+
+exports[`+++capturing Snapshot of SelectInput value 2`] = `
+<div
+  className="token test"
+>
+  <div
+    className="dp-code label"
+  >
+    size
+    :
+  </div>
+  <span
+    className="value"
+    onClick={[Function]}
+  >
+    <span>
+      large
+    </span>
+  </span>
+  <div
+    className="remove"
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;
+
+exports[`+++capturing Snapshot of SelectInput with icon 1`] = `
+<div
+  className="token test"
 >
   <div
     className="dp-code label"

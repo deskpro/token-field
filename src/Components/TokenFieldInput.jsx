@@ -166,8 +166,8 @@ export default class TokenFieldInput extends React.Component {
     }
     switch (e.key) {
       case 'Backspace':
-        e.preventDefault();
         if (this.state.tokenKey > 0 && this.state.value === '') {
+          e.preventDefault();
           this.props.removeToken(this.state.tokenKey - 1, this.state.tokenKey - 1);
         } else {
           return true;

@@ -80,7 +80,7 @@ storiesOf('Inputs', module)
         selectPreviousToken={action('SelectPreviousToken')}
         selectNextToken={action('selectNextToken')}
         removeToken={action('removeToken')}
-        renderHeader={<h3>Countries</h3>}
+        renderHeader={<h4>Countries</h4>}
       />
       <SelectInput
         dataSource={{ getOptions: options }}
