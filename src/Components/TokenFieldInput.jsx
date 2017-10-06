@@ -50,12 +50,12 @@ export default class TokenFieldInput extends React.Component {
         tokenKey,
         tokens: [],
       }, () => {
-        this.props.addToken(tokenKey + 1, token.id);
+        this.props.addToken(token.id, tokenKey + 1);
         this.input.blur();
       });
     } else {
       this.props.removeToken(tokenKey);
-      this.props.addToken(tokenKey, token.id);
+      this.props.addToken(token.id, tokenKey);
     }
     this.closePopper();
   }

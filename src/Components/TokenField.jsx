@@ -32,6 +32,12 @@ export class TokenField extends React.Component {
     this.inputs = [];
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      value: nextProps.value
+    });
+  }
+
   componentDidUpdate() {
     if (this.focusInput !== undefined) {
       this.inputs[this.focusInput].focus();
@@ -73,10 +79,11 @@ export class TokenField extends React.Component {
     }
   };
 
-  addTokenAndFocus = (key, id) => {
+  addTokenAndFocus = (id, key, defaultValue) => {
     const { value } = this.state;
-    value.splice(key, 0, { type: id, value: undefined });
-    this.focusInput = key;
+    const inputKey = (!key) ? value.length : key;
+    value.splice(inputKey, 0, { type: id, value: defaultValue });
+    this.focusInput = inputKey;
     this.setState({
       value
     });

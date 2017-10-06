@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { TokenField } from 'Components/TokenField';
+import { Button } from 'deskpro-components';
 import styles from '../style.css';
 
 const countries = [
@@ -115,15 +116,22 @@ class TokenFieldStory extends React.Component {
     });
   };
 
+  addCountryToken = () => {
+    this.tokenField.addTokenAndFocus('country', null, 'FR');
+  };
+
   render() {
     const { value } = this.state;
     return (
       <div>
         <TokenField
+          ref={(c) => { this.tokenField = c; }}
           tokenTypes={tokenTypes}
           value={value}
           onChange={this.handleChange}
         />
+        <br />
+        <Button onClick={this.addCountryToken}>Add country token</Button>
         <h4 className={styles.title}>Available types</h4>
         <ul className={styles.title}>
           <li>attach-size (<i>NumericRangeInput</i>)</li>

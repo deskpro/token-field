@@ -12,3 +12,6 @@ deploy:
   on:
     branch: master
     tags: true
+  after_success:
+    - npm run storybook:deploy
+

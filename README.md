@@ -78,6 +78,12 @@ Example value
 
 Callback to persist changes
 
+### Methods
+
+`AddTokenAndFocus(id, position = null, defaultValue = undefined)`
+
+Allow to add programmatically a token to the field and focus it, position and defaultValue are optional 
+
 ## Styling
 
 `src/styles/deskpro-components.scss` has to be imported if deskpro-components are not in used on your project

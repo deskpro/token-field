@@ -30,6 +30,9 @@
     border: 1px solid greyscale400;
     border-radius: 0 2px 2px 0;
     font-size: 12px;
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .value:hover {
     color: sonicPrimary;
