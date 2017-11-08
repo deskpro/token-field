@@ -1,3 +1,7 @@
+## 0.2.0
+
+* Move react and react-dom to dev dependencies
+
 ## 0.1.2
 
 * Improves styling
