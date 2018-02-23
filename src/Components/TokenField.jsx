@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from 'deskpro-components/lib/Components/Icon';
+import { Icon } from '@deskpro/react-components';
 import * as inputs from './Input';
 import TokenFieldInput from './TokenFieldInput';
 import styles from '../styles/style.css';

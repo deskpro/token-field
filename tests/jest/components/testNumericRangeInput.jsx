@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import NumericRangeInput from 'Components/Input/NumericRangeInput';
-import noop from 'deskpro-components/lib/utils/noop';
+import { noop } from '@deskpro/react-components/dist/utils';
 
 const convertFromValue = value => Math.round(value / 1024 / 1024);
 const convertToValue = value => value * 1024 * 1024;

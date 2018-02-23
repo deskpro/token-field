@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import classNames from 'classnames';
-import { Label, Input } from 'deskpro-components/lib/Components/Forms';
-import { List, ListElement } from 'deskpro-components/lib/Components/Common';
+import { Label, Input, List, ListElement } from '@deskpro/react-components';
 import styles from 'styles/style.css';
 import TokenInput from './TokenInput';
 

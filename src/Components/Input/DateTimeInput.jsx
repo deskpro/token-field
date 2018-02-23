@@ -2,10 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import classNames from 'classnames';
-import { Datepicker } from 'deskpro-components/lib/Components/Forms';
-import { Tabs, TabLink } from 'deskpro-components/lib/Components/Tabs';
-import Section from 'deskpro-components/lib/Components/Section';
-import { List, ListElement } from 'deskpro-components/lib/Components/Common';
+import { Datepicker, Tabs, TabLink, Section, List, ListElement } from '@deskpro/react-components';
 import styles from 'styles/style.css';
 import TokenInput from './TokenInput';
 

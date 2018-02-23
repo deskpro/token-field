@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
-import { objectKeyFilter } from 'deskpro-components/lib/utils/objects';
-import noop from 'deskpro-components/lib/utils/noop';
+import { objects, noop } from '@deskpro/react-components/dist/utils';
 import styles from 'styles/style.css';
 
 class InputContent extends React.Component {
@@ -58,7 +57,9 @@ class InputContent extends React.Component {
   render() {
     const { children, ...props } = this.props;
     return (
-      <div {...objectKeyFilter(props, InputContent.propTypes)} className={styles['click-outside']}>{children}</div>
+      <div {...objects.objectKeyFilter(props, InputContent.propTypes)} className={styles['click-outside']}>
+        {children}
+      </div>
     );
   }
 }

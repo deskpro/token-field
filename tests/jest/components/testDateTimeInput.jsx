@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import DateTimeInput from 'Components/Input/DateTimeInput';
-import noop from 'deskpro-components/lib/utils/noop';
+import { noop } from '@deskpro/react-components/dist/utils';
 
 it('+++capturing Snapshot of DateTimeInput', () => {
   const token = {

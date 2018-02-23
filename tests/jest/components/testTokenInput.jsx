@@ -1,7 +1,10 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import TokenInput from 'Components/Input/TokenInput';
-import noop from 'deskpro-components/lib/utils/noop';
+import { noop } from '@deskpro/react-components/dist/utils';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 
 describe('testTokenInput', () => {
@@ -13,7 +16,7 @@ describe('testTokenInput', () => {
     childFocus = jest.fn();
     removeToken = jest.fn();
 
-    wrapper = shallow(
+    wrapper = mount(
       <TokenInput
         type="test-token"
         renderInput={noop}

@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { TokenField } from 'Components/TokenField';
-import noop from 'deskpro-components/lib/utils/noop';
+import { noop } from '@deskpro/react-components/dist/utils';
 
 const countries = [
   { label: 'Austria', value: 'AT' },

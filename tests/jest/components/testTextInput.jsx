@@ -1,8 +1,11 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import renderer from 'react-test-renderer';
 import TextInput from 'Components/Input/TextInput';
-import noop from 'deskpro-components/lib/utils/noop';
+import { noop } from '@deskpro/react-components/dist/utils';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 it('+++capturing Snapshot of TextInput', () => {
   const token = {

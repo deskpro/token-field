@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
-import { Checkbox, Input } from 'deskpro-components/lib/Components/Forms';
-import Icon from 'deskpro-components/lib/Components/Icon';
-import { List, ListElement, Scrollbar } from 'deskpro-components/lib/Components/Common';
+import { Checkbox, Input, Icon, List, ListElement, Scrollbar } from '@deskpro/react-components';
 import styles from 'styles/style.css';
 import TokenInput from './TokenInput';
 

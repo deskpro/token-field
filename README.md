@@ -86,4 +86,4 @@ Allow to add programmatically a token to the field and focus it, position and de
 
 ## Styling
 
-`src/styles/deskpro-components.scss` has to be imported if deskpro-components are not in used on your project
+`src/styles/deskpro-components.scss` has to be imported if `@deskpro/react-components` are not in used on your project
