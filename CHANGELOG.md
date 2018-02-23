@@ -1,3 +1,7 @@
+## 0.2.1
+
+* Update to use react 16 on dev and update `@deskpro/react-components` dependency
+
 ## 0.2.0
 
 * Move react and react-dom to dev dependencies
