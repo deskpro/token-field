@@ -146,26 +146,27 @@ describe('testDurationInput', () => {
     ]);
   });
 
-  it('should display custom duration when click on custom', () => {
-    const value = wrapper.find('span').first();
-
-    value.simulate('click');
-
-    wrapper.find('.custom').simulate('click');
-
-    expect(wrapper.find('.custom-list').exists()).toEqual(true);
-  });
-
-  it('should revert to list when click on back', () => {
-    const value = wrapper.find('span').first();
-
-    value.simulate('click');
-
-    wrapper.find('.custom').simulate('click');
-    wrapper.find('.back').simulate('click');
-
-    expect(wrapper.find('.custom-list').exists()).toEqual(false);
-  });
+  // Disabled for now
+  // it('should display custom duration when click on custom', () => {
+  //   const value = wrapper.find('span').first();
+  //
+  //   value.simulate('click');
+  //
+  //   wrapper.find('.custom').simulate('click');
+  //
+  //   expect(wrapper.find('.custom-list').exists()).toEqual(true);
+  // });
+  //
+  // it('should revert to list when click on back', () => {
+  //   const value = wrapper.find('span').first();
+  //
+  //   value.simulate('click');
+  //
+  //   wrapper.find('.custom').simulate('click');
+  //   wrapper.find('.back').simulate('click');
+  //
+  //   expect(wrapper.find('.custom-list').exists()).toEqual(false);
+  // });
 
   afterEach(() => {
     selectNextToken.mockReset();
