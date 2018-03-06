@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { TokenField } from 'Components/TokenField';
+import TokenField from 'Components/TokenField';
 import { noop } from '@deskpro/react-components/dist/utils';
 
 const countries = [

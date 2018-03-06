@@ -5,7 +5,7 @@ import * as inputs from './Input';
 import TokenFieldInput from './TokenFieldInput';
 import styles from '../styles/style.css';
 
-export class TokenField extends React.Component {
+export default class TokenField extends React.Component {
   static propTypes = {
     tokenTypes: PropTypes.arrayOf(PropTypes.shape({
       id:     PropTypes.string.isRequired,
