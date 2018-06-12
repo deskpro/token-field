@@ -1,3 +1,11 @@
+## 0.2.3
+
+* Export `TokenField` as default
+
+## 0.2.2
+
+* Fix export
+
 ## 0.2.1
 
 * Update to use react 16 on dev and update `@deskpro/react-components` dependency

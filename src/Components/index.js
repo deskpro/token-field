@@ -13,3 +13,5 @@ export {
   TextInput,
   TokenField,
 };
+
+export default TokenField;
