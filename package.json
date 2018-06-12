@@ -1,6 +1,6 @@
 {
   "name": "@deskpro/token-field",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "",
   "main": "dist/index.js",
   "private": false,
@@ -30,13 +30,13 @@
   },
   "homepage": "https://github.com/deskpro/token-field#readme",
   "dependencies": {
-    "@deskpro/react-components": "^1.3.7",
+    "@deskpro/react-components": "^1.3.25",
     "classnames": "^2.2.5",
     "moment": "^2.18.1",
     "prop-types": "^15.6.0",
-    "react-highlight-words": "^0.9.0",
-    "react-input-autosize": "^2.0.1",
-    "react-onclickoutside": "^6.6.0"
+    "react-highlight-words": "^0.11.0",
+    "react-input-autosize": "^2.2.1",
+    "react-onclickoutside": "^6.7.1"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.3.12",
