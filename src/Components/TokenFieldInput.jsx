@@ -61,11 +61,15 @@ export default class TokenFieldInput extends React.Component {
   }
 
   openPopper = () => {
-    this.popperRef.open();
+    if (this.popperRef) {
+      this.popperRef.open();
+    }
   };
 
   closePopper = () => {
-    this.popperRef.close();
+    if (this.popperRef) {
+      this.popperRef.close();
+    }
     this.setState({
       tokens: []
     });

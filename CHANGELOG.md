@@ -1,3 +1,7 @@
+## 0.2.4
+
+* Fix popper error
+
 ## 0.2.3
 
 * Export `TokenField` as default
