@@ -49,13 +49,6 @@ exports[`+++capturing Snapshot of TokenField 1`] = `
             }
           }
         >
-          <style
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "input#undefined::-ms-clear {display: none;}",
-              }
-            }
-          />
           <input
             className={undefined}
             id={undefined}
