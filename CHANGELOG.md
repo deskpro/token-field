@@ -1,6 +1,7 @@
 ## 0.2.6
 
 * Improve keyboard navigation
+* Fix corrupted value on deleting previous token from input
 
 ## 0.2.5
 
