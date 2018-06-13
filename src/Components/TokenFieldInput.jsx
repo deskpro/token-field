@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import AutosizeInput from 'react-input-autosize';
 import Highlighter from 'react-highlight-words';
-import { List, ListElement, Scrollbar, Popper } from '@deskpro/react-components';
+import { List, ListElement, Scrollbar } from '@deskpro/react-components';
+import Tether from 'react-tether';
 import styles from 'styles/style.css';
 
 export default class TokenFieldInput extends React.Component {
@@ -30,6 +31,7 @@ export default class TokenFieldInput extends React.Component {
       tokens:        [],
       keyword:       '',
       selectedToken: null,
+      popupOpen:     false,
     };
   }
 
@@ -61,15 +63,15 @@ export default class TokenFieldInput extends React.Component {
   }
 
   openPopper = () => {
-    if (this.popperRef) {
-      this.popperRef.open();
-    }
+    this.setState({
+      popupOpen: true
+    });
   };
 
   closePopper = () => {
-    if (this.popperRef) {
-      this.popperRef.close();
-    }
+    this.setState({
+      popupOpen: false
+    });
     this.setState({
       tokens: []
     });
@@ -251,11 +253,11 @@ export default class TokenFieldInput extends React.Component {
   }
 
   render() {
-    const { value } = this.state;
+    const { value, popupOpen } = this.state;
     return (
-      <div
-        ref={ref => (this.rootRef = ref)}
+      <Tether
         style={{ display: 'inline-block' }}
+        attachment="top left"
       >
         <AutosizeInput
           ref={(c) => { this.input = c; }}
@@ -266,17 +268,13 @@ export default class TokenFieldInput extends React.Component {
           onChange={this.handleChange}
           onKeyDown={this.handleKeyDown}
         />
-        <Popper
-          ref={ref => (this.popperRef = ref)}
-          target={this.rootRef}
-          placement="bottom"
-          arrow={false}
-          onOpen={this.handlePopperOpen}
-          onClose={this.handlePopperClose}
-        >
-          {this.renderTokens()}
-        </Popper>
-      </div>
+        {
+          popupOpen ?
+            <div>
+              {this.renderTokens()}
+            </div> : null
+        }
+      </Tether>
     );
   }
 }

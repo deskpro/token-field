@@ -1,33 +1,37 @@
-## 0.2.6
+## 0.2.7 - 2018-06-13
+
+* Replace `react-components` Popper with Tether
+
+## 0.2.6 - 2018-06-13
 
 * Improve keyboard navigation
 * Fix corrupted value on deleting previous token from input
 
-## 0.2.5
+## 0.2.5 - 2018-06-12
 
 * Update dependencies
 
-## 0.2.4
+## 0.2.4 - 2018-06-12
 
 * Fix popper error
 
-## 0.2.3
+## 0.2.3 - 2018-06-12
 
 * Export `TokenField` as default
 
-## 0.2.2
+## 0.2.2 - 2018-06-12
 
 * Fix export
 
-## 0.2.1
+## 0.2.1 - 2018-02-23
 
 * Update to use react 16 on dev and update `@deskpro/react-components` dependency
 
-## 0.2.0
+## 0.2.0 - 2017-11-08
 
 * Move react and react-dom to dev dependencies
 
-## 0.1.2
+## 0.1.2 - 2017-10-06
 
 * Improves styling
 * Adds Methods documentation

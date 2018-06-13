@@ -3,7 +3,7 @@
 exports[`+++capturing Snapshot of TokenField 1`] = `
 <div>
   <div
-    className={undefined}
+    className="token-field"
   >
     <span>
       <i
@@ -34,52 +34,43 @@ exports[`+++capturing Snapshot of TokenField 1`] = `
         </div>
       </div>
       <div
+        className={undefined}
         style={
           Object {
             "display": "inline-block",
+            "fontSize": 14,
           }
         }
       >
-        <div
+        <input
           className={undefined}
+          id={undefined}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onKeyDown={[Function]}
           style={
             Object {
-              "display": "inline-block",
-              "fontSize": 14,
+              "boxSizing": "content-box",
+              "width": "1px",
+            }
+          }
+          value="pricing"
+        />
+        <div
+          style={
+            Object {
+              "height": 0,
+              "left": 0,
+              "overflow": "scroll",
+              "position": "absolute",
+              "top": 0,
+              "visibility": "hidden",
+              "whiteSpace": "pre",
             }
           }
         >
-          <input
-            className={undefined}
-            id={undefined}
-            onBlur={[Function]}
-            onChange={[Function]}
-            onKeyDown={[Function]}
-            style={
-              Object {
-                "boxSizing": "content-box",
-                "width": "1px",
-              }
-            }
-            value="pricing"
-          />
-          <div
-            style={
-              Object {
-                "height": 0,
-                "left": 0,
-                "overflow": "scroll",
-                "position": "absolute",
-                "top": 0,
-                "visibility": "hidden",
-                "whiteSpace": "pre",
-              }
-            }
-          >
-            pricing
-          </div>
+          pricing
         </div>
-        <div />
       </div>
       <div
         className="token"
@@ -105,7 +96,7 @@ exports[`+++capturing Snapshot of TokenField 1`] = `
       </div>
     </div>
     <div
-      className={undefined}
+      className="input-box"
       onClick={[Function]}
     />
   </div>

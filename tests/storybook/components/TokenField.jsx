@@ -129,6 +129,7 @@ class TokenFieldStory extends React.Component {
           tokenTypes={tokenTypes}
           value={value}
           onChange={this.handleChange}
+          placeholder="Search ..."
         />
         <br />
         <Button onClick={this.addCountryToken}>Add country token</Button>

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { Icon } from '@deskpro/react-components';
 import * as inputs from './Input';
 import TokenFieldInput from './TokenFieldInput';
@@ -161,12 +162,12 @@ export default class TokenField extends React.Component {
 
   render() {
     return (
-      <div className={styles['token-field']}>
+      <div className={classNames(styles['token-field'], 'token-field')}>
         <span><Icon name="search" className={styles.search} /></span>
         <div>
           {this.renderInputs()}
         </div>
-        <div onClick={() => this.addInputAndFocus()} className={styles['input-box']} />
+        <div onClick={() => this.addInputAndFocus()} className={classNames(styles['input-box'], 'input-box')} />
       </div>
     );
   }

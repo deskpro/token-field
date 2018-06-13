@@ -1,6 +1,6 @@
 {
   "name": "@deskpro/token-field",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "",
   "main": "dist/index.js",
   "private": false,
@@ -36,7 +36,8 @@
     "prop-types": "^15.6.0",
     "react-highlight-words": "^0.11.0",
     "react-input-autosize": "^2.2.1",
-    "react-onclickoutside": "^6.7.1"
+    "react-onclickoutside": "^6.7.1",
+    "react-tether": "^0.6.1"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.3.12",
