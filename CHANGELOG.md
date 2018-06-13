@@ -1,3 +1,7 @@
+## 0.2.6
+
+* Improve keyboard navigation
+
 ## 0.2.5
 
 * Update dependencies

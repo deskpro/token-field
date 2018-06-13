@@ -170,9 +170,33 @@ export default class TokenFieldInput extends React.Component {
     }
     switch (e.key) {
       case 'Backspace':
-        if (this.state.tokenKey > 0 && this.state.value === '') {
+        if (this.state.tokenKey > 0 && (this.state.value === '' || e.target.selectionStart === 0)) {
           e.preventDefault();
           this.props.removeToken(this.state.tokenKey - 1, this.state.tokenKey - 1);
+        } else {
+          return true;
+        }
+        break;
+      case 'Delete':
+        if (e.target.selectionStart === this.state.value.length) {
+          e.preventDefault();
+          this.props.removeToken(this.state.tokenKey + 1, this.state.tokenKey);
+        } else {
+          return true;
+        }
+        break;
+      case 'ArrowRight':
+        if (e.target.selectionStart === this.state.value.length) {
+          e.preventDefault();
+          this.props.selectNextToken();
+        } else {
+          return true;
+        }
+        break;
+      case 'ArrowLeft':
+        if (e.target.selectionStart === 0) {
+          e.preventDefault();
+          this.props.selectPreviousToken();
         } else {
           return true;
         }

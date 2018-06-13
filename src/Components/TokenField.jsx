@@ -63,10 +63,12 @@ export default class TokenField extends React.Component {
   addInputAndFocus = (key) => {
     const { value } = this.state;
     const inputKey = (!key) ? value.length : key;
-    if (this.inputs[0] === null) {
-      setTimeout(() => this.addInputAndFocus(key), 10);
-      return;
-    }
+    // if (this.inputs[0] === null) {
+    //   value.push({ type: 'TEXT', value: '' });
+    //   this.focusInput = 0;
+    //   // setTimeout(() => this.addInputAndFocus(key), 10);
+    //   return;
+    // }
     if (value.length && inputKey === value.length && value[inputKey - 1].type === 'TEXT') {
       this.inputs[inputKey - 1].focus();
     } else {
@@ -92,6 +94,7 @@ export default class TokenField extends React.Component {
   removeToken = (key, focusKey) => {
     const { value } = this.state;
     value.splice(key, 1);
+    this.inputs.splice(key, 1);
     if (focusKey !== undefined) {
       this.focusInput = focusKey;
     }
