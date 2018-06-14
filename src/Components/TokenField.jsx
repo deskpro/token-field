@@ -41,7 +41,9 @@ export default class TokenField extends React.Component {
 
   componentDidUpdate() {
     if (this.focusInput !== undefined) {
-      this.inputs[this.focusInput].focus();
+      if (this.inputs[this.focusInput]) {
+        this.inputs[this.focusInput].focus();
+      }
       this.focusInput = undefined;
     }
   }

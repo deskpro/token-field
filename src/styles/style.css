@@ -146,3 +146,6 @@
     position: static;
     color: inherit;
 }
+.dp-select {
+    white-space: nowrap;
+}

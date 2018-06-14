@@ -144,7 +144,7 @@ export default class DurationInput extends React.Component {
     const translations = this.getTranslations();
     const timeObject = Object.assign(DurationInput.getEmptyTimeObject(), this.state.value.time);
     return (
-      <div className="dp-select">
+      <div className={classNames('dp-select', styles['dp-select'])}>
         <div className="dp-select__content custom-list">
           <List>
             {['minutes', 'hours', 'days', 'weeks', 'months', 'years']
@@ -210,7 +210,6 @@ export default class DurationInput extends React.Component {
     switch (e.key) {
       case 'ArrowDown':
       case 'ArrowUp': {
-        e.preventDefault();
         const presets = this.getTimePresets();
         const index = presets.findIndex(preset => preset.key === this.state.selectedOption.key);
         if (e.key === 'ArrowDown' && index < presets.length - 1) {
@@ -226,7 +225,6 @@ export default class DurationInput extends React.Component {
         break;
       }
       case 'Escape': {
-        e.preventDefault();
         const value = this.props.token.value ? this.props.token.value : { time: null };
         this.setState({
           value,
@@ -235,7 +233,6 @@ export default class DurationInput extends React.Component {
         break;
       }
       case 'Tab':
-        e.preventDefault();
         if (e.shiftKey) {
           this.props.selectPreviousToken();
         } else {
@@ -244,14 +241,16 @@ export default class DurationInput extends React.Component {
         }
         this.tokenInput.disableEditMode();
         break;
+      case ' ':
       case 'Enter':
-        e.preventDefault();
         this.props.selectNextToken();
         this.handleChange(this.state.selectedOption.timeObject);
         break;
       default:
         return true;
     }
+    e.preventDefault();
+    e.stopPropagation();
     return true;
   };
 
@@ -279,7 +278,7 @@ export default class DurationInput extends React.Component {
       return this.getCustomInput();
     }
     return (
-      <div className="dp-select">
+      <div className={classNames('dp-select', styles['dp-select'])}>
         <div className="dp-select__content">
           <List className="dp-selectable-list">
             {this.renderPresets()}
@@ -315,6 +314,7 @@ export default class DurationInput extends React.Component {
         renderInput={this.renderInput}
         renderValue={this.renderValue}
         removeToken={removeToken}
+        detached
       />
     );
   }

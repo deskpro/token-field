@@ -40,6 +40,7 @@ export default class TokenFieldInput extends React.Component {
   }
 
   selectToken(token) {
+    console.log('selectToken');
     let value = '';
     const { tokenKey } = this.state;
     const match = this.state.value.match(/(.*) [-a-z:]{2,}$/);
@@ -78,11 +79,13 @@ export default class TokenFieldInput extends React.Component {
   };
 
   handleBlur = () => {
-    if (this.state.value !== '') {
-      this.props.onChange(this.state.tokenKey, this.state.value);
-      this.closePopper();
-    } else {
-      this.props.removeToken(this.state.tokenKey);
+    if (!this.state.popupOpen) {
+      if (this.state.value !== '') {
+        this.props.onChange(this.state.tokenKey, this.state.value);
+        this.closePopper();
+      } else {
+        this.props.removeToken(this.state.tokenKey);
+      }
     }
   };
 
@@ -124,7 +127,6 @@ export default class TokenFieldInput extends React.Component {
       }
       switch (e.key) {
         case 'ArrowDown':
-          e.preventDefault();
           if (index < tokens.length - 1) {
             this.setState({
               selectedToken: tokens[index + 1]
@@ -132,7 +134,6 @@ export default class TokenFieldInput extends React.Component {
           }
           break;
         case 'ArrowUp':
-          e.preventDefault();
           if (index > 0) {
             this.setState({
               selectedToken: tokens[index - 1]
@@ -140,7 +141,6 @@ export default class TokenFieldInput extends React.Component {
           }
           break;
         case 'Tab':
-          e.preventDefault();
           if (e.shiftKey) {
             this.props.selectPreviousToken();
           } else {
@@ -149,10 +149,10 @@ export default class TokenFieldInput extends React.Component {
           break;
         case 'Enter':
           e.preventDefault();
+          e.stopPropagation();
           this.selectToken(this.state.selectedToken);
           break;
         case ':': {
-          e.preventDefault();
           let value = '';
           const match = this.state.value.match(/ ?([-a-z:]{2,})$/);
           if (match) {
@@ -168,13 +168,15 @@ export default class TokenFieldInput extends React.Component {
           // Do nothing
           return true;
       }
+      e.preventDefault();
+      e.stopPropagation();
       return false;
     }
     switch (e.key) {
       case 'Backspace':
         if (this.state.tokenKey > 0 && (this.state.value === '' || e.target.selectionStart === 0)) {
           e.preventDefault();
-          this.props.removeToken(this.state.tokenKey - 1);
+          this.props.removeToken(this.state.tokenKey - 1, this.state.tokenKey - 1);
           return true;
         }
         return true;
@@ -270,7 +272,7 @@ export default class TokenFieldInput extends React.Component {
         />
         {
           popupOpen ?
-            <div>
+            <div className="token-field__popup">
               {this.renderTokens()}
             </div> : null
         }

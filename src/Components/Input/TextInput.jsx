@@ -56,7 +56,9 @@ export default class TextInput extends React.Component {
   };
 
   focusInput = () => {
-    this.input.focus();
+    if (this.input) {
+      this.input.focus();
+    }
   };
 
   handleChange = (value) => {

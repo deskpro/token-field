@@ -144,6 +144,7 @@ export default class SelectInput extends React.Component {
         }
         this.tokenInput.disableEditMode();
         break;
+      case ' ':
       case 'Enter':
         this.handleChange(this.state.selectedOption);
         this.props.selectNextToken();
@@ -151,6 +152,7 @@ export default class SelectInput extends React.Component {
       default:
         return true;
     }
+    e.stopPropagation();
     e.preventDefault();
     return true;
   };
@@ -322,6 +324,7 @@ export default class SelectInput extends React.Component {
         onFocus={this.onFocus}
         onBlur={this.onBlur}
         removeToken={removeToken}
+        detached
       />
     );
   }

@@ -292,7 +292,7 @@ export default class DateTimeInput extends React.Component {
       return this.getDatePicker();
     }
     return (
-      <div className="dp-select">
+      <div className={classNames('dp-select', styles['dp-select'])}>
         <div className="dp-select__content">
           {
             showSwitcher ?
@@ -405,6 +405,7 @@ export default class DateTimeInput extends React.Component {
         renderInput={this.renderInput}
         renderValue={this.renderValue}
         removeToken={removeToken}
+        detached
       />
     );
   }

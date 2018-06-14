@@ -1,3 +1,10 @@
+## 0.2.8 - 2018-06-14
+
+* Prevent keydown propagation when navigate in menus
+* Add class to popup to fix z-index
+* Fix focus lost when using backspace
+* Fix click on token
+
 ## 0.2.7 - 2018-06-13
 
 * Replace `react-components` Popper with Tether
