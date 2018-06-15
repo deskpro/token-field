@@ -1,3 +1,7 @@
+## 0.3.1 - 2018-06-15
+
+* Allow Promise as dataSource in SelectInput 
+
 ## 0.3.0 - 2018-06-15
 
 * Allow label in TokenTypes

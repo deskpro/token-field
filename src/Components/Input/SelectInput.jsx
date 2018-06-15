@@ -11,9 +11,9 @@ export default class SelectInput extends React.Component {
       type:  PropTypes.string,
       value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
     }).isRequired,
-    label:      PropTypes.string,
+    label:      PropTypes.string.isRequired,
     dataSource: PropTypes.shape({
-      getOptions:  PropTypes.oneOfType([PropTypes.func, PropTypes.array]),
+      getOptions:  PropTypes.oneOfType([PropTypes.func, PropTypes.array]).isRequired,
       findOptions: PropTypes.func,
     }).isRequired,
     isMultiple:          PropTypes.bool,
@@ -46,40 +46,23 @@ export default class SelectInput extends React.Component {
     selectionsTranslation: 'selections'
   };
 
-  static getIcon(option) {
-    if (typeof option.icon === 'string') {
-      return [<Icon key="icon" name={option.icon} />, <span key="space">&nbsp;</span>];
-    }
-    return null;
-  }
-
-  static getLabel(option) {
-    if (option.label) {
-      return option.label;
-    }
-    if (option.title) {
-      return option.title;
-    }
-    if (option.name) {
-      return option.name;
-    }
-    if (option.id) {
-      return option.id;
-    }
-    return option.value;
-  }
-
   constructor(props) {
     super(props);
 
-    const options = this.props.dataSource.getOptions;
-
     this.state = {
       value:          props.token.value,
-      selectedOption: options[0],
-      options,
+      selectedOption: null,
+      options:        [],
+      loading:        false,
       filter:         '',
     };
+
+    this.getOptions().then((result) => {
+      this.setState({
+        options: result
+      });
+    });
+
     this.cx = classNames.bind(styles);
   }
 
@@ -97,6 +80,39 @@ export default class SelectInput extends React.Component {
   onBlur = () => {
     window.document.removeEventListener('keydown', this.handleKeyDown);
   };
+
+  getOptions = (filter = '') => {
+    const { dataSource } = this.props;
+    if (this.props.dataSource.getOptions instanceof Function) {
+      return Promise.resolve(dataSource.getOptions(filter));
+    }
+    return new Promise(((resolve) => {
+      resolve(dataSource.getOptions);
+    }));
+  };
+
+  static getLabel(option) {
+    if (option.label) {
+      return option.label;
+    }
+    if (option.title) {
+      return option.title;
+    }
+    if (option.name) {
+      return option.name;
+    }
+    if (option.id) {
+      return option.id;
+    }
+    return option.value;
+  }
+
+  static getIcon(option) {
+    if (typeof option.icon === 'string') {
+      return [<Icon key="icon" name={option.icon} />, <span key="space">&nbsp;</span>];
+    }
+    return null;
+  }
 
   focus = () => {
     this.tokenInput.focus();
@@ -173,20 +189,25 @@ export default class SelectInput extends React.Component {
 
   handleFilter = (filter) => {
     let { selectedOption } = this.state;
-    const options = this.props.dataSource.getOptions
-      .filter(option => filter === ''
-        || SelectInput.getLabel(option).toLowerCase().indexOf(filter.toLowerCase()) !== -1);
-    if (options.length) {
-      if (!selectedOption || options.indexOf(selectedOption) === -1) {
-        selectedOption = options[0];
-      }
-    } else {
-      selectedOption = null;
-    }
     this.setState({
       filter,
-      options,
-      selectedOption,
+      loading: true
+    });
+    this.getOptions(filter).then((result) => {
+      const options = result.filter(option => filter === ''
+        || SelectInput.getLabel(option).toLowerCase().indexOf(filter.toLowerCase()) !== -1);
+      if (options.length) {
+        if (!selectedOption || options.indexOf(selectedOption) === -1) {
+          selectedOption = options[0];
+        }
+      } else {
+        selectedOption = null;
+      }
+      this.setState({
+        options,
+        selectedOption,
+        loading: false,
+      });
     });
   };
 
@@ -217,8 +238,6 @@ export default class SelectInput extends React.Component {
   };
 
   renderValue = () => {
-    const { getOptions, findOptions } = this.props.dataSource;
-    let valueOption;
     let value;
     if (this.props.isMultiple) {
       if (this.state.value.length > 1) {
@@ -228,16 +247,13 @@ export default class SelectInput extends React.Component {
     } else {
       value = this.state.value;
     }
-    if (findOptions) {
-      valueOption = findOptions(value);
-    } else {
-      valueOption = getOptions.find((option) => {
-        if (option.id) {
-          return option.id === value;
-        }
-        return option.value === value;
-      });
-    }
+    const { options } = this.state;
+    const valueOption = options.find((option) => {
+      if (option.id) {
+        return option.id === value;
+      }
+      return option.value === value;
+    });
     if (!valueOption) {
       return '________';
     }
@@ -284,11 +300,16 @@ export default class SelectInput extends React.Component {
   };
 
   renderMultipleOptions() {
-    const { getOptions } = this.props.dataSource;
     const { filter, value } = this.state;
-    return (getOptions
-      .filter(option => filter === ''
-        || SelectInput.getLabel(option).toLowerCase().indexOf(filter.toLowerCase()) !== -1)
+    let options;
+    if (this.props.dataSource.getOptions instanceof Function) {
+      options = this.props.dataSource.getOptions(filter);
+    } else {
+      options = this.props.dataSource.getOptions
+        .filter(option => filter === ''
+          || SelectInput.getLabel(option).toLowerCase().indexOf(filter.toLowerCase()) !== -1);
+    }
+    return (options
       .map((option) => {
         const key = option.id || option.value;
         const checked = value.indexOf(key) !== -1;

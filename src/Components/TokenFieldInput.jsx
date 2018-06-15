@@ -42,7 +42,7 @@ export default class TokenFieldInput extends React.Component {
   selectToken(token) {
     let value = '';
     const { tokenKey } = this.state;
-    const match = this.state.value.match(/(.*) [-a-z:]{2,}$/);
+    const match = this.state.value.match(/(.*) [-a-z:]{2,}$/i);
     if (match) {
       value = match[1];
     }
@@ -91,16 +91,16 @@ export default class TokenFieldInput extends React.Component {
   handleChange = (event) => {
     let { selectedToken } = this.state;
     const value = event.currentTarget.value;
-    const match = value.match(/ ?([-a-z:]{2,})$/);
+    const match = value.match(/ ?([-a-z:]{2,})$/i);
     let tokens = [];
-    let keyword = '';
+    const keyword = '';
     if (match) {
-      keyword = match[1];
-      tokens = this.props.tokenTypes.filter(token => {
+      const regexp = new RegExp(match[1], 'i');
+      tokens = this.props.tokenTypes.filter((token) => {
         if (token.label) {
-          return token.label.match(keyword);
+          return token.label.match(regexp);
         }
-        return token.id.match(keyword);
+        return token.id.match(regexp);
       }
       );
     }

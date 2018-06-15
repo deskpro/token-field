@@ -36,6 +36,7 @@ storiesOf('Inputs', module)
     <div>
       <DurationInput
         token={durationToken}
+        label="user-waiting"
         selectPreviousToken={action('SelectPreviousToken')}
         selectNextToken={action('selectNextToken')}
         removeToken={action('removeToken')}
@@ -43,6 +44,7 @@ storiesOf('Inputs', module)
       />
       <DurationInput
         token={durationTokenEmpty}
+        label="user-waiting"
         selectPreviousToken={action('SelectPreviousToken')}
         selectNextToken={action('selectNextToken')}
         removeToken={action('removeToken')}
@@ -51,6 +53,7 @@ storiesOf('Inputs', module)
       />
       <DurationInput
         token={durationTokenRange}
+        label="date"
         locale="fr"
         translations={{ to: 'à' }}
         selectPreviousToken={action('SelectPreviousToken')}

@@ -6,12 +6,18 @@ import styles from '../../styles/style.css';
 import TokenInput from './TokenInput';
 
 export default class NumericRangeInput extends React.Component {
+  static moveCaretAtEnd(e) {
+    const tempValue = e.target.value;
+    e.target.value = '';
+    e.target.value = tempValue;
+  }
+
   static propTypes = {
     token: PropTypes.shape({
       type:  PropTypes.string,
       value: PropTypes.array,
     }).isRequired,
-    label:               PropTypes.string,
+    label:               PropTypes.string.isRequired,
     className:           PropTypes.string,
     unitPhrase:          PropTypes.string,
     onChange:            PropTypes.func,
@@ -28,12 +34,6 @@ export default class NumericRangeInput extends React.Component {
     convertFromValue(v) { return v; },
     onChange() {},
   };
-
-  static moveCaretAtEnd(e) {
-    const tempValue = e.target.value;
-    e.target.value = '';
-    e.target.value = tempValue;
-  }
 
   constructor(props) {
     super(props);

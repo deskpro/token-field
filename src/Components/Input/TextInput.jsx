@@ -11,7 +11,7 @@ export default class TextInput extends React.Component {
       type:  PropTypes.string,
       value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     }).isRequired,
-    label:               PropTypes.string,
+    label:               PropTypes.string.isRequired,
     className:           PropTypes.string,
     onChange:            PropTypes.func,
     selectPreviousToken: PropTypes.func.isRequired,

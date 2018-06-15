@@ -19,6 +19,7 @@ storiesOf('Inputs', module)
     <div>
       <NumericRangeInput
         token={numericRangeToken}
+        label="attach-size"
         unitPhrase="MB"
         className="test"
         convertToValue={convertToValue}
@@ -29,6 +30,7 @@ storiesOf('Inputs', module)
       />
       <NumericRangeInput
         token={numericRangeTokenEmpty}
+        label="attach-size"
         unitPhrase="MB"
         className="test"
         convertToValue={convertToValue}

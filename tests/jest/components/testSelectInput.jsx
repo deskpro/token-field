@@ -158,35 +158,35 @@ it('+++capturing Snapshot of SelectInput value', () => {
 });
 
 describe('testSelectInput', () => {
-  let wrapper;
+  // let wrapper;
   const map = {};
   const selectNextToken = jest.fn();
   const selectPreviousToken = jest.fn();
   const onChange = jest.fn();
 
-  const token = {
-    type:  'country',
-    value: 'GB'
-  };
+  // const token = {
+  //   type:  'country',
+  //   value: 'GB'
+  // };
 
   beforeEach(() => {
     document.addEventListener = jest.fn((event, cb) => {
       map[event] = cb;
     });
-    wrapper = mount(
-      <SelectInput
-        dataSource={{ getOptions: options }}
-        token={token}
-        className="test"
-        renderHeader={() => <h4>Countries</h4>}
-        renderFooter={() => <span className="footer">Footer</span>}
-        renderItem={option => <span>{option.value} - {option.label}</span>}
-        selectPreviousToken={selectPreviousToken}
-        selectNextToken={selectNextToken}
-        onChange={onChange}
-        removeToken={noop}
-      />
-    );
+    // wrapper = mount(
+    //   <SelectInput
+    //     dataSource={{ getOptions: options }}
+    //     token={token}
+    //     className="test"
+    //     renderHeader={() => <h4>Countries</h4>}
+    //     renderFooter={() => <span className="footer">Footer</span>}
+    //     renderItem={option => <span>{option.value} - {option.label}</span>}
+    //     selectPreviousToken={selectPreviousToken}
+    //     selectNextToken={selectNextToken}
+    //     onChange={onChange}
+    //     removeToken={noop}
+    //   />
+    // );
   });
 
   // it('should show the option list when clicked', () => {
@@ -275,7 +275,7 @@ describe('testSelectInput', () => {
   });
 });
 
-let showSearch = true;
+const showSearch = true;
 describe('testSelectInput test render of input', () => {
   let wrapper;
   const selectNextToken = jest.fn();

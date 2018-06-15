@@ -13,7 +13,7 @@ export default class DateTimeInput extends React.Component {
       type:  PropTypes.string,
       value: PropTypes.object,
     }).isRequired,
-    label:               PropTypes.string,
+    label:               PropTypes.string.isRequired,
     locale:              PropTypes.string,
     showSwitcher:        PropTypes.bool,
     defaultInput:        PropTypes.oneOf(['date', 'time']),

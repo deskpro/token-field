@@ -17,6 +17,7 @@ storiesOf('Inputs', module)
     <div>
       <TextInput
         token={textToken}
+        label="user-message"
         selectPreviousToken={action('SelectPreviousToken')}
         selectNextToken={action('selectNextToken')}
         removeToken={action('removeToken')}
@@ -24,6 +25,7 @@ storiesOf('Inputs', module)
       />
       <TextInput
         token={textTokenEmpty}
+        label="person-email"
         selectPreviousToken={action('SelectPreviousToken')}
         selectNextToken={action('selectNextToken')}
         removeToken={action('removeToken')}

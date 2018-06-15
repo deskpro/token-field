@@ -12,7 +12,7 @@ export default class DurationInput extends React.Component {
       type:  PropTypes.string,
       value: PropTypes.object
     }).isRequired,
-    label:               PropTypes.string,
+    label:               PropTypes.string.isRequired,
     locale:              PropTypes.string,
     className:           PropTypes.string,
     translations:        PropTypes.object,
@@ -38,17 +38,6 @@ export default class DurationInput extends React.Component {
     },
   };
 
-  static getEmptyTimeObject() {
-    return {
-      minutes: '',
-      hours:   '',
-      days:    '',
-      weeks:   '',
-      months:  '',
-      years:   '',
-    };
-  }
-
   constructor(props) {
     super(props);
     const value = props.token.value ? props.token.value : { time: null };
@@ -72,6 +61,17 @@ export default class DurationInput extends React.Component {
     window.document.removeEventListener('keydown', this.handleKeyDown);
     this.props.onChange(this.state.value);
   };
+
+  static getEmptyTimeObject() {
+    return {
+      minutes: '',
+      hours:   '',
+      days:    '',
+      weeks:   '',
+      months:  '',
+      years:   '',
+    };
+  }
 
   getTimePresets() {
     moment.locale(this.props.locale);

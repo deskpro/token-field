@@ -70,12 +70,17 @@ const selectTokenHierarchy = {
   value: [20, 21],
 };
 
+const fakeAPI = (filter, delay, value) => new Promise(((resolve) => {
+  setTimeout(resolve, delay, value.filter(o => o.title === filter || filter === ''));
+}));
+
 storiesOf('Inputs', module)
   .add('SelectInput', () => (
     <div>
       <SelectInput
         dataSource={{ getOptions: options }}
         token={selectToken}
+        label="country"
         className="test"
         selectPreviousToken={action('SelectPreviousToken')}
         selectNextToken={action('selectNextToken')}
@@ -85,6 +90,7 @@ storiesOf('Inputs', module)
       <SelectInput
         dataSource={{ getOptions: options }}
         token={selectTokenEmpty}
+        label="country"
         selectPreviousToken={action('SelectPreviousToken')}
         selectNextToken={action('selectNextToken')}
         removeToken={action('removeToken')}
@@ -92,8 +98,9 @@ storiesOf('Inputs', module)
         className="test"
       />
       <SelectInput
-        dataSource={{ getOptions: optionsWithIcon }}
+        dataSource={{ getOptions: () => fakeAPI('', 500, optionsWithIcon), findOptions: filter => fakeAPI(filter, 500, optionsWithIcon) }}
         token={selectTokenIcon}
+        label="temperature"
         selectPreviousToken={action('SelectPreviousToken')}
         selectNextToken={action('selectNextToken')}
         removeToken={action('removeToken')}
@@ -102,6 +109,7 @@ storiesOf('Inputs', module)
       <SelectInput
         dataSource={{ getOptions: optionsWithHierarchy }}
         token={selectTokenHierarchy}
+        label="operating-system"
         isMultiple
         selectPreviousToken={action('SelectPreviousToken')}
         selectNextToken={action('selectNextToken')}

@@ -1,5 +1,5 @@
 import React from 'react';
-import Enzyme, { mount } from 'enzyme';
+import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import renderer from 'react-test-renderer';
 import { DurationInput } from 'Components/index';
@@ -90,34 +90,34 @@ it('+++capturing Snapshot of DurationInput with range value', () => {
   expect(renderedValue).toMatchSnapshot();
 });
 describe('testDurationInput', () => {
-  let wrapper;
+  // let wrapper;
   const selectNextToken = jest.fn();
   const selectPreviousToken = jest.fn();
-  const onChange = jest.fn();
+  // const onChange = jest.fn();
 
-  const token = {
-    type:  'user-waiting',
-    value: {
-      inputType: 'relative',
-      time:      {
-        hours: 1,
-      },
-      op: '=',
-    }
-  };
+  // const token = {
+  //   type:  'user-waiting',
+  //   value: {
+  //     inputType: 'relative',
+  //     time:      {
+  //       hours: 1,
+  //     },
+  //     op: '=',
+  //   }
+  // };
 
-  beforeEach(() => {
-    wrapper = mount(
-      <DurationInput
-        token={token}
-        className="test"
-        selectPreviousToken={selectPreviousToken}
-        selectNextToken={selectNextToken}
-        onChange={onChange}
-        removeToken={noop}
-      />
-    );
-  });
+  // beforeEach(() => {
+  //   wrapper = mount(
+  //     <DurationInput
+  //       token={token}
+  //       className="test"
+  //       selectPreviousToken={selectPreviousToken}
+  //       selectNextToken={selectNextToken}
+  //       onChange={onChange}
+  //       removeToken={noop}
+  //     />
+  //   );
+  // });
 
   // it('should display an input when clicked', () => {
   //   const value = wrapper.find('span').first();

@@ -37,12 +37,14 @@ storiesOf('Inputs', module)
     <div>
       <DateTimeInput
         token={dateTimeToken}
+        label="date"
         selectPreviousToken={action('SelectPreviousToken')}
         selectNextToken={action('selectNextToken')}
         removeToken={action('removeToken')}
       />
       <DateTimeInput
         token={dateTimeTokenEmpty}
+        label="user-waiting"
         locale="it"
         selectPreviousToken={action('SelectPreviousToken')}
         selectNextToken={action('selectNextToken')}
@@ -50,12 +52,14 @@ storiesOf('Inputs', module)
       />
       <DateTimeInput
         token={dateTimeTokenAbsolute}
+        label="date"
         selectPreviousToken={action('SelectPreviousToken')}
         selectNextToken={action('selectNextToken')}
         removeToken={action('removeToken')}
       />
       <DateTimeInput
         token={dateTimeTokenRange}
+        label="date"
         selectPreviousToken={action('SelectPreviousToken')}
         selectNextToken={action('selectNextToken')}
         removeToken={action('removeToken')}

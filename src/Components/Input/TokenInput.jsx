@@ -7,7 +7,6 @@ import ClickOutsideInput from './ClickOutsideInput';
 
 export default class TokenInput extends React.Component {
   static propTypes = {
-    type:        PropTypes.string.isRequired,
     label:       PropTypes.string.isRequired,
     renderInput: PropTypes.func.isRequired,
     renderValue: PropTypes.func.isRequired,
@@ -19,7 +18,7 @@ export default class TokenInput extends React.Component {
   };
   static defaultProps = {
     className: '',
-    detached: false,
+    detached:  false,
     onFocus() {},
     onBlur() {},
   };
@@ -64,55 +63,62 @@ export default class TokenInput extends React.Component {
   };
 
   renderDetached = () => {
-    const { type, label, renderValue, renderInput } = this.props;
+    const { label, renderValue, renderInput } = this.props;
     const { editMode } = this.state;
     return (
       <div>
         { editMode ?
-            <Tether
-              style={{ zIndex: 100 }}
-              attachment="top left"
-              targetAttachment="top right"
-            >
-              <div className={classNames(styles.label, 'dp-code', 'label', 'edit')}>
-                {label}:
-              </div>
-              <ClickOutsideInput onClickOutside={this.clickOutside}>
-                {renderInput()}
-              </ClickOutsideInput>
-            </Tether>
-            :
-            <div className={classNames(styles.label, 'dp-code', 'label')}>
+          <Tether
+            style={{ zIndex: 100 }}
+            attachment="top left"
+            targetAttachment="top right"
+          >
+            <div className={classNames(styles.label, 'dp-code', 'label', 'edit')}>
               {label}:
             </div>
+            <ClickOutsideInput onClickOutside={this.clickOutside}>
+              {renderInput()}
+            </ClickOutsideInput>
+          </Tether>
+          :
+          <div className={classNames(styles.label, 'dp-code', 'label')}>
+            {label}:
+          </div>
         }
         <span className={classNames(styles.value, 'value')} onClick={this.enableEditMode}>
-            {renderValue()}
+          {renderValue()}
         </span>
       </div>
-    )
+    );
+  };
+
+  renderRegular = () => {
+    const { label, renderValue, renderInput } = this.props;
+    const { editMode } = this.state;
+    return (
+      <div>
+        <div className={classNames(styles.label, 'dp-code', 'label')}>
+          {label}:
+        </div>
+        { editMode ?
+          <ClickOutsideInput onClickOutside={this.clickOutside}>
+            {renderInput()}
+          </ClickOutsideInput>
+          : <span className={classNames(styles.value, 'value')} onClick={this.enableEditMode}>
+            {renderValue()}
+          </span>
+        }
+      </div>
+    );
   };
 
   render() {
-    const { type, label, renderValue, renderInput, className, detached } = this.props;
+    const { className, detached } = this.props;
     const { editMode } = this.state;
     return (
       <div className={this.cx('token', { active: editMode }, className)}>
         {
-          detached ? this.renderDetached() :
-          <div>
-            <div className={classNames(styles.label, 'dp-code', 'label')}>
-              {label}:
-            </div>
-            { editMode ?
-              <ClickOutsideInput onClickOutside={this.clickOutside}>
-                {renderInput()}
-              </ClickOutsideInput>
-              : <span className={classNames(styles.value, 'value')} onClick={this.enableEditMode}>
-                {renderValue()}
-              </span>
-            }
-          </div>
+          detached ? this.renderDetached() : this.renderRegular()
         }
         <div className={this.cx('token-remove', 'remove')} onClick={this.props.removeToken}>X</div>
       </div>

@@ -14,9 +14,7 @@ exports[`+++capturing Snapshot of SelectInput 1`] = `
       className="value"
       onClick={[Function]}
     >
-      <span>
-        United Kingdom
-      </span>
+      ________
     </span>
   </div>
   <div
@@ -42,9 +40,7 @@ exports[`+++capturing Snapshot of SelectInput simple 1`] = `
       className="value"
       onClick={[Function]}
     >
-      <span>
-        3
-      </span>
+      ________
     </span>
   </div>
   <div
@@ -70,9 +66,7 @@ exports[`+++capturing Snapshot of SelectInput value 1`] = `
       className="value"
       onClick={[Function]}
     >
-      <span>
-        3
-      </span>
+      ________
     </span>
   </div>
   <div
@@ -98,9 +92,7 @@ exports[`+++capturing Snapshot of SelectInput value 2`] = `
       className="value"
       onClick={[Function]}
     >
-      <span>
-        large
-      </span>
+      ________
     </span>
   </div>
   <div
@@ -126,15 +118,7 @@ exports[`+++capturing Snapshot of SelectInput with icon 1`] = `
       className="value"
       onClick={[Function]}
     >
-      <span>
-        <i
-          className="fa fa-thermometer-three-quarters dp-icon dp-icon--s"
-        />
-        <span>
-           
-        </span>
-        Warm
-      </span>
+      ________
     </span>
   </div>
   <div
