@@ -8,6 +8,7 @@ import ClickOutsideInput from './ClickOutsideInput';
 export default class TokenInput extends React.Component {
   static propTypes = {
     type:        PropTypes.string.isRequired,
+    label:       PropTypes.string.isRequired,
     renderInput: PropTypes.func.isRequired,
     renderValue: PropTypes.func.isRequired,
     className:   PropTypes.string,
@@ -63,7 +64,7 @@ export default class TokenInput extends React.Component {
   };
 
   renderDetached = () => {
-    const { type, renderValue, renderInput } = this.props;
+    const { type, label, renderValue, renderInput } = this.props;
     const { editMode } = this.state;
     return (
       <div>
@@ -74,7 +75,7 @@ export default class TokenInput extends React.Component {
               targetAttachment="top right"
             >
               <div className={classNames(styles.label, 'dp-code', 'label', 'edit')}>
-                {type}:
+                {label}:
               </div>
               <ClickOutsideInput onClickOutside={this.clickOutside}>
                 {renderInput()}
@@ -82,7 +83,7 @@ export default class TokenInput extends React.Component {
             </Tether>
             :
             <div className={classNames(styles.label, 'dp-code', 'label')}>
-              {type}:
+              {label}:
             </div>
         }
         <span className={classNames(styles.value, 'value')} onClick={this.enableEditMode}>
@@ -93,7 +94,7 @@ export default class TokenInput extends React.Component {
   };
 
   render() {
-    const { type, renderValue, renderInput, className, detached } = this.props;
+    const { type, label, renderValue, renderInput, className, detached } = this.props;
     const { editMode } = this.state;
     return (
       <div className={this.cx('token', { active: editMode }, className)}>
@@ -101,7 +102,7 @@ export default class TokenInput extends React.Component {
           detached ? this.renderDetached() :
           <div>
             <div className={classNames(styles.label, 'dp-code', 'label')}>
-              {type}:
+              {label}:
             </div>
             { editMode ?
               <ClickOutsideInput onClickOutside={this.clickOutside}>

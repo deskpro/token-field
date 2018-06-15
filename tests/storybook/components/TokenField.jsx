@@ -38,6 +38,7 @@ const countries = [
 const tokenTypes = [
   {
     id:          'date',
+    label:       'ticket-date',
     widget:      'DateTimeInput',
     props:       {},
     description: 'Date the ticket was submitted'

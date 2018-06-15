@@ -96,8 +96,12 @@ export default class TokenFieldInput extends React.Component {
     let keyword = '';
     if (match) {
       keyword = match[1];
-      tokens = this.props.tokenTypes.filter(token =>
-        token.id.match(keyword)
+      tokens = this.props.tokenTypes.filter(token => {
+        if (token.label) {
+          return token.label.match(keyword);
+        }
+        return token.id.match(keyword);
+      }
       );
     }
     if (tokens.length) {
@@ -230,6 +234,7 @@ export default class TokenFieldInput extends React.Component {
             <List className="dp-selectable-list">
               {this.state.tokens.map((token) => {
                 const selected = (token === this.state.selectedToken) ? styles.selected : '';
+                const label = token.label ? token.label : token.id;
                 return (
                   <ListElement
                     key={token.id}
@@ -239,7 +244,7 @@ export default class TokenFieldInput extends React.Component {
                     <Highlighter
                       highlightClassName={styles.highlight}
                       searchWords={[keyword]}
-                      textToHighlight={token.id}
+                      textToHighlight={label}
                     />:&nbsp;
                     <span className={styles.description}>{token.description}</span>
                   </ListElement>

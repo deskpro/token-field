@@ -11,6 +11,7 @@ export default class SelectInput extends React.Component {
       type:  PropTypes.string,
       value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
     }).isRequired,
+    label:      PropTypes.string,
     dataSource: PropTypes.shape({
       getOptions:  PropTypes.oneOfType([PropTypes.func, PropTypes.array]),
       findOptions: PropTypes.func,
@@ -87,7 +88,7 @@ export default class SelectInput extends React.Component {
   }
 
   onFocus = () => {
-    if (this.props.showSearch) {
+    if (this.props.showSearch && this.searchInput) {
       this.searchInput.focus();
     }
     window.document.addEventListener('keydown', this.handleKeyDown);
@@ -313,12 +314,13 @@ export default class SelectInput extends React.Component {
   };
 
   render() {
-    const { token, className, removeToken } = this.props;
+    const { token, label, className, removeToken } = this.props;
     return (
       <TokenInput
         ref={(c) => { this.tokenInput = c; }}
         className={className}
         type={token.type}
+        label={label}
         renderInput={this.renderInput}
         renderValue={this.renderValue}
         onFocus={this.onFocus}

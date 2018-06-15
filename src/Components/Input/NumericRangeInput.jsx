@@ -11,6 +11,7 @@ export default class NumericRangeInput extends React.Component {
       type:  PropTypes.string,
       value: PropTypes.array,
     }).isRequired,
+    label:               PropTypes.string,
     className:           PropTypes.string,
     unitPhrase:          PropTypes.string,
     onChange:            PropTypes.func,
@@ -155,12 +156,13 @@ export default class NumericRangeInput extends React.Component {
   };
 
   render() {
-    const { token, className, removeToken } = this.props;
+    const { token, label, className, removeToken } = this.props;
     return (
       <TokenInput
         ref={(c) => { this.tokenInput = c; }}
         className={className}
         type={token.type}
+        label={label}
         renderInput={this.getInput}
         renderValue={this.getValue}
         onFocus={this.focusInput}

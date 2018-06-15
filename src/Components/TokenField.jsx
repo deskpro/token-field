@@ -143,10 +143,12 @@ export default class TokenField extends React.Component {
         const input = tokenTypes.find(type => type.id === token.type);
         if (input) {
           const Component = inputs[input.widget];
+          const label = input.label ? input.label : input.id;
           elements.push(
             <Component
               key={key}
               token={token}
+              label={label}
               ref={(c) => { this.inputs[index] = c; }}
               onChange={v => this.handleTokenChange(index, v)}
               removeToken={() => this.removeToken(index)}

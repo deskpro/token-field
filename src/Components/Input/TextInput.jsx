@@ -11,6 +11,7 @@ export default class TextInput extends React.Component {
       type:  PropTypes.string,
       value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     }).isRequired,
+    label:               PropTypes.string,
     className:           PropTypes.string,
     onChange:            PropTypes.func,
     selectPreviousToken: PropTypes.func.isRequired,
@@ -108,12 +109,13 @@ export default class TextInput extends React.Component {
   };
 
   render() {
-    const { token, className, removeToken } = this.props;
+    const { token, label, className, removeToken } = this.props;
     return (
       <TokenInput
         ref={(c) => { this.tokenInput = c; }}
         className={className}
         type={token.type}
+        label={label}
         renderInput={this.getInput}
         renderValue={this.getValue}
         onFocus={this.focusInput}
