@@ -1,3 +1,7 @@
+## 0.2.9 - 2018-06-15
+
+* Fix styling
+
 ## 0.2.8 - 2018-06-14
 
 * Prevent keydown propagation when navigate in menus
