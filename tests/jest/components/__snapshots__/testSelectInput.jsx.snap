@@ -8,7 +8,6 @@ exports[`+++capturing Snapshot of SelectInput 1`] = `
     <div
       className="dp-code label"
     >
-      country
       :
     </div>
     <span
@@ -37,7 +36,6 @@ exports[`+++capturing Snapshot of SelectInput simple 1`] = `
     <div
       className="dp-code label"
     >
-      level
       :
     </div>
     <span
@@ -66,7 +64,6 @@ exports[`+++capturing Snapshot of SelectInput value 1`] = `
     <div
       className="dp-code label"
     >
-      level
       :
     </div>
     <span
@@ -95,7 +92,6 @@ exports[`+++capturing Snapshot of SelectInput value 2`] = `
     <div
       className="dp-code label"
     >
-      size
       :
     </div>
     <span
@@ -124,7 +120,6 @@ exports[`+++capturing Snapshot of SelectInput with icon 1`] = `
     <div
       className="dp-code label"
     >
-      temperature
       :
     </div>
     <span

@@ -1,3 +1,7 @@
+## 0.3.0 - 2018-06-15
+
+* Allow label in TokenTypes
+
 ## 0.2.9 - 2018-06-15
 
 * Fix styling

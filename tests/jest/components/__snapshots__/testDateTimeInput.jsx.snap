@@ -8,7 +8,6 @@ exports[`+++capturing Snapshot of DateTimeInput 1`] = `
     <div
       className="dp-code label"
     >
-      user-message
       :
     </div>
     <span
@@ -35,7 +34,6 @@ exports[`+++capturing Snapshot of DateTimeInput with absolute and empty value 1`
     <div
       className="dp-code label"
     >
-      user-message
       :
     </div>
     <span
@@ -62,7 +60,6 @@ exports[`+++capturing Snapshot of DateTimeInput with absolute value 1`] = `
     <div
       className="dp-code label"
     >
-      date
       :
     </div>
     <span
@@ -89,7 +86,6 @@ exports[`+++capturing Snapshot of DateTimeInput with empty preset 1`] = `
     <div
       className="dp-code label"
     >
-      user-message
       :
     </div>
     <span
@@ -116,7 +112,6 @@ exports[`+++capturing Snapshot of DateTimeInput with empty value 1`] = `
     <div
       className="dp-code label"
     >
-      user-message
       :
     </div>
     <span
@@ -143,7 +138,6 @@ exports[`+++capturing Snapshot of DateTimeInput with null value 1`] = `
     <div
       className="dp-code label"
     >
-      user-message
       :
     </div>
     <span
@@ -170,7 +164,6 @@ exports[`+++capturing Snapshot of DateTimeInput with range 1`] = `
     <div
       className="dp-code label"
     >
-      user-message
       :
     </div>
     <span
@@ -197,7 +190,6 @@ exports[`+++capturing Snapshot of DateTimeInput with range and empty value 1`] =
     <div
       className="dp-code label"
     >
-      user-message
       :
     </div>
     <span
@@ -224,7 +216,6 @@ exports[`+++capturing Snapshot of DateTimeInput with time preset 1`] = `
     <div
       className="dp-code label"
     >
-      user-message
       :
     </div>
     <span

@@ -8,7 +8,6 @@ exports[`+++capturing Snapshot of NumericRangeInput 1`] = `
     <div
       className="dp-code label"
     >
-      user-message
       :
     </div>
     <span
@@ -35,7 +34,6 @@ exports[`+++capturing Snapshot of NumericRangeInput with custom convert 1`] = `
     <div
       className="dp-code label"
     >
-      user-message
       :
     </div>
     <span
@@ -62,7 +60,6 @@ exports[`+++capturing Snapshot of NumericRangeInput with empty value 1`] = `
     <div
       className="dp-code label"
     >
-      user-message
       :
     </div>
     <span

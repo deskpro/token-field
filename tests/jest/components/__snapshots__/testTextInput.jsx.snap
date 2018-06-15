@@ -8,7 +8,6 @@ exports[`+++capturing Snapshot of TextInput 1`] = `
     <div
       className="dp-code label"
     >
-      user-message
       :
     </div>
     <span
@@ -35,7 +34,6 @@ exports[`+++capturing Snapshot of TextInput with empty value 1`] = `
     <div
       className="dp-code label"
     >
-      user-message
       :
     </div>
     <span

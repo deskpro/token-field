@@ -8,7 +8,6 @@ exports[`+++capturing Snapshot of DurationInput 1`] = `
     <div
       className="dp-code label"
     >
-      user-waiting
       :
     </div>
     <span
@@ -35,7 +34,6 @@ exports[`+++capturing Snapshot of DurationInput with empty value 1`] = `
     <div
       className="dp-code label"
     >
-      user-waiting
       :
     </div>
     <span
@@ -62,7 +60,6 @@ exports[`+++capturing Snapshot of DurationInput with no value 1`] = `
     <div
       className="dp-code label"
     >
-      user-waiting
       :
     </div>
     <span
@@ -89,7 +86,6 @@ exports[`+++capturing Snapshot of DurationInput with range value 1`] = `
     <div
       className="dp-code label"
     >
-      date
       :
     </div>
     <span
