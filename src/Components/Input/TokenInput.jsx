@@ -69,6 +69,7 @@ export default class TokenInput extends React.Component {
       <div>
         { editMode ?
             <Tether
+              style={{ zIndex: 100 }}
               attachment="top left"
               targetAttachment="top right"
             >

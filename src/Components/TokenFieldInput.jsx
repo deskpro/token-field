@@ -257,7 +257,7 @@ export default class TokenFieldInput extends React.Component {
     const { value, popupOpen } = this.state;
     return (
       <Tether
-        style={{ display: 'inline-block' }}
+        style={{ display: 'inline-block', zIndex: 100 }}
         attachment="top left"
       >
         <AutosizeInput
