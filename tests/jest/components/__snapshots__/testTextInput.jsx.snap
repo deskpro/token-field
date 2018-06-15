@@ -4,18 +4,20 @@ exports[`+++capturing Snapshot of TextInput 1`] = `
 <div
   className="token test"
 >
-  <div
-    className="dp-code label"
-  >
-    user-message
-    :
+  <div>
+    <div
+      className="dp-code label"
+    >
+      user-message
+      :
+    </div>
+    <span
+      className="value"
+      onClick={[Function]}
+    >
+      help upgrading
+    </span>
   </div>
-  <span
-    className="value"
-    onClick={[Function]}
-  >
-    help upgrading
-  </span>
   <div
     className="token-remove remove"
     onClick={[Function]}
@@ -29,18 +31,20 @@ exports[`+++capturing Snapshot of TextInput with empty value 1`] = `
 <div
   className="token test"
 >
-  <div
-    className="dp-code label"
-  >
-    user-message
-    :
+  <div>
+    <div
+      className="dp-code label"
+    >
+      user-message
+      :
+    </div>
+    <span
+      className="value"
+      onClick={[Function]}
+    >
+      ________
+    </span>
   </div>
-  <span
-    className="value"
-    onClick={[Function]}
-  >
-    ________
-  </span>
   <div
     className="token-remove remove"
     onClick={[Function]}

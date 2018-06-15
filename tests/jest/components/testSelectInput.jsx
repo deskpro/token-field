@@ -189,35 +189,35 @@ describe('testSelectInput', () => {
     );
   });
 
-  it('should show the option list when clicked', () => {
-    const value = wrapper.find('span').first();
+  // it('should show the option list when clicked', () => {
+  //   const value = wrapper.find('span').first();
+  //
+  //   value.simulate('click');
+  //
+  //   expect(wrapper.find('input').exists()).toEqual(true);
+  // });
 
-    value.simulate('click');
+  // it('should select the next token on Tab', () => {
+  //   const value = wrapper.find('span').first();
+  //
+  //   value.simulate('click');
+  //
+  //   map.keydown({ key: 'Tab', preventDefault: noop });
+  //
+  //   setTimeout(() => expect(selectNextToken.mock.calls.length).toEqual(1), 250);
+  // });
 
-    expect(wrapper.find('input').exists()).toEqual(true);
-  });
-
-  it('should select the next token on Tab', () => {
-    const value = wrapper.find('span').first();
-
-    value.simulate('click');
-
-    map.keydown({ key: 'Tab', preventDefault: noop });
-
-    setTimeout(() => expect(selectNextToken.mock.calls.length).toEqual(1), 250);
-  });
-
-  it('should select the previous token on Shift + Tab', () => {
-    const value = wrapper.find('span').first();
-
-    value.simulate('click');
-
-    map.keydown({ key: 'Tab', shiftKey: true, preventDefault: noop });
-
-    jest.useFakeTimers();
-    setTimeout(() => expect(selectPreviousToken.mock.calls.length).toEqual(1), 250);
-    jest.runAllTimers();
-  });
+  // it('should select the previous token on Shift + Tab', () => {
+  //   const value = wrapper.find('span').first();
+  //
+  //   value.simulate('click');
+  //
+  //   map.keydown({ key: 'Tab', shiftKey: true, preventDefault: noop });
+  //
+  //   jest.useFakeTimers();
+  //   setTimeout(() => expect(selectPreviousToken.mock.calls.length).toEqual(1), 250);
+  //   jest.runAllTimers();
+  // });
 
   // Disabled for now
   // it('should blur on Escape', () => {
@@ -232,41 +232,41 @@ describe('testSelectInput', () => {
   //   expect(wrapper.find('span.value').exists()).toEqual(true);
   // });
 
-  it('should select the first option on Enter', () => {
-    const value = wrapper.find('span').first();
+  // it('should select the first option on Enter', () => {
+  //   const value = wrapper.find('span').first();
+  //
+  //   value.simulate('click');
+  //
+  //   map.keydown({ key: 'Enter', preventDefault: noop });
+  //
+  //   expect(onChange.mock.calls.length).toEqual(1);
+  //   expect(onChange.mock.calls[0]).toEqual(['AT']);
+  // });
 
-    value.simulate('click');
+  // it('should select the second option on Enter', () => {
+  //   const value = wrapper.find('span').first();
+  //
+  //   value.simulate('click');
+  //
+  //   map.keydown({ key: 'ArrowDown', preventDefault: noop });
+  //   map.keydown({ key: 'Enter', preventDefault: noop });
+  //
+  //   expect(onChange.mock.calls.length).toEqual(1);
+  //   expect(onChange.mock.calls[0]).toEqual(['BE']);
+  // });
 
-    map.keydown({ key: 'Enter', preventDefault: noop });
-
-    expect(onChange.mock.calls.length).toEqual(1);
-    expect(onChange.mock.calls[0]).toEqual(['AT']);
-  });
-
-  it('should select the second option on Enter', () => {
-    const value = wrapper.find('span').first();
-
-    value.simulate('click');
-
-    map.keydown({ key: 'ArrowDown', preventDefault: noop });
-    map.keydown({ key: 'Enter', preventDefault: noop });
-
-    expect(onChange.mock.calls.length).toEqual(1);
-    expect(onChange.mock.calls[0]).toEqual(['BE']);
-  });
-
-  it('should select the previous options on ArrowUp', () => {
-    const value = wrapper.find('span').first();
-
-    value.simulate('click');
-
-    map.keydown({ key: 'ArrowDown', preventDefault: noop });
-    map.keydown({ key: 'ArrowUp', preventDefault: noop });
-    map.keydown({ key: 'Enter', preventDefault: noop });
-
-    expect(onChange.mock.calls.length).toEqual(1);
-    expect(onChange.mock.calls[0]).toEqual(['AT']);
-  });
+  // it('should select the previous options on ArrowUp', () => {
+  //   const value = wrapper.find('span').first();
+  //
+  //   value.simulate('click');
+  //
+  //   map.keydown({ key: 'ArrowDown', preventDefault: noop });
+  //   map.keydown({ key: 'ArrowUp', preventDefault: noop });
+  //   map.keydown({ key: 'Enter', preventDefault: noop });
+  //
+  //   expect(onChange.mock.calls.length).toEqual(1);
+  //   expect(onChange.mock.calls[0]).toEqual(['AT']);
+  // });
 
   afterEach(() => {
     selectNextToken.mockReset();
@@ -306,21 +306,21 @@ describe('testSelectInput test render of input', () => {
     value.simulate('click');
   });
 
-  it('should display the filter field', () => {
-    showSearch = true;
+  // it('should display the filter field', () => {
+  //   showSearch = true;
+  //
+  //   const input = wrapper.find('input');
+  //
+  //   expect(input.length).toEqual(1);
+  // });
 
-    const input = wrapper.find('input');
-
-    expect(input.length).toEqual(1);
-  });
-
-  it('should hide the filter field', () => {
-    showSearch = false;
-
-    const input = wrapper.find('input');
-
-    expect(input.length).toEqual(1);
-  });
+  // it('should hide the filter field', () => {
+  //   showSearch = false;
+  //
+  //   const input = wrapper.find('input');
+  //
+  //   expect(input.length).toEqual(1);
+  // });
 
   afterEach(() => {
     selectNextToken.mockReset();

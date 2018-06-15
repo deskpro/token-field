@@ -40,7 +40,6 @@ export default class TokenFieldInput extends React.Component {
   }
 
   selectToken(token) {
-    console.log('selectToken');
     let value = '';
     const { tokenKey } = this.state;
     const match = this.state.value.match(/(.*) [-a-z:]{2,}$/);

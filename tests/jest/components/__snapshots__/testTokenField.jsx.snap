@@ -14,18 +14,20 @@ exports[`+++capturing Snapshot of TokenField 1`] = `
       <div
         className="token"
       >
-        <div
-          className="dp-code label"
-        >
-          date
-          :
+        <div>
+          <div
+            className="dp-code label"
+          >
+            date
+            :
+          </div>
+          <span
+            className="value"
+            onClick={[Function]}
+          >
+            Yesterday
+          </span>
         </div>
-        <span
-          className="value"
-          onClick={[Function]}
-        >
-          Yesterday
-        </span>
         <div
           className="token-remove remove"
           onClick={[Function]}
@@ -75,18 +77,20 @@ exports[`+++capturing Snapshot of TokenField 1`] = `
       <div
         className="token"
       >
-        <div
-          className="dp-code label"
-        >
-          user-message
-          :
+        <div>
+          <div
+            className="dp-code label"
+          >
+            user-message
+            :
+          </div>
+          <span
+            className="value"
+            onClick={[Function]}
+          >
+            help upgrading
+          </span>
         </div>
-        <span
-          className="value"
-          onClick={[Function]}
-        >
-          help upgrading
-        </span>
         <div
           className="token-remove remove"
           onClick={[Function]}

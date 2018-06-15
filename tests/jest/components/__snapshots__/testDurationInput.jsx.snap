@@ -4,18 +4,20 @@ exports[`+++capturing Snapshot of DurationInput 1`] = `
 <div
   className="token test-class"
 >
-  <div
-    className="dp-code label"
-  >
-    user-waiting
-    :
+  <div>
+    <div
+      className="dp-code label"
+    >
+      user-waiting
+      :
+    </div>
+    <span
+      className="value"
+      onClick={[Function]}
+    >
+      an hour
+    </span>
   </div>
-  <span
-    className="value"
-    onClick={[Function]}
-  >
-    an hour
-  </span>
   <div
     className="token-remove remove"
     onClick={[Function]}
@@ -29,18 +31,20 @@ exports[`+++capturing Snapshot of DurationInput with empty value 1`] = `
 <div
   className="token test-class"
 >
-  <div
-    className="dp-code label"
-  >
-    user-waiting
-    :
+  <div>
+    <div
+      className="dp-code label"
+    >
+      user-waiting
+      :
+    </div>
+    <span
+      className="value"
+      onClick={[Function]}
+    >
+      ________
+    </span>
   </div>
-  <span
-    className="value"
-    onClick={[Function]}
-  >
-    ________
-  </span>
   <div
     className="token-remove remove"
     onClick={[Function]}
@@ -54,18 +58,20 @@ exports[`+++capturing Snapshot of DurationInput with no value 1`] = `
 <div
   className="token test-class"
 >
-  <div
-    className="dp-code label"
-  >
-    user-waiting
-    :
+  <div>
+    <div
+      className="dp-code label"
+    >
+      user-waiting
+      :
+    </div>
+    <span
+      className="value"
+      onClick={[Function]}
+    >
+      ________
+    </span>
   </div>
-  <span
-    className="value"
-    onClick={[Function]}
-  >
-    ________
-  </span>
   <div
     className="token-remove remove"
     onClick={[Function]}
@@ -79,18 +85,20 @@ exports[`+++capturing Snapshot of DurationInput with range value 1`] = `
 <div
   className="token test-class"
 >
-  <div
-    className="dp-code label"
-  >
-    date
-    :
+  <div>
+    <div
+      className="dp-code label"
+    >
+      date
+      :
+    </div>
+    <span
+      className="value"
+      onClick={[Function]}
+    >
+      une heure à 2 jours
+    </span>
   </div>
-  <span
-    className="value"
-    onClick={[Function]}
-  >
-    une heure à 2 jours
-  </span>
   <div
     className="token-remove remove"
     onClick={[Function]}

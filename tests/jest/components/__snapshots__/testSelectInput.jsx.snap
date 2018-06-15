@@ -4,20 +4,22 @@ exports[`+++capturing Snapshot of SelectInput 1`] = `
 <div
   className="token test"
 >
-  <div
-    className="dp-code label"
-  >
-    country
-    :
-  </div>
-  <span
-    className="value"
-    onClick={[Function]}
-  >
-    <span>
-      United Kingdom
+  <div>
+    <div
+      className="dp-code label"
+    >
+      country
+      :
+    </div>
+    <span
+      className="value"
+      onClick={[Function]}
+    >
+      <span>
+        United Kingdom
+      </span>
     </span>
-  </span>
+  </div>
   <div
     className="token-remove remove"
     onClick={[Function]}
@@ -31,20 +33,22 @@ exports[`+++capturing Snapshot of SelectInput simple 1`] = `
 <div
   className="token test"
 >
-  <div
-    className="dp-code label"
-  >
-    level
-    :
-  </div>
-  <span
-    className="value"
-    onClick={[Function]}
-  >
-    <span>
-      3
+  <div>
+    <div
+      className="dp-code label"
+    >
+      level
+      :
+    </div>
+    <span
+      className="value"
+      onClick={[Function]}
+    >
+      <span>
+        3
+      </span>
     </span>
-  </span>
+  </div>
   <div
     className="token-remove remove"
     onClick={[Function]}
@@ -58,20 +62,22 @@ exports[`+++capturing Snapshot of SelectInput value 1`] = `
 <div
   className="token test"
 >
-  <div
-    className="dp-code label"
-  >
-    level
-    :
-  </div>
-  <span
-    className="value"
-    onClick={[Function]}
-  >
-    <span>
-      3
+  <div>
+    <div
+      className="dp-code label"
+    >
+      level
+      :
+    </div>
+    <span
+      className="value"
+      onClick={[Function]}
+    >
+      <span>
+        3
+      </span>
     </span>
-  </span>
+  </div>
   <div
     className="token-remove remove"
     onClick={[Function]}
@@ -85,20 +91,22 @@ exports[`+++capturing Snapshot of SelectInput value 2`] = `
 <div
   className="token test"
 >
-  <div
-    className="dp-code label"
-  >
-    size
-    :
-  </div>
-  <span
-    className="value"
-    onClick={[Function]}
-  >
-    <span>
-      large
+  <div>
+    <div
+      className="dp-code label"
+    >
+      size
+      :
+    </div>
+    <span
+      className="value"
+      onClick={[Function]}
+    >
+      <span>
+        large
+      </span>
     </span>
-  </span>
+  </div>
   <div
     className="token-remove remove"
     onClick={[Function]}
@@ -112,26 +120,28 @@ exports[`+++capturing Snapshot of SelectInput with icon 1`] = `
 <div
   className="token test"
 >
-  <div
-    className="dp-code label"
-  >
-    temperature
-    :
-  </div>
-  <span
-    className="value"
-    onClick={[Function]}
-  >
-    <span>
-      <i
-        className="fa fa-thermometer-three-quarters dp-icon dp-icon--s"
-      />
+  <div>
+    <div
+      className="dp-code label"
+    >
+      temperature
+      :
+    </div>
+    <span
+      className="value"
+      onClick={[Function]}
+    >
       <span>
-         
+        <i
+          className="fa fa-thermometer-three-quarters dp-icon dp-icon--s"
+        />
+        <span>
+           
+        </span>
+        Warm
       </span>
-      Warm
     </span>
-  </span>
+  </div>
   <div
     className="token-remove remove"
     onClick={[Function]}

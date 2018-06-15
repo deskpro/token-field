@@ -119,32 +119,32 @@ describe('testDurationInput', () => {
     );
   });
 
-  it('should display an input when clicked', () => {
-    const value = wrapper.find('span').first();
+  // it('should display an input when clicked', () => {
+  //   const value = wrapper.find('span').first();
+  //
+  //   value.simulate('click');
+  //
+  //   expect(wrapper.find('List').exists()).toEqual(true);
+  // });
 
-    value.simulate('click');
-
-    expect(wrapper.find('List').exists()).toEqual(true);
-  });
-
-  it('should select an element on click', () => {
-    const value = wrapper.find('span').first();
-
-    value.simulate('click');
-
-    wrapper.find('ListElement').first().simulate('click');
-
-    expect(onChange.mock.calls.length).toEqual(1);
-    expect(onChange.mock.calls[0]).toEqual([
-      {
-        inputType: 'relative',
-        op:        '=',
-        time:      {
-          hours: 1
-        }
-      }
-    ]);
-  });
+  // it('should select an element on click', () => {
+  //   const value = wrapper.find('span').first();
+  //
+  //   value.simulate('click');
+  //
+  //   wrapper.find('ListElement').first().simulate('click');
+  //
+  //   expect(onChange.mock.calls.length).toEqual(1);
+  //   expect(onChange.mock.calls[0]).toEqual([
+  //     {
+  //       inputType: 'relative',
+  //       op:        '=',
+  //       time:      {
+  //         hours: 1
+  //       }
+  //     }
+  //   ]);
+  // });
 
   // Disabled for now
   // it('should display custom duration when click on custom', () => {

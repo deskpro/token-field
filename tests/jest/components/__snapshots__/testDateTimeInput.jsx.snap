@@ -4,18 +4,20 @@ exports[`+++capturing Snapshot of DateTimeInput 1`] = `
 <div
   className="token test-class"
 >
-  <div
-    className="dp-code label"
-  >
-    user-message
-    :
+  <div>
+    <div
+      className="dp-code label"
+    >
+      user-message
+      :
+    </div>
+    <span
+      className="value"
+      onClick={[Function]}
+    >
+      Yesterday
+    </span>
   </div>
-  <span
-    className="value"
-    onClick={[Function]}
-  >
-    Yesterday
-  </span>
   <div
     className="token-remove remove"
     onClick={[Function]}
@@ -29,18 +31,20 @@ exports[`+++capturing Snapshot of DateTimeInput with absolute and empty value 1`
 <div
   className="token test-class"
 >
-  <div
-    className="dp-code label"
-  >
-    user-message
-    :
+  <div>
+    <div
+      className="dp-code label"
+    >
+      user-message
+      :
+    </div>
+    <span
+      className="value"
+      onClick={[Function]}
+    >
+      &gt; ______
+    </span>
   </div>
-  <span
-    className="value"
-    onClick={[Function]}
-  >
-    &gt; ______
-  </span>
   <div
     className="token-remove remove"
     onClick={[Function]}
@@ -54,18 +58,20 @@ exports[`+++capturing Snapshot of DateTimeInput with absolute value 1`] = `
 <div
   className="token test-class"
 >
-  <div
-    className="dp-code label"
-  >
-    date
-    :
+  <div>
+    <div
+      className="dp-code label"
+    >
+      date
+      :
+    </div>
+    <span
+      className="value"
+      onClick={[Function]}
+    >
+      &lt; 25/09/2017
+    </span>
   </div>
-  <span
-    className="value"
-    onClick={[Function]}
-  >
-    &lt; 25/09/2017
-  </span>
   <div
     className="token-remove remove"
     onClick={[Function]}
@@ -79,18 +85,20 @@ exports[`+++capturing Snapshot of DateTimeInput with empty preset 1`] = `
 <div
   className="token test-class"
 >
-  <div
-    className="dp-code label"
-  >
-    user-message
-    :
+  <div>
+    <div
+      className="dp-code label"
+    >
+      user-message
+      :
+    </div>
+    <span
+      className="value"
+      onClick={[Function]}
+    >
+      ________
+    </span>
   </div>
-  <span
-    className="value"
-    onClick={[Function]}
-  >
-    ________
-  </span>
   <div
     className="token-remove remove"
     onClick={[Function]}
@@ -104,18 +112,20 @@ exports[`+++capturing Snapshot of DateTimeInput with empty value 1`] = `
 <div
   className="token test-class"
 >
-  <div
-    className="dp-code label"
-  >
-    user-message
-    :
+  <div>
+    <div
+      className="dp-code label"
+    >
+      user-message
+      :
+    </div>
+    <span
+      className="value"
+      onClick={[Function]}
+    >
+      ________
+    </span>
   </div>
-  <span
-    className="value"
-    onClick={[Function]}
-  >
-    ________
-  </span>
   <div
     className="token-remove remove"
     onClick={[Function]}
@@ -129,18 +139,20 @@ exports[`+++capturing Snapshot of DateTimeInput with null value 1`] = `
 <div
   className="token test-class"
 >
-  <div
-    className="dp-code label"
-  >
-    user-message
-    :
+  <div>
+    <div
+      className="dp-code label"
+    >
+      user-message
+      :
+    </div>
+    <span
+      className="value"
+      onClick={[Function]}
+    >
+      ________
+    </span>
   </div>
-  <span
-    className="value"
-    onClick={[Function]}
-  >
-    ________
-  </span>
   <div
     className="token-remove remove"
     onClick={[Function]}
@@ -154,18 +166,20 @@ exports[`+++capturing Snapshot of DateTimeInput with range 1`] = `
 <div
   className="token test-class"
 >
-  <div
-    className="dp-code label"
-  >
-    user-message
-    :
+  <div>
+    <div
+      className="dp-code label"
+    >
+      user-message
+      :
+    </div>
+    <span
+      className="value"
+      onClick={[Function]}
+    >
+      25/09/2017 - 05/10/2017
+    </span>
   </div>
-  <span
-    className="value"
-    onClick={[Function]}
-  >
-    25/09/2017 - 05/10/2017
-  </span>
   <div
     className="token-remove remove"
     onClick={[Function]}
@@ -179,18 +193,20 @@ exports[`+++capturing Snapshot of DateTimeInput with range and empty value 1`] =
 <div
   className="token test-class"
 >
-  <div
-    className="dp-code label"
-  >
-    user-message
-    :
+  <div>
+    <div
+      className="dp-code label"
+    >
+      user-message
+      :
+    </div>
+    <span
+      className="value"
+      onClick={[Function]}
+    >
+      ______ - ______
+    </span>
   </div>
-  <span
-    className="value"
-    onClick={[Function]}
-  >
-    ______ - ______
-  </span>
   <div
     className="token-remove remove"
     onClick={[Function]}
@@ -204,18 +220,20 @@ exports[`+++capturing Snapshot of DateTimeInput with time preset 1`] = `
 <div
   className="token test-class"
 >
-  <div
-    className="dp-code label"
-  >
-    user-message
-    :
+  <div>
+    <div
+      className="dp-code label"
+    >
+      user-message
+      :
+    </div>
+    <span
+      className="value"
+      onClick={[Function]}
+    >
+      2 hours ago
+    </span>
   </div>
-  <span
-    className="value"
-    onClick={[Function]}
-  >
-    2 hours ago
-  </span>
   <div
     className="token-remove remove"
     onClick={[Function]}
