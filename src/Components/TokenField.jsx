@@ -18,10 +18,12 @@ export default class TokenField extends React.Component {
     })).isRequired,
     onChange: PropTypes.func,
     value:    PropTypes.array.isRequired,
+    zIndex:   PropTypes.number,
   };
 
   static defaultProps = {
     onChange() {},
+    zIndex: 100
   };
 
   constructor(props) {
@@ -60,6 +62,7 @@ export default class TokenField extends React.Component {
       selectPreviousToken={() => this.selectPreviousToken(key)}
       selectNextToken={() => this.selectNextToken(key)}
       removeToken={this.removeToken}
+      zIndex={this.props.zIndex}
     />
   );
 

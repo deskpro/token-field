@@ -17,10 +17,12 @@ export default class TokenFieldInput extends React.Component {
     selectNextToken:     PropTypes.func.isRequired,
     removeToken:         PropTypes.func.isRequired,
     value:               PropTypes.string.isRequired,
+    zIndex:              PropTypes.number,
   };
 
   static defaultProps = {
     onChange() {},
+    zIndex: 100
   };
 
   constructor(props) {
@@ -262,7 +264,7 @@ export default class TokenFieldInput extends React.Component {
     const { value, popupOpen } = this.state;
     return (
       <Tether
-        style={{ display: 'inline-block', zIndex: 100 }}
+        style={{ display: 'inline-block', zIndex: this.props.zIndex }}
         attachment="top left"
       >
         <AutosizeInput

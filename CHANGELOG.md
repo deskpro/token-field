@@ -1,3 +1,7 @@
+## 0.3.2 - 2018-06-18
+
+* Allow to pass custom zIndex for Tether
+
 ## 0.3.1 - 2018-06-15
 
 * Allow Promise as dataSource in SelectInput 
