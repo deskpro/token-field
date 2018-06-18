@@ -335,7 +335,7 @@ export default class SelectInput extends React.Component {
   };
 
   render() {
-    const { token, label, className, removeToken } = this.props;
+    const { token, label, className, removeToken, zIndex } = this.props;
     return (
       <TokenInput
         ref={(c) => { this.tokenInput = c; }}
@@ -347,6 +347,7 @@ export default class SelectInput extends React.Component {
         onFocus={this.onFocus}
         onBlur={this.onBlur}
         removeToken={removeToken}
+        zIndex={zIndex}
         detached
       />
     );

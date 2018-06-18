@@ -134,7 +134,7 @@ export default class TokenField extends React.Component {
   };
 
   renderInputs() {
-    const { tokenTypes } = this.props;
+    const { tokenTypes, zIndex } = this.props;
     const { value } = this.state;
     let key = 0;
     const elements = [];
@@ -157,6 +157,7 @@ export default class TokenField extends React.Component {
               removeToken={() => this.removeToken(index)}
               selectPreviousToken={() => this.selectPreviousToken(index)}
               selectNextToken={() => this.selectNextToken(index)}
+              zIndex={zIndex}
               {...input.props}
             />
           );

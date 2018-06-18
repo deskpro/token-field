@@ -395,7 +395,7 @@ export default class DateTimeInput extends React.Component {
   };
 
   render() {
-    const { token, label, className, removeToken } = this.props;
+    const { token, label, className, removeToken, zIndex } = this.props;
     return (
       <TokenInput
         ref={(c) => { this.tokenInput = c; }}
@@ -407,6 +407,7 @@ export default class DateTimeInput extends React.Component {
         renderInput={this.renderInput}
         renderValue={this.renderValue}
         removeToken={removeToken}
+        zIndex={zIndex}
         detached
       />
     );

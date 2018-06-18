@@ -1,3 +1,7 @@
+## 0.3.3 - 2018-06-18
+
+* Allow to pass custom zIndex for Tether in Inputs
+
 ## 0.3.2 - 2018-06-18
 
 * Allow to pass custom zIndex for Tether

@@ -15,12 +15,14 @@ export default class TokenInput extends React.Component {
     onBlur:      PropTypes.func,
     removeToken: PropTypes.func.isRequired,
     detached:    PropTypes.bool,
+    zIndex:      PropTypes.number,
   };
   static defaultProps = {
     className: '',
     detached:  false,
     onFocus() {},
     onBlur() {},
+    zIndex: 100
   };
 
   constructor(props) {
@@ -69,7 +71,7 @@ export default class TokenInput extends React.Component {
       <div>
         { editMode ?
           <Tether
-            style={{ zIndex: 100 }}
+            style={{ zIndex: this.props.zIndex }}
             attachment="top left"
             targetAttachment="top right"
           >
