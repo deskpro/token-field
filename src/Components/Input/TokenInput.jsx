@@ -22,7 +22,7 @@ export default class TokenInput extends React.Component {
     detached:  false,
     onFocus() {},
     onBlur() {},
-    zIndex: 100
+    zIndex:    100
   };
 
   constructor(props) {

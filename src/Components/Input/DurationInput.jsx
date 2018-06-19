@@ -20,6 +20,7 @@ export default class DurationInput extends React.Component {
     selectPreviousToken: PropTypes.func.isRequired,
     selectNextToken:     PropTypes.func.isRequired,
     removeToken:         PropTypes.func.isRequired,
+    zIndex:              PropTypes.number,
   };
   static defaultProps = {
     className:    '',
@@ -36,6 +37,7 @@ export default class DurationInput extends React.Component {
       years:   'Years',
       back:    'Back',
     },
+    zIndex: 100,
   };
 
   constructor(props) {

@@ -33,6 +33,7 @@ export default class SelectInput extends React.Component {
     showSearch:            PropTypes.bool,
     selectionsTranslation: PropTypes.string,
     removeToken:           PropTypes.func.isRequired,
+    zIndex:                PropTypes.number,
   };
 
   static defaultProps = {
@@ -43,7 +44,8 @@ export default class SelectInput extends React.Component {
     renderItem:            null,
     renderFooter:          null,
     showSearch:            true,
-    selectionsTranslation: 'selections'
+    selectionsTranslation: 'selections',
+    zIndex:                100
   };
 
   constructor(props) {
@@ -53,13 +55,14 @@ export default class SelectInput extends React.Component {
       value:          props.token.value,
       selectedOption: null,
       options:        [],
-      loading:        false,
+      loading:        true,
       filter:         '',
     };
 
     this.getOptions().then((result) => {
       this.setState({
-        options: result
+        options: result,
+        loading: false,
       });
     });
 
@@ -268,8 +271,14 @@ export default class SelectInput extends React.Component {
     return renderHeader;
   };
 
+  renderLoading = () => <ListElement className={styles.loading}><Icon name="spinner" size="large" spin /></ListElement>;
+
+
   renderOptions = () => {
-    const { value, selectedOption, options } = this.state;
+    const { value, selectedOption, options, loading } = this.state;
+    if (loading) {
+      return this.renderLoading();
+    }
     return (
       options.map((option) => {
         const key = option.id || option.value;
@@ -300,8 +309,11 @@ export default class SelectInput extends React.Component {
   };
 
   renderMultipleOptions() {
-    const { filter, value } = this.state;
+    const { filter, value, loading } = this.state;
     let options;
+    if (loading) {
+      return this.renderLoading();
+    }
     if (this.props.dataSource.getOptions instanceof Function) {
       options = this.props.dataSource.getOptions(filter);
     } else {

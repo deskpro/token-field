@@ -150,3 +150,10 @@
     white-space: nowrap;
     background-color: #FFF;
 }
+.loading {
+    text-align: center;
+}
+.loading :global(.dp-icon) {
+    position: static;
+    margin: 5px auto;
+}

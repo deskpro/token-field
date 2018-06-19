@@ -23,6 +23,7 @@ export default class DateTimeInput extends React.Component {
     selectPreviousToken: PropTypes.func.isRequired,
     selectNextToken:     PropTypes.func.isRequired,
     removeToken:         PropTypes.func.isRequired,
+    zIndex:              PropTypes.number,
   };
   static defaultProps = {
     showSwitcher: true,
@@ -47,6 +48,7 @@ export default class DateTimeInput extends React.Component {
       custom:    'custom',
     },
     onChange() {},
+    zIndex: 100,
   };
 
   constructor(props) {

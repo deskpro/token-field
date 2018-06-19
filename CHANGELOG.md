@@ -1,3 +1,7 @@
+## 0.3.4 - 2018-06-19
+
+* Add loader on Promise loading
+
 ## 0.3.3 - 2018-06-18
 
 * Allow to pass custom zIndex for Tether in Inputs
