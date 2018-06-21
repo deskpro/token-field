@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 import TokenField from 'Components/TokenField';
 import { Button } from '@deskpro/react-components';
 import styles from '../style.css';
@@ -178,6 +179,8 @@ class TokenFieldStory extends React.Component {
           tokenTypes={tokenTypes}
           value={value}
           onChange={this.handleChange}
+          onFocus={action('Focus')}
+          onBlur={action('Blur')}
           placeholder="Search ..."
           showTokensOnFocus={this.props.showTokensOnFocus}
         />

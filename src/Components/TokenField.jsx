@@ -23,6 +23,8 @@ export default class TokenField extends React.Component {
       description: PropTypes.string,
     })).isRequired,
     onChange:          PropTypes.func,
+    onFocus:           PropTypes.func,
+    onBlur:            PropTypes.func,
     value:             PropTypes.array.isRequired,
     zIndex:            PropTypes.number,
     showTokensOnFocus: PropTypes.bool,
@@ -30,6 +32,8 @@ export default class TokenField extends React.Component {
 
   static defaultProps = {
     onChange() {},
+    onFocus() {},
+    onBlur() {},
     zIndex:            100,
     showTokensOnFocus: false,
   };
@@ -37,7 +41,9 @@ export default class TokenField extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: props.value
+      value: props.value,
+      focused: false,
+      blurred: true,
     };
 
     this.inputs = [];
@@ -67,6 +73,8 @@ export default class TokenField extends React.Component {
       tokenTypes={this.props.tokenTypes}
       addToken={this.addTokenAndFocus}
       onChange={this.handleTokenChange}
+      onFocus={this.onFocus}
+      onBlur={this.onBlur}
       selectPreviousToken={() => this.selectPreviousToken(key)}
       selectNextToken={() => this.selectNextToken(key)}
       removeToken={this.removeToken}
@@ -74,6 +82,33 @@ export default class TokenField extends React.Component {
       showTokensOnFocus={this.props.showTokensOnFocus}
     />
   );
+
+  onFocus = () => {
+    console.log('focus');
+    if (this.state.blurred) {
+      this.props.onFocus();
+    }
+    this.setState({
+      focused: true
+    });
+  };
+
+  onBlur = () => {
+    console.log('blur');
+    this.setState({
+      focused: false
+    });
+    setTimeout(() => {
+      console.log('check_blur');
+      if (!this.state.focused) {
+        this.props.onBlur();
+      } else {
+        this.setState({
+          focused: true
+        });
+      }
+    }, 10);
+  };
 
   addInputAndFocus = (key) => {
     const { value } = this.state;
@@ -163,6 +198,8 @@ export default class TokenField extends React.Component {
               label={label}
               ref={(c) => { this.inputs[index] = c; }}
               onChange={v => this.handleTokenChange(index, v)}
+              onFocus={this.onFocus}
+              onBlur={this.onBlur}
               removeToken={() => this.removeToken(index)}
               selectPreviousToken={() => this.selectPreviousToken(index)}
               selectNextToken={() => this.selectNextToken(index)}

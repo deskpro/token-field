@@ -25,10 +25,12 @@ export default class DurationInput extends TokenInput {
   }
 
   onFocus = () => {
+    this.props.onFocus();
     window.document.addEventListener('keydown', this.handleKeyDown);
   };
 
   onBlur = () => {
+    this.props.onBlur();
     window.document.removeEventListener('keydown', this.handleKeyDown);
     this.props.onChange(this.state.value);
   };
