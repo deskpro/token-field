@@ -84,7 +84,6 @@ export default class TokenInput extends React.Component {
     } else {
       this.props.removeToken();
     }
-    console.log(this.state.value);
   };
 
   renderDetached = () => {

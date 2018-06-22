@@ -1,3 +1,9 @@
+## 0.4.0 - 2018-06-22
+
+* Double stage delete on tokens
+* Refactor inputs 
+* Allow to pass meta to avoid API call on load
+
 ## 0.3.4 - 2018-06-19
 
 * Add loader on Promise loading
