@@ -5,35 +5,12 @@ import { Input } from '@deskpro/react-components';
 import styles from '../../styles/style.css';
 import TokenInput from './TokenInput';
 
-export default class NumericRangeInput extends React.Component {
+export default class NumericRangeInput extends TokenInput {
   static moveCaretAtEnd(e) {
     const tempValue = e.target.value;
     e.target.value = '';
     e.target.value = tempValue;
   }
-
-  static propTypes = {
-    token: PropTypes.shape({
-      type:  PropTypes.string,
-      value: PropTypes.array,
-    }).isRequired,
-    label:               PropTypes.string.isRequired,
-    className:           PropTypes.string,
-    unitPhrase:          PropTypes.string,
-    onChange:            PropTypes.func,
-    convertToValue:      PropTypes.func,
-    convertFromValue:    PropTypes.func,
-    selectPreviousToken: PropTypes.func.isRequired,
-    selectNextToken:     PropTypes.func.isRequired,
-    removeToken:         PropTypes.func.isRequired,
-  };
-  static defaultProps = {
-    className:  '',
-    unitPhrase: '',
-    convertToValue(v) { return v; },
-    convertFromValue(v) { return v; },
-    onChange() {},
-  };
 
   constructor(props) {
     super(props);
@@ -51,7 +28,7 @@ export default class NumericRangeInput extends React.Component {
     };
   }
 
-  getInput = () => {
+  renderInput = () => {
     const { unitPhrase } = this.props;
     const { from, to } = this.state;
     const fromValue = (from) ? this.props.convertFromValue(from) : '';
@@ -84,7 +61,7 @@ export default class NumericRangeInput extends React.Component {
     );
   };
 
-  getValue = () => {
+  renderValue = () => {
     const { unitPhrase } = this.props;
     const { from, to } = this.state;
     let displayFrom;
@@ -130,7 +107,7 @@ export default class NumericRangeInput extends React.Component {
         this.setState({
           value: this.props.token.value
         });
-        this.tokenInput.disableEditMode();
+        this.disableEditMode();
         break;
       case 'Tab':
       case 'Enter':
@@ -139,13 +116,13 @@ export default class NumericRangeInput extends React.Component {
             this.inputTo.focus();
           } else {
             this.props.selectNextToken();
-            this.tokenInput.disableEditMode();
+            this.disableEditMode();
           }
         } else if (e.target.name === 'to') {
           this.inputFrom.focus();
         } else {
           this.props.selectPreviousToken();
-          this.tokenInput.disableEditMode();
+          this.disableEditMode();
         }
         break;
       default:
@@ -154,21 +131,18 @@ export default class NumericRangeInput extends React.Component {
     }
     e.preventDefault();
   };
-
-  render() {
-    const { token, label, className, removeToken } = this.props;
-    return (
-      <TokenInput
-        ref={(c) => { this.tokenInput = c; }}
-        className={className}
-        type={token.type}
-        label={label}
-        renderInput={this.getInput}
-        renderValue={this.getValue}
-        onFocus={this.focusInput}
-        onBlur={this.handleBlur}
-        removeToken={removeToken}
-      />
-    );
-  }
 }
+
+
+NumericRangeInput.propTypes = {
+  ...TokenInput.propTypes,
+  unitPhrase:       PropTypes.string,
+  convertToValue:   PropTypes.func,
+  convertFromValue: PropTypes.func,
+};
+NumericRangeInput.defaultProps = {
+  ...TokenInput.defaultProps,
+  unitPhrase: '',
+  convertToValue(v) { return v; },
+  convertFromValue(v) { return v; },
+};

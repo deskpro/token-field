@@ -5,32 +5,8 @@ import styles from '../../styles/style.css';
 import TokenInput from './TokenInput';
 
 
-export default class TextInput extends React.Component {
-  static propTypes = {
-    token: PropTypes.shape({
-      type:  PropTypes.string,
-      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    }).isRequired,
-    label:               PropTypes.string.isRequired,
-    className:           PropTypes.string,
-    onChange:            PropTypes.func,
-    selectPreviousToken: PropTypes.func.isRequired,
-    selectNextToken:     PropTypes.func.isRequired,
-    removeToken:         PropTypes.func.isRequired,
-  };
-  static defaultProps = {
-    className: '',
-    onChange() {},
-  };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: props.token.value,
-    };
-  }
-
-  getInput = () => {
+export default class TextInput extends TokenInput {
+  renderInput = () => {
     const { value } = this.state;
     return (
       <Input
@@ -45,7 +21,7 @@ export default class TextInput extends React.Component {
     );
   };
 
-  getValue = () => {
+  renderValue = () => {
     if (this.state.value) {
       return this.state.value;
     }
@@ -56,7 +32,7 @@ export default class TextInput extends React.Component {
     this.tokenInput.focus();
   };
 
-  focusInput = () => {
+  onFocus = () => {
     if (this.input) {
       this.input.focus();
     }
@@ -68,7 +44,7 @@ export default class TextInput extends React.Component {
     });
   };
 
-  handleBlur = () => {
+  onBlur = () => {
     this.props.onChange(this.state.value);
   };
 
@@ -78,7 +54,7 @@ export default class TextInput extends React.Component {
         this.setState({
           value: this.props.token.value
         }, () => {
-          this.tokenInput.disableEditMode();
+          this.disableEditMode();
         });
         break;
       case 'Tab':
@@ -87,11 +63,11 @@ export default class TextInput extends React.Component {
         } else {
           this.props.selectNextToken();
         }
-        this.tokenInput.disableEditMode();
+        this.disableEditMode();
         break;
       case 'Enter':
         this.props.selectNextToken();
-        this.tokenInput.disableEditMode();
+        this.disableEditMode();
         break;
       default:
         return true;
@@ -107,21 +83,12 @@ export default class TextInput extends React.Component {
       input.setSelectionRange(length, length);
     }
   };
-
-  render() {
-    const { token, label, className, removeToken } = this.props;
-    return (
-      <TokenInput
-        ref={(c) => { this.tokenInput = c; }}
-        className={className}
-        type={token.type}
-        label={label}
-        renderInput={this.getInput}
-        renderValue={this.getValue}
-        onFocus={this.focusInput}
-        onBlur={this.handleBlur}
-        removeToken={removeToken}
-      />
-    );
-  }
 }
+
+TextInput.propTypes = {
+  ...TokenInput.propTypes,
+  token: PropTypes.shape({
+    type:  PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  }).isRequired,
+};

@@ -6,45 +6,14 @@ import { Label, Input, List, ListElement } from '@deskpro/react-components';
 import styles from 'styles/style.css';
 import TokenInput from './TokenInput';
 
-export default class DurationInput extends React.Component {
-  static propTypes = {
-    token: PropTypes.shape({
-      type:  PropTypes.string,
-      value: PropTypes.object
-    }).isRequired,
-    label:               PropTypes.string.isRequired,
-    locale:              PropTypes.string,
-    className:           PropTypes.string,
-    translations:        PropTypes.object,
-    onChange:            PropTypes.func,
-    selectPreviousToken: PropTypes.func.isRequired,
-    selectNextToken:     PropTypes.func.isRequired,
-    removeToken:         PropTypes.func.isRequired,
-    zIndex:              PropTypes.number,
-  };
-  static defaultProps = {
-    className:    '',
-    onChange() {},
-    locale:       'en-gb',
-    translations: {
-      custom:  'custom',
-      to:      'to',
-      minutes: 'Minutes',
-      hours:   'Hours',
-      days:    'Days',
-      weeks:   'Weeks',
-      months:  'Months',
-      years:   'Years',
-      back:    'Back',
-    },
-    zIndex: 100,
-  };
-
+export default class DurationInput extends TokenInput {
   constructor(props) {
     super(props);
+    this.detached = true;
     const value = props.token.value ? props.token.value : { time: null };
     const presets = this.getTimePresets();
     this.state = {
+      ...this.state,
       value,
       selectedOption: presets[0],
       custom:         false,
@@ -186,7 +155,7 @@ export default class DurationInput extends React.Component {
     this.setState({
       value,
     }, () => {
-      this.tokenInput.disableEditMode();
+      this.disableEditMode();
     });
   }
 
@@ -232,7 +201,7 @@ export default class DurationInput extends React.Component {
         this.setState({
           value,
         });
-        this.tokenInput.disableEditMode();
+        this.disableEditMode();
         break;
       }
       case 'Tab':
@@ -242,7 +211,7 @@ export default class DurationInput extends React.Component {
           this.props.selectNextToken();
           this.handleChange(this.state.selectedOption.timeObject);
         }
-        this.tokenInput.disableEditMode();
+        this.disableEditMode();
         break;
       case ' ':
       case 'Enter':
@@ -304,23 +273,25 @@ export default class DurationInput extends React.Component {
     }
     return this.getDisplayFromTimeObject(this.state.value.time);
   };
-
-  render() {
-    const { token, label, className, removeToken, zIndex } = this.props;
-    return (
-      <TokenInput
-        ref={(c) => { this.tokenInput = c; }}
-        className={className}
-        type={token.type}
-        label={label}
-        onBlur={this.onBlur}
-        onFocus={this.onFocus}
-        renderInput={this.renderInput}
-        renderValue={this.renderValue}
-        removeToken={removeToken}
-        zIndex={zIndex}
-        detached
-      />
-    );
-  }
 }
+
+DurationInput.propTypes = {
+  ...TokenInput.propTypes,
+  locale:       PropTypes.string,
+  translations: PropTypes.object,
+};
+DurationInput.defaultProps = {
+  ...TokenInput.defaultProps,
+  locale:       'en-gb',
+  translations: {
+    custom:  'custom',
+    to:      'to',
+    minutes: 'Minutes',
+    hours:   'Hours',
+    days:    'Days',
+    weeks:   'Weeks',
+    months:  'Months',
+    years:   'Years',
+    back:    'Back',
+  },
+};

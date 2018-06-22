@@ -7,55 +7,13 @@ import styles from 'styles/style.css';
 import TokenInput from './TokenInput';
 
 
-export default class DateTimeInput extends React.Component {
-  static propTypes = {
-    token: PropTypes.shape({
-      type:  PropTypes.string,
-      value: PropTypes.object,
-    }).isRequired,
-    label:               PropTypes.string.isRequired,
-    locale:              PropTypes.string,
-    showSwitcher:        PropTypes.bool,
-    defaultInput:        PropTypes.oneOf(['date', 'time']),
-    className:           PropTypes.string,
-    translations:        PropTypes.object,
-    onChange:            PropTypes.func,
-    selectPreviousToken: PropTypes.func.isRequired,
-    selectNextToken:     PropTypes.func.isRequired,
-    removeToken:         PropTypes.func.isRequired,
-    zIndex:              PropTypes.number,
-  };
-  static defaultProps = {
-    showSwitcher: true,
-    defaultInput: 'date',
-    className:    '',
-    locale:       'en-gb',
-    translations: {
-      byDate:    'By date',
-      byTime:    'By time',
-      today:     'Today',
-      yesterday: 'Yesterday',
-      thisWeek:  'This week',
-      lastWeek:  'Last week',
-      thisMonth: 'This month',
-      lastMonth: 'Last month',
-      thisYear:  'This year',
-      lastYear:  'Last year',
-      is:        'is',
-      after:     '> after',
-      before:    '< before',
-      range:     'range',
-      custom:    'custom',
-    },
-    onChange() {},
-    zIndex: 100,
-  };
-
+export default class DateTimeInput extends TokenInput {
   constructor(props) {
     super(props);
+    this.detached = true;
     const presets = (props.defaultInput === 'date') ? this.getDatePresets() : this.getTimePresets();
     this.state = {
-      value:          props.token.value,
+      ...this.state,
       active:         props.defaultInput,
       selectedPreset: presets[0],
       op:             null,
@@ -183,7 +141,7 @@ export default class DateTimeInput extends React.Component {
       op:    null,
     });
     this.props.onChange(newValue);
-    this.tokenInput.disableEditMode();
+    this.disableEditMode();
   };
 
   handleOp = (op) => {
@@ -247,7 +205,7 @@ export default class DateTimeInput extends React.Component {
         this.setState({
           value,
         });
-        this.tokenInput.disableEditMode();
+        this.disableEditMode();
         break;
       }
       case 'Tab':
@@ -258,7 +216,7 @@ export default class DateTimeInput extends React.Component {
           this.props.selectNextToken();
           this.handleChange('preset', this.state.selectedPreset.key);
         }
-        this.tokenInput.disableEditMode();
+        this.disableEditMode();
         break;
       case 'Enter':
         e.preventDefault();
@@ -397,23 +355,35 @@ export default class DateTimeInput extends React.Component {
         return '________';
     }
   };
-
-  render() {
-    const { token, label, className, removeToken, zIndex } = this.props;
-    return (
-      <TokenInput
-        ref={(c) => { this.tokenInput = c; }}
-        className={className}
-        type={token.type}
-        label={label}
-        onBlur={this.onBlur}
-        onFocus={this.onFocus}
-        renderInput={this.renderInput}
-        renderValue={this.renderValue}
-        removeToken={removeToken}
-        zIndex={zIndex}
-        detached
-      />
-    );
-  }
 }
+
+DateTimeInput.propTypes = {
+  ...TokenInput.propTypes,
+  locale:       PropTypes.string,
+  showSwitcher: PropTypes.bool,
+  defaultInput: PropTypes.oneOf(['date', 'time']),
+  translations: PropTypes.object,
+};
+DateTimeInput.defaultProps = {
+  ...TokenInput.defaultProps,
+  showSwitcher: true,
+  defaultInput: 'date',
+  locale:       'en-gb',
+  translations: {
+    byDate:    'By date',
+    byTime:    'By time',
+    today:     'Today',
+    yesterday: 'Yesterday',
+    thisWeek:  'This week',
+    lastWeek:  'Last week',
+    thisMonth: 'This month',
+    lastMonth: 'Last month',
+    thisYear:  'This year',
+    lastYear:  'Last year',
+    is:        'is',
+    after:     '> after',
+    before:    '< before',
+    range:     'range',
+    custom:    'custom',
+  },
+};

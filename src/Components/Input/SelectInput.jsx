@@ -5,52 +5,10 @@ import { Checkbox, Input, Icon, List, ListElement, Scrollbar } from '@deskpro/re
 import styles from 'styles/style.css';
 import TokenInput from './TokenInput';
 
-export default class SelectInput extends React.Component {
-  static propTypes = {
-    token: PropTypes.shape({
-      type:  PropTypes.string,
-      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
-      meta:  PropTypes.array,
-    }).isRequired,
-    label:      PropTypes.string.isRequired,
-    dataSource: PropTypes.shape({
-      getOptions:  PropTypes.oneOfType([PropTypes.func, PropTypes.array]).isRequired,
-      findOptions: PropTypes.func,
-    }).isRequired,
-    isMultiple:          PropTypes.bool,
-    className:           PropTypes.string,
-    onChange:            PropTypes.func,
-    selectPreviousToken: PropTypes.func.isRequired,
-    selectNextToken:     PropTypes.func.isRequired,
-    renderHeader:        PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.node,
-    ]),
-    renderItem:   PropTypes.func,
-    renderFooter: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.node,
-    ]),
-    showSearch:            PropTypes.bool,
-    selectionsTranslation: PropTypes.string,
-    removeToken:           PropTypes.func.isRequired,
-    zIndex:                PropTypes.number,
-  };
-
-  static defaultProps = {
-    className:             '',
-    onChange() {},
-    isMultiple:            false,
-    renderHeader:          null,
-    renderItem:            null,
-    renderFooter:          null,
-    showSearch:            true,
-    selectionsTranslation: 'selections',
-    zIndex:                100
-  };
-
+export default class SelectInput extends TokenInput {
   constructor(props) {
     super(props);
+    this.detached = true;
 
     this.optionsLoaded = false;
 
@@ -62,7 +20,7 @@ export default class SelectInput extends React.Component {
     }
 
     this.state = {
-      value:          props.token.value,
+      ...this.state,
       selectedOption: null,
       options,
       loading,
@@ -70,7 +28,7 @@ export default class SelectInput extends React.Component {
     };
 
     if (!props.token.meta) {
-      this.loadOptions();
+      this.loadData();
     }
 
     this.cx = classNames.bind(styles);
@@ -124,7 +82,7 @@ export default class SelectInput extends React.Component {
     return null;
   }
 
-  loadOptions = () => {
+  loadData = () => {
     if (this.optionsLoaded) {
       return false;
     }
@@ -146,13 +104,18 @@ export default class SelectInput extends React.Component {
   };
 
   handleChange = (option) => {
-    const value = option.id || option.value;
+    let value;
+    if (option) {
+      value = option.id || option.value;
+    } else {
+      value = null;
+    }
     this.setState({
       value,
       filter: ''
     });
     this.props.onChange(value);
-    this.tokenInput.disableEditMode();
+    this.disableEditMode();
   };
 
   handleKeyDown = (e) => {
@@ -177,7 +140,7 @@ export default class SelectInput extends React.Component {
         this.setState({
           value: this.props.token.value
         });
-        this.tokenInput.disableEditMode();
+        this.disableEditMode();
         break;
       case 'Tab':
         if (e.shiftKey) {
@@ -186,7 +149,7 @@ export default class SelectInput extends React.Component {
           this.handleChange(this.state.selectedOption);
           this.props.selectNextToken();
         }
-        this.tokenInput.disableEditMode();
+        this.disableEditMode();
         break;
       case ' ':
       case 'Enter':
@@ -369,24 +332,39 @@ export default class SelectInput extends React.Component {
     }
     return renderFooter;
   };
-
-  render() {
-    const { token, label, className, removeToken, zIndex } = this.props;
-    return (
-      <TokenInput
-        ref={(c) => { this.tokenInput = c; }}
-        className={className}
-        type={token.type}
-        label={label}
-        renderInput={this.renderInput}
-        renderValue={this.renderValue}
-        onFocus={this.onFocus}
-        onBlur={this.onBlur}
-        loadData={this.loadOptions}
-        removeToken={removeToken}
-        zIndex={zIndex}
-        detached
-      />
-    );
-  }
 }
+
+SelectInput.propTypes = {
+  ...TokenInput.propTypes,
+  token: PropTypes.shape({
+    type:  PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
+    meta:  PropTypes.array,
+  }).isRequired,
+  dataSource: PropTypes.shape({
+    getOptions:  PropTypes.oneOfType([PropTypes.func, PropTypes.array]).isRequired,
+    findOptions: PropTypes.func,
+  }).isRequired,
+  isMultiple:   PropTypes.bool,
+  renderHeader: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.node,
+  ]),
+  renderItem:   PropTypes.func,
+  renderFooter: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.node,
+  ]),
+  showSearch:            PropTypes.bool,
+  selectionsTranslation: PropTypes.string,
+};
+
+SelectInput.defaultProps = {
+  ...TokenInput.defaultProps,
+  isMultiple:            false,
+  renderHeader:          null,
+  renderItem:            null,
+  renderFooter:          null,
+  showSearch:            true,
+  selectionsTranslation: 'selections',
+};
