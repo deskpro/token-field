@@ -13,6 +13,7 @@ export default class TokenInput extends React.Component {
     className:   PropTypes.string,
     onFocus:     PropTypes.func,
     onBlur:      PropTypes.func,
+    loadData:    PropTypes.func,
     removeToken: PropTypes.func.isRequired,
     detached:    PropTypes.bool,
     zIndex:      PropTypes.number,
@@ -22,6 +23,7 @@ export default class TokenInput extends React.Component {
     detached:  false,
     onFocus() {},
     onBlur() {},
+    loadData() {},
     zIndex:    100
   };
 
@@ -52,6 +54,7 @@ export default class TokenInput extends React.Component {
   enableEditMode = (end) => {
     this.hasToFocus = true;
     this.fromEnd = !!end;
+    this.props.loadData();
     this.setState({
       editMode: true
     });

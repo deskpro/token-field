@@ -10,6 +10,7 @@ export default class SelectInput extends React.Component {
     token: PropTypes.shape({
       type:  PropTypes.string,
       value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
+      meta:  PropTypes.array,
     }).isRequired,
     label:      PropTypes.string.isRequired,
     dataSource: PropTypes.shape({
@@ -51,20 +52,26 @@ export default class SelectInput extends React.Component {
   constructor(props) {
     super(props);
 
+    this.optionsLoaded = false;
+
+    let loading = true;
+    let options = [];
+    if (props.token.meta) {
+      options = props.token.meta;
+      loading = false;
+    }
+
     this.state = {
       value:          props.token.value,
       selectedOption: null,
-      options:        [],
-      loading:        true,
+      options,
+      loading,
       filter:         '',
     };
 
-    this.getOptions().then((result) => {
-      this.setState({
-        options: result,
-        loading: false,
-      });
-    });
+    if (!props.token.meta) {
+      this.loadOptions();
+    }
 
     this.cx = classNames.bind(styles);
   }
@@ -116,6 +123,23 @@ export default class SelectInput extends React.Component {
     }
     return null;
   }
+
+  loadOptions = () => {
+    if (this.optionsLoaded) {
+      return false;
+    }
+    this.optionsLoaded = true;
+    this.setState({
+      loading: true
+    });
+    this.getOptions().then((result) => {
+      this.setState({
+        options: result,
+        loading: false,
+      });
+    });
+    return true;
+  };
 
   focus = () => {
     this.tokenInput.focus();
@@ -358,6 +382,7 @@ export default class SelectInput extends React.Component {
         renderValue={this.renderValue}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
+        loadData={this.loadOptions}
         removeToken={removeToken}
         zIndex={zIndex}
         detached

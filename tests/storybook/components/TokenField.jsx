@@ -35,6 +35,10 @@ const countries = [
   { label: 'United Kingdom', value: 'GB' }
 ];
 
+const fakeAPI = (filter, delay, value) => new Promise(((resolve) => {
+  setTimeout(resolve, delay, value.filter(o => o.title === filter || filter === ''));
+}));
+
 const tokenTypes = [
   {
     id:          'date',
@@ -75,7 +79,7 @@ const tokenTypes = [
     widget: 'SelectInput',
     props:  {
       dataSource: {
-        getOptions: countries,
+        getOptions:  () => fakeAPI('', 3000, countries), findOptions: filter => fakeAPI(filter, 3000, countries)
       },
       renderHeader: <h3>Countries</h3>,
       showSearch:   false
@@ -99,7 +103,11 @@ const defaultValue = [
     value: 'pricing',
   },
   {
-    type: 'user-waiting'
+    type:  'country',
+    value: 'GB',
+    meta:  [
+      { label: 'United Kingdom', value: 'GB' }
+    ],
   }
 ];
 

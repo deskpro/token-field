@@ -65,7 +65,9 @@ export default class DateTimeInput extends React.Component {
   componentDidUpdate() {
     if (this.openDatePicker) {
       this.openDatePicker = false;
-      this.datePicker.focus();
+      if (this.datePicker) {
+        this.datePicker.focus();
+      }
     }
   }
 
