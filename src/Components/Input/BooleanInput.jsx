@@ -23,12 +23,10 @@ export default class BooleanInput extends TokenInput {
   }
 
   onFocus = () => {
-    this.props.onFocus();
     window.document.addEventListener('keydown', this.handleKeyDown);
   };
 
   onBlur = () => {
-    this.props.onBlur();
     window.document.removeEventListener('keydown', this.handleKeyDown);
   };
 

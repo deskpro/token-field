@@ -1,3 +1,7 @@
+## 0.4.3 - 2018-06-27
+
+* Fix focus in BooleanInput
+
 ## 0.4.2 - 2018-06-27
 
 * Fix BooleanInput
