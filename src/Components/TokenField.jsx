@@ -11,7 +11,14 @@ export default class TokenField extends React.Component {
     tokenTypes: PropTypes.arrayOf(PropTypes.shape({
       id:     PropTypes.string.isRequired,
       widget: PropTypes.oneOf(
-        ['TextInput', 'DateTimeInput', 'DurationInput', 'SelectInput', 'NumericRangeInput']
+        [
+          'BooleanInput',
+          'DateTimeInput',
+          'DurationInput',
+          'NumericRangeInput',
+          'SelectInput',
+          'TextInput',
+        ]
       ).isRequired,
       props:       PropTypes.object,
       description: PropTypes.string,

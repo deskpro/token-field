@@ -1,6 +1,10 @@
+## 0.4.2 - 2018-06-27
+
+* Fix BooleanInput
+
 ## 0.4.1 - 2018-06-27
 
-* Add Boolean input
+* Add BooleanInput
 
 ## 0.4.0 - 2018-06-22
 
