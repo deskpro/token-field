@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`+++capturing Snapshot of BooleanInput with empty value 1`] = `
+<div
+  className="token test"
+>
+  <div>
+    <div
+      className="dp-code label"
+    >
+      :
+    </div>
+    <span
+      className="value"
+      onClick={[Function]}
+    >
+      ________
+    </span>
+  </div>
+  <div
+    className="token-remove remove"
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;
+
+exports[`+++capturing Snapshot of BooleanInput with false set 1`] = `
+<div
+  className="token test"
+>
+  <div>
+    <div
+      className="dp-code label"
+    >
+      :
+    </div>
+    <span
+      className="value"
+      onClick={[Function]}
+    >
+      No
+    </span>
+  </div>
+  <div
+    className="token-remove remove"
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;
+
+exports[`+++capturing Snapshot of BooleanInput with true set 1`] = `
+<div
+  className="token test"
+>
+  <div>
+    <div
+      className="dp-code label"
+    >
+      :
+    </div>
+    <span
+      className="value"
+      onClick={[Function]}
+    >
+      Yes
+    </span>
+  </div>
+  <div
+    className="token-remove remove"
+    onClick={[Function]}
+  >
+    X
+  </div>
+</div>
+`;

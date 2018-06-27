@@ -1,3 +1,7 @@
+## 0.4.1 - 2018-06-27
+
+* Add Boolean input
+
 ## 0.4.0 - 2018-06-22
 
 * Double stage delete on tokens
