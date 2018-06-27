@@ -11,6 +11,7 @@
     "precommit": "lint-staged",
     "prepublish": "npm run compile",
     "storybook:dev": "start-storybook -p 9003 -c .storybook",
+    "build-storybook": "build-storybook -c .storybook -o .site",
     "storybook:deploy": "storybook-to-ghpages",
     "test": "node scripts/test.js --env=jsdom",
     "travis-test": "npm run test -- --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
