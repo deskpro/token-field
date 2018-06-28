@@ -4,6 +4,7 @@
 *.iws
 
 .cache/
+.site/
 .storybook/
 bin/
 coverage/
