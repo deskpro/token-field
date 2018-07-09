@@ -225,7 +225,7 @@ export default class SelectInput extends TokenInput {
 
   renderValue = () => {
     let value;
-    if (this.props.isMultiple) {
+    if (this.props.isMultiple && this.state.value) {
       if (this.state.value.length > 1) {
         return `${this.state.value.length} ${this.props.selectionsTranslation}`;
       }

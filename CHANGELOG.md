@@ -1,3 +1,7 @@
+## 0.4.5 - 2018-07-09
+
+* Fix SelectInput Multiple
+
 ## 0.4.4 - 2018-07-09
 
 * Fix focus
