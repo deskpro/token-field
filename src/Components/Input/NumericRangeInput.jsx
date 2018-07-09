@@ -80,7 +80,7 @@ export default class NumericRangeInput extends TokenInput {
   };
 
   focus = (end) => {
-    this.tokenInput.focus(end);
+    TokenInput.prototype.focus.call(end);
   };
 
   focusInput = (end) => {
@@ -136,6 +136,10 @@ export default class NumericRangeInput extends TokenInput {
 
 NumericRangeInput.propTypes = {
   ...TokenInput.propTypes,
+  token: PropTypes.shape({
+    type:  PropTypes.string,
+    value: PropTypes.array,
+  }).isRequired,
   unitPhrase:       PropTypes.string,
   convertToValue:   PropTypes.func,
   convertFromValue: PropTypes.func,

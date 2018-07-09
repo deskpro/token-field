@@ -99,10 +99,6 @@ export default class SelectInput extends TokenInput {
     return true;
   };
 
-  focus = () => {
-    this.tokenInput.focus();
-  };
-
   handleChange = (option) => {
     let value;
     if (option) {

@@ -141,10 +141,6 @@ export default class DurationInput extends TokenInput {
     );
   }
 
-  focus = () => {
-    this.tokenInput.focus();
-  };
-
   handleChange(timeObject) {
     Object.assign(DurationInput.getEmptyTimeObject(), timeObject);
     const value = {

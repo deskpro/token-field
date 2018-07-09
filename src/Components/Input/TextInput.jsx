@@ -28,10 +28,6 @@ export default class TextInput extends TokenInput {
     return '________';
   };
 
-  focus = () => {
-    this.tokenInput.focus();
-  };
-
   onFocus = () => {
     if (this.input) {
       this.input.focus();

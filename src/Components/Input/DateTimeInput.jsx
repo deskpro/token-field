@@ -111,10 +111,6 @@ export default class DateTimeInput extends TokenInput {
     );
   };
 
-  focus = () => {
-    this.tokenInput.focus();
-  };
-
   handleChange = (inputType, value) => {
     let newValue;
     switch (inputType) {

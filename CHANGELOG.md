@@ -1,3 +1,8 @@
+## 0.4.4 - 2018-07-09
+
+* Fix focus
+* Fix NumericRangeInput propTypes
+
 ## 0.4.3 - 2018-06-27
 
 * Fix focus in BooleanInput
