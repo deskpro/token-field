@@ -307,7 +307,10 @@ export default class SelectInput extends TokenInput {
     return (options
       .map((option) => {
         const key = option.id || option.value;
-        const checked = value.indexOf(key) !== -1;
+        let checked = false;
+        if (value) {
+          checked = value.indexOf(key) !== -1;
+        }
         return (
           <ListElement
             key={key}
