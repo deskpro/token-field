@@ -1,3 +1,7 @@
+## 0.4.7 - 2018-07-09
+
+* Fix SelectInput Multiple status change
+
 ## 0.4.6 - 2018-07-09
 
 * Fix SelectInput Multiple

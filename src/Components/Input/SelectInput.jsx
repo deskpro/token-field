@@ -161,7 +161,10 @@ export default class SelectInput extends TokenInput {
   };
 
   handleChangeMultiple = (checked, value) => {
-    const values = this.state.value;
+    let values = this.state.value;
+    if (!values) {
+      values = [];
+    }
     if (checked) {
       values.push(value);
     } else {
