@@ -1,3 +1,7 @@
+## 0.4.8 - 2018-07-09
+
+* Fix focus on NumericRangeInput
+
 ## 0.4.7 - 2018-07-09
 
 * Fix SelectInput Multiple status change

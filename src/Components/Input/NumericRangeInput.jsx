@@ -79,8 +79,8 @@ export default class NumericRangeInput extends TokenInput {
     return `${displayFrom} ${unitPhrase} to ${displayTo} ${unitPhrase}`;
   };
 
-  focus = (end) => {
-    TokenInput.prototype.focus.call(end);
+  focus(end) {
+    super.focus(end);
   };
 
   focusInput = (end) => {
