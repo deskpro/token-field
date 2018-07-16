@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Icon } from '@deskpro/react-components';
 import * as inputs from './Input';
 import TokenFieldInput from './TokenFieldInput';
 import styles from '../styles/style.css';
@@ -23,14 +22,16 @@ export default class TokenField extends React.Component {
       props:       PropTypes.object,
       description: PropTypes.string,
     })).isRequired,
-    onChange: PropTypes.func,
-    value:    PropTypes.array.isRequired,
-    zIndex:   PropTypes.number,
+    onChange:          PropTypes.func,
+    value:             PropTypes.array.isRequired,
+    zIndex:            PropTypes.number,
+    showTokensOnFocus: PropTypes.bool,
   };
 
   static defaultProps = {
     onChange() {},
-    zIndex: 100
+    zIndex:            100,
+    showTokensOnFocus: false,
   };
 
   constructor(props) {
@@ -70,6 +71,7 @@ export default class TokenField extends React.Component {
       selectNextToken={() => this.selectNextToken(key)}
       removeToken={this.removeToken}
       zIndex={this.props.zIndex}
+      showTokensOnFocus={this.props.showTokensOnFocus}
     />
   );
 
@@ -178,7 +180,6 @@ export default class TokenField extends React.Component {
   render() {
     return (
       <div className={classNames(styles['token-field'], 'token-field')}>
-        <span><Icon name="search" className={styles.search} /></span>
         <div>
           {this.renderInputs()}
         </div>

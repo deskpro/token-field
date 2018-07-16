@@ -1,3 +1,8 @@
+## 0.5.0 - 2018-07-13
+
+* Allow to show token list on focus
+* Remove magnifier icon
+
 ## 0.4.8 - 2018-07-09
 
 * Fix focus on NumericRangeInput

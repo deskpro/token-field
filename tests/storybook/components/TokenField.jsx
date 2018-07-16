@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
 import TokenField from 'Components/TokenField';
 import { Button } from '@deskpro/react-components';
@@ -45,11 +46,13 @@ const tokenTypes = [
     label:       'ticket-date',
     widget:      'DateTimeInput',
     props:       {},
+    showOnFocus: true,
     description: 'Date the ticket was submitted'
   },
   {
     id:          'date-ticket-created',
     widget:      'DateTimeInput',
+    showOnFocus: true,
     props:       {},
     description: 'When the ticket was created'
   },
@@ -64,6 +67,34 @@ const tokenTypes = [
     widget:      'TextInput',
     props:       {},
     description: 'Message entered initially by the user'
+  },
+  {
+    id:          'person-name',
+    widget:      'TextInput',
+    props:       {},
+    description: 'Name of the person who opened the ticket',
+    category:    'person'
+  },
+  {
+    id:          'person-cc',
+    widget:      'TextInput',
+    props:       {},
+    description: 'Name of the person cc to the ticket',
+    category:    'person'
+  },
+  {
+    id:          'organization-name',
+    widget:      'TextInput',
+    props:       {},
+    description: 'Name of the organisation',
+    category:    'organisation'
+  },
+  {
+    id:          'organization-domain',
+    widget:      'TextInput',
+    props:       {},
+    description: 'Domain name of the organisation',
+    category:    'organisation'
   },
   {
     id:     'attach-size',
@@ -112,10 +143,19 @@ const defaultValue = [
 ];
 
 class TokenFieldStory extends React.Component {
+  static propTypes = {
+    defaultValue:      PropTypes.array.isRequired,
+    showTokensOnFocus: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    showTokensOnFocus: false
+  };
+
   constructor(props) {
     super(props);
     this.state = {
-      value: defaultValue,
+      value: props.defaultValue,
     };
   }
 
@@ -139,6 +179,7 @@ class TokenFieldStory extends React.Component {
           value={value}
           onChange={this.handleChange}
           placeholder="Search ..."
+          showTokensOnFocus={this.props.showTokensOnFocus}
         />
         <br />
         <Button onClick={this.addCountryToken}>Add country token</Button>
@@ -163,6 +204,10 @@ class TokenFieldStory extends React.Component {
 
 storiesOf('TokenField', module)
   .add('TokenField', () => (
-    <TokenFieldStory />
-  ));
+    <TokenFieldStory defaultValue={defaultValue} />
+  ))
+  .add('TokenField empty', () => (
+    <TokenFieldStory defaultValue={[]} showTokensOnFocus />
+  ))
+;
 

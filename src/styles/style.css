@@ -3,6 +3,7 @@
     sunShine,
     sonicPrimary,
     greyscale00,
+    greyscale200,
     greyscale300,
     greyscale400,
     greyscale500,
@@ -146,9 +147,27 @@
     position: static;
     color: inherit;
 }
-.dp-select {
-    white-space: nowrap;
-    background-color: #FFF;
+.dp-select__all-tokens {
+    & :global(.dp-select__content) {
+        padding: 5px 0 0;
+        & :global(.dp-list__element) {
+            padding: 0 6px;
+            &:global(.separator) {
+                border-bottom: solid 1px greyscale500;
+            }
+            &:global(.category) {
+                position: relative;
+                z-index: 2;
+                & :global(.dp-icon) {
+                    position: relative;
+                    float: right;
+                    margin-right: 5px;
+                    color: greyscale850;
+                    top: 3px;
+                }
+            }
+        }
+    }
 }
 .loading {
     text-align: center;
@@ -156,4 +175,30 @@
 .loading :global(.dp-icon) {
     position: static;
     margin: 5px auto;
+}
+.extend-tokens {
+    text-align: center;
+    background-color: greyscale200;
+    border-top: solid 1px greyscale500;
+    &:hover, &:focus {
+        background-color: greyscale400;
+    }
+    &:global(.selected) {
+        background-color: greyscale300;
+    }
+}
+.extend-tokens :global(.dp-icon) {
+    position: relative;
+    color: greyscale850;
+}
+.token-subcategory {
+    position: absolute;
+    top: -1px;
+    left: calc(100%);
+    background-color: greyscale00;
+    border: 1px solid sonicPrimary;
+    border-radius: 2px;
+    padding-left: 0 !important;
+    font-size: inherit !important;
+    z-index: -1;
 }

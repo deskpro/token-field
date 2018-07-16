@@ -81,7 +81,7 @@ export default class NumericRangeInput extends TokenInput {
 
   focus(end) {
     super.focus(end);
-  };
+  }
 
   focusInput = (end) => {
     if (end) {

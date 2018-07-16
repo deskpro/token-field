@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import AutosizeInput from 'react-input-autosize';
 import Highlighter from 'react-highlight-words';
-import { List, ListElement, Scrollbar } from '@deskpro/react-components';
+import { Icon, List, ListElement, Scrollbar } from '@deskpro/react-components';
 import Tether from 'react-tether';
 import styles from 'styles/style.css';
 
@@ -17,23 +17,28 @@ export default class TokenFieldInput extends React.Component {
     selectNextToken:     PropTypes.func.isRequired,
     removeToken:         PropTypes.func.isRequired,
     value:               PropTypes.string.isRequired,
+    showTokensOnFocus:   PropTypes.bool,
     zIndex:              PropTypes.number,
   };
 
   static defaultProps = {
     onChange() {},
-    zIndex: 100
+    zIndex:            100,
+    showTokensOnFocus: false,
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      value:         props.value,
-      tokenKey:      props.tokenKey,
-      tokens:        [],
-      keyword:       '',
-      selectedToken: null,
-      popupOpen:     false,
+      value:          props.value,
+      tokenKey:       props.tokenKey,
+      tokens:         [],
+      categories:     [],
+      selectables:    [],
+      keyword:        '',
+      selectedToken:  null,
+      popupOpen:      true,
+      tokensExtended: false,
     };
   }
 
@@ -75,7 +80,9 @@ export default class TokenFieldInput extends React.Component {
       popupOpen: false
     });
     this.setState({
-      tokens: []
+      tokens:         [],
+      tokensExtended: false,
+      categories:     [],
     });
   };
 
@@ -90,10 +97,38 @@ export default class TokenFieldInput extends React.Component {
     }
   };
 
+  handleFocus = () => {
+    if (this.props.showTokensOnFocus && this.state.value === '') {
+      const tokens = this.props.tokenTypes
+        .filter(token => token.showOnFocus)
+        .sort((a, b) => {
+          const aLabel = a.label ? a.label : a.id;
+          const bLabel = b.label ? b.label : b.id;
+          return aLabel > bLabel;
+        });
+      let selectedToken = null;
+      const selectables = tokens.map(token => token.id);
+      selectables.push('extend');
+      if (tokens.length) {
+        if (!selectedToken || selectables.indexOf(selectedToken) === -1) {
+          selectedToken = selectables[0];
+        }
+        this.openPopper();
+      }
+      this.setState({
+        selectedToken,
+        tokens,
+        tokensExtended: false,
+        categories:     [],
+        selectables,
+      });
+    }
+  };
+
   handleChange = (event) => {
     let { selectedToken } = this.state;
     const value = event.currentTarget.value;
-    const match = value.match(/ ?([-a-z:]{2,})$/i);
+    const match = value.match(/ ?([-a-z:]{1,})$/i);
     let tokens = [];
     const keyword = '';
     if (match) {
@@ -123,40 +158,79 @@ export default class TokenFieldInput extends React.Component {
     });
   };
 
+  handleAllTokens = () => {
+    let { tokens } = this.state;
+    tokens = tokens.concat(this.props.tokenTypes
+      .filter(token => !token.showOnFocus && !token.category)
+      .sort((a, b) => {
+        const aLabel = a.label ? a.label : a.id;
+        const bLabel = b.label ? b.label : b.id;
+        return aLabel > bLabel;
+      }
+      ));
+    let selectables = tokens.map(token => token.id);
+    const categories = [];
+    this.props.tokenTypes
+      .filter(token => token.category)
+      .forEach((token) => {
+        if (!categories[token.category]) {
+          categories[token.category] = { label: token.category, children: [] };
+        }
+        categories[token.category].children.push(token);
+      });
+    selectables = selectables.concat(Object.keys(categories).map(category => category));
+    this.setState({
+      categories,
+      selectables,
+      tokens,
+      tokensExtended: true,
+    });
+  };
+
   handleKeyDown = (e) => {
-    const { tokens } = this.state;
+    const { selectables, tokens, selectedToken } = this.state;
     if (this.state.tokens.length > 0) {
       let index = 0;
       if (['ArrowDown', 'ArrowUp'].indexOf(e.key) !== -1) {
-        index = tokens.findIndex(token => token.id === this.state.selectedToken.id);
+        index = selectables.findIndex(id => id === selectedToken);
       }
       switch (e.key) {
         case 'ArrowDown':
-          if (index < tokens.length - 1) {
+          if (index < selectables.length - 1) {
             this.setState({
-              selectedToken: tokens[index + 1]
+              selectedToken: selectables[index + 1]
             });
           }
-          break;
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
         case 'ArrowUp':
           if (index > 0) {
             this.setState({
-              selectedToken: tokens[index - 1]
+              selectedToken: selectables[index - 1]
             });
           }
-          break;
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
         case 'Tab':
           if (e.shiftKey) {
             this.props.selectPreviousToken();
           } else {
-            this.selectToken(this.state.selectedToken);
+            this.selectToken(selectedToken);
           }
-          break;
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
         case 'Enter':
           e.preventDefault();
           e.stopPropagation();
-          this.selectToken(this.state.selectedToken);
-          break;
+          if (selectedToken === 'extend') {
+            this.handleAllTokens();
+          } else {
+            this.selectToken(selectedToken);
+          }
+          return false;
         case ':': {
           let value = '';
           const match = this.state.value.match(/ ?([-a-z:]{2,})$/);
@@ -167,15 +241,23 @@ export default class TokenFieldInput extends React.Component {
           if (token) {
             this.selectToken(token);
           }
-          break;
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
         }
+        case 'Escape': {
+          this.closePopper();
+          return false;
+        }
+        case 'Backspace':
+        case 'Delete':
+        case 'ArrowRight':
+        case 'ArrowLeft':
+          break;
         default:
           // Do nothing
           return true;
       }
-      e.preventDefault();
-      e.stopPropagation();
-      return false;
     }
     switch (e.key) {
       case 'Backspace':
@@ -228,14 +310,17 @@ export default class TokenFieldInput extends React.Component {
   };
 
   renderTokens() {
-    const { keyword } = this.state;
+    if (this.state.value === '') {
+      return this.renderAllTokens();
+    }
+    const { keyword, selectedToken } = this.state;
     return (
       <div className="dp-select">
         <div className="dp-select__content">
           <Scrollbar>
             <List className="dp-selectable-list">
               {this.state.tokens.map((token) => {
-                const selected = (token === this.state.selectedToken) ? styles.selected : '';
+                const selected = (token.id === selectedToken) ? styles.selected : '';
                 const label = token.label ? token.label : token.id;
                 return (
                   <ListElement
@@ -260,6 +345,73 @@ export default class TokenFieldInput extends React.Component {
     );
   }
 
+  renderAllTokens() {
+    const { selectedToken } = this.state;
+    return (
+      <div className={classNames(styles['dp-select__all-tokens'], 'dp-select')}>
+        <div className="dp-select__content">
+          <List className="dp-selectable-list">
+            {this.state.tokens.map((token) => {
+              const selected = (token.id === selectedToken) ? styles.selected : '';
+              const label = token.label ? token.label : token.id;
+              return (
+                <ListElement
+                  key={token.id}
+                  onClick={() => this.selectToken(token)}
+                  className={classNames(styles['token-suggestion'], selected)}
+                >
+                  {label}:&nbsp;
+                  <span className={styles.description}>{token.description}</span>
+                </ListElement>
+              );
+            })}
+            {!this.state.tokensExtended ?
+              <ListElement
+                onClick={this.handleAllTokens}
+                className={classNames(styles['extend-tokens'], { selected: selectedToken === 'extend' })}
+              >
+                <Icon name="caret-down" />
+              </ListElement>
+              : this.renderCategories()
+            }
+          </List>
+        </div>
+      </div>
+    );
+  }
+
+  renderCategories() {
+    const { categories, selectedToken } = this.state;
+    const elements = Object.keys(categories).map((label) => {
+      const selected = selectedToken === label;
+      return (
+        <ListElement
+          key={label}
+          className={classNames(styles['token-suggestion'], 'category', selected)}
+        >
+          {label} <Icon name="caret-right" />
+          <List className={classNames(styles['token-subcategory'], 'dp-selectable-list')}>
+            {categories[label].children.map((token) => {
+              const childLabel = token.label ? token.label : token.id;
+              return (
+                <ListElement
+                  key={token.id}
+                  onClick={() => this.selectToken(token)}
+                  className={classNames(styles['token-suggestion'])}
+                >
+                  {childLabel}:&nbsp;
+                  <span className={styles.description}>{token.description}</span>
+                </ListElement>
+              );
+            })}
+          </List>
+        </ListElement>
+      );
+    });
+    elements.unshift(<ListElement key="separator" className="separator" />);
+    return elements;
+  }
+
   render() {
     const { value, popupOpen } = this.state;
     return (
@@ -273,6 +425,7 @@ export default class TokenFieldInput extends React.Component {
           value={value}
           style={{ fontSize: 14 }}
           onBlur={this.handleBlur}
+          onFocus={this.handleFocus}
           onChange={this.handleChange}
           onKeyDown={this.handleKeyDown}
         />

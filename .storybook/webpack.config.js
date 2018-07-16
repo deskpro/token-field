@@ -1,4 +1,4 @@
-var values = require('postcss-modules-values');
+const cssnext = require('postcss-cssnext');
 
 module.exports = {
   module: {
@@ -13,7 +13,7 @@ module.exports = {
             options: {
               ident: 'postcss',
               plugins: () => [
-                values()
+                cssnext()
               ],
               sourceMap: true,
             },
