@@ -35,10 +35,13 @@ export default class TokenFieldInput extends React.Component {
       tokens:         [],
       categories:     [],
       selectables:    [],
+      subSelectables: [],
       keyword:        '',
-      selectedToken:  null,
+      selectedToken:  '',
+      subSelected:    '',
       popupOpen:      true,
       tokensExtended: false,
+      selectLevel:    0,
     };
   }
 
@@ -188,31 +191,77 @@ export default class TokenFieldInput extends React.Component {
   };
 
   handleKeyDown = (e) => {
-    const { selectables, tokens, selectedToken } = this.state;
+    const {
+      selectables,
+      selectedToken,
+      selectLevel,
+      subSelectables,
+      subSelected,
+      tokens,
+    } = this.state;
     if (this.state.tokens.length > 0) {
       let index = 0;
       if (['ArrowDown', 'ArrowUp'].indexOf(e.key) !== -1) {
-        index = selectables.findIndex(id => id === selectedToken);
+        if (selectLevel === 0) {
+          index = selectables.findIndex(id => id === selectedToken);
+        } else {
+          index = subSelectables.findIndex(id => id === subSelected);
+        }
       }
       switch (e.key) {
         case 'ArrowDown':
           if (index < selectables.length - 1) {
-            this.setState({
-              selectedToken: selectables[index + 1]
-            });
+            if (selectLevel === 0) {
+              this.setState({
+                selectedToken: selectables[index + 1]
+              });
+            } else {
+              this.setState({
+                subSelected: subSelectables[index + 1]
+              });
+            }
           }
           e.preventDefault();
           e.stopPropagation();
           return false;
         case 'ArrowUp':
           if (index > 0) {
-            this.setState({
-              selectedToken: selectables[index - 1]
-            });
+            if (selectLevel === 0) {
+              this.setState({
+                selectedToken: selectables[index - 1]
+              });
+            } else {
+              this.setState({
+                subSelected: subSelectables[index - 1]
+              });
+            }
           }
           e.preventDefault();
           e.stopPropagation();
           return false;
+        case 'ArrowRight':
+          if (this.state.selectLevel === 0 && this.state.categories[selectedToken]) {
+            const newSubSelectables = this.state.categories[selectedToken].children.map(child => child.id);
+            this.setState({
+              selectLevel:    1,
+              subSelectables: newSubSelectables,
+              subSelected:    newSubSelectables[0],
+            });
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+          }
+          break;
+        case 'ArrowLeft':
+          if (this.state.selectLevel === 1) {
+            this.setState({
+              selectLevel: 0
+            });
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+          }
+          break;
         case 'Tab':
           if (e.shiftKey) {
             this.props.selectPreviousToken();
@@ -251,8 +300,6 @@ export default class TokenFieldInput extends React.Component {
         }
         case 'Backspace':
         case 'Delete':
-        case 'ArrowRight':
-        case 'ArrowLeft':
           break;
         default:
           // Do nothing
@@ -381,23 +428,24 @@ export default class TokenFieldInput extends React.Component {
   }
 
   renderCategories() {
-    const { categories, selectedToken } = this.state;
+    const { categories, selectedToken, subSelected, selectLevel } = this.state;
     const elements = Object.keys(categories).map((label) => {
-      const selected = selectedToken === label;
+      const selected = (selectedToken === label) ? styles.selected : '';
       return (
         <ListElement
           key={label}
-          className={classNames(styles['token-suggestion'], 'category', selected)}
+          className={classNames(styles['token-suggestion'], styles.category, selected)}
         >
           {label} <Icon name="caret-right" />
           <List className={classNames(styles['token-subcategory'], 'dp-selectable-list')}>
             {categories[label].children.map((token) => {
               const childLabel = token.label ? token.label : token.id;
+              const childSelect = (selectLevel === 1 && subSelected === token.id) ? styles.selected : '';
               return (
                 <ListElement
                   key={token.id}
                   onClick={() => this.selectToken(token)}
-                  className={classNames(styles['token-suggestion'])}
+                  className={classNames(styles['token-suggestion'], childSelect)}
                 >
                   {childLabel}:&nbsp;
                   <span className={styles.description}>{token.description}</span>

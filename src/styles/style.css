@@ -155,7 +155,7 @@
             &:global(.separator) {
                 border-bottom: solid 1px greyscale500;
             }
-            &:global(.category) {
+            &.category {
                 position: relative;
                 z-index: 2;
                 & :global(.dp-icon) {
@@ -201,4 +201,15 @@
     padding-left: 0 !important;
     font-size: inherit !important;
     z-index: -1;
+    display: none;
+}
+.selected {
+    & .token-subcategory {
+        display: block;
+    }
+}
+.category:hover {
+    & .token-subcategory {
+        display: block;
+    }
 }
