@@ -261,8 +261,13 @@ export default class TokenFieldInput extends React.Component {
         case 'Tab':
           if (e.shiftKey) {
             this.props.selectPreviousToken();
-          } else {
+          } else if (selectLevel === 1 && categories[selectedToken]) {
             const token = categories[selectedToken].children.find(t => t.id === subSelected);
+            if (token) {
+              this.selectToken(token);
+            }
+          } else {
+            const token = tokens.find(t => t.id === selectedToken);
             if (token) {
               this.selectToken(token);
             }

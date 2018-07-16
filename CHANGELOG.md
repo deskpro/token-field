@@ -1,3 +1,7 @@
+## 0.5.1 - 2018-07-16
+
+* Fix Tab behaviour
+
 ## 0.5.0 - 2018-07-16
 
 * Allow to show token list on focus
