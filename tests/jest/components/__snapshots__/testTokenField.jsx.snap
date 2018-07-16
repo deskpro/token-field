@@ -5,11 +5,6 @@ exports[`+++capturing Snapshot of TokenField 1`] = `
   <div
     className="token-field"
   >
-    <span>
-      <i
-        className="fa fa-search dp-icon dp-icon--s"
-      />
-    </span>
     <div>
       <div
         className="token"
@@ -49,6 +44,7 @@ exports[`+++capturing Snapshot of TokenField 1`] = `
           id={undefined}
           onBlur={[Function]}
           onChange={[Function]}
+          onFocus={[Function]}
           onKeyDown={[Function]}
           style={
             Object {

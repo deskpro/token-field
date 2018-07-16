@@ -1,4 +1,4 @@
-## 0.5.0 - 2018-07-13
+## 0.5.0 - 2018-07-16
 
 * Allow to show token list on focus
 * Remove magnifier icon

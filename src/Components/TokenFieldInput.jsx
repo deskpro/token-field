@@ -39,7 +39,7 @@ export default class TokenFieldInput extends React.Component {
       keyword:        '',
       selectedToken:  '',
       subSelected:    '',
-      popupOpen:      true,
+      popupOpen:      false,
       tokensExtended: false,
       selectLevel:    0,
     };
@@ -192,6 +192,7 @@ export default class TokenFieldInput extends React.Component {
 
   handleKeyDown = (e) => {
     const {
+      categories,
       selectables,
       selectedToken,
       selectLevel,
@@ -240,13 +241,8 @@ export default class TokenFieldInput extends React.Component {
           e.stopPropagation();
           return false;
         case 'ArrowRight':
-          if (this.state.selectLevel === 0 && this.state.categories[selectedToken]) {
-            const newSubSelectables = this.state.categories[selectedToken].children.map(child => child.id);
-            this.setState({
-              selectLevel:    1,
-              subSelectables: newSubSelectables,
-              subSelected:    newSubSelectables[0],
-            });
+          if (this.state.selectLevel === 0 && categories[selectedToken]) {
+            this.selectCategory(categories[selectedToken]);
             e.preventDefault();
             e.stopPropagation();
             return false;
@@ -266,7 +262,10 @@ export default class TokenFieldInput extends React.Component {
           if (e.shiftKey) {
             this.props.selectPreviousToken();
           } else {
-            this.selectToken(selectedToken);
+            const token = categories[selectedToken].children.find(t => t.id === subSelected);
+            if (token) {
+              this.selectToken(token);
+            }
           }
           e.preventDefault();
           e.stopPropagation();
@@ -276,8 +275,18 @@ export default class TokenFieldInput extends React.Component {
           e.stopPropagation();
           if (selectedToken === 'extend') {
             this.handleAllTokens();
+          } else if (selectLevel === 0 && categories[selectedToken]) {
+            this.selectCategory(categories[selectedToken]);
+          } else if (selectLevel === 1 && categories[selectedToken]) {
+            const token = categories[selectedToken].children.find(t => t.id === subSelected);
+            if (token) {
+              this.selectToken(token);
+            }
           } else {
-            this.selectToken(selectedToken);
+            const token = tokens.find(t => t.id === selectedToken);
+            if (token) {
+              this.selectToken(token);
+            }
           }
           return false;
         case ':': {
@@ -356,8 +365,18 @@ export default class TokenFieldInput extends React.Component {
     return true;
   };
 
+  selectCategory(category) {
+    const subSelectables = category.children.map(child => child.id);
+    const subSelected = subSelectables[0];
+    this.setState({
+      selectLevel: 1,
+      subSelectables,
+      subSelected,
+    });
+  }
+
   renderTokens() {
-    if (this.state.value === '') {
+    if (this.props.showTokensOnFocus && this.state.value === '') {
       return this.renderAllTokens();
     }
     const { keyword, selectedToken } = this.state;
