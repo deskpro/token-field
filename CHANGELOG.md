@@ -1,3 +1,7 @@
+## 0.5.2 - 2018-07-17
+
+* Fix Styling
+
 ## 0.5.1 - 2018-07-16
 
 * Fix Tab behaviour

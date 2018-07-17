@@ -148,8 +148,8 @@
     color: inherit;
 }
 .dp-select__all-tokens {
-    & :global(.dp-select__content) {
-        padding: 5px 0 0;
+    & > :global(.dp-select__content) {
+        padding: 5px 0 0 !important;
         & :global(.dp-list__element) {
             padding: 0 6px;
             &:global(.separator) {
