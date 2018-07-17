@@ -28,6 +28,7 @@ export default class TokenField extends React.Component {
     value:             PropTypes.array.isRequired,
     zIndex:            PropTypes.number,
     showTokensOnFocus: PropTypes.bool,
+    blurTimeout:       PropTypes.number,
   };
 
   static defaultProps = {
@@ -35,15 +36,15 @@ export default class TokenField extends React.Component {
     onFocus() {},
     onBlur() {},
     zIndex:            100,
+    blurTimeout:       300,
     showTokensOnFocus: false,
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      value: props.value,
+      value:   props.value,
       focused: false,
-      blurred: true,
     };
 
     this.inputs = [];
@@ -64,6 +65,30 @@ export default class TokenField extends React.Component {
     }
   }
 
+  onFocus = () => {
+    if (!this.state.focused) {
+      this.props.onFocus();
+      this.setState({
+        focused: true
+      });
+    }
+    if (this.pendingBlur) {
+      window.clearTimeout(this.pendingBlur);
+    }
+  };
+
+  onBlur = () => {
+    if (this.pendingBlur) {
+      window.clearTimeout(this.pendingBlur);
+    }
+    this.pendingBlur = window.setTimeout(() => {
+      this.setState({
+        focused: false
+      });
+      this.props.onBlur();
+    }, this.props.blurTimeout);
+  };
+
   getInputField = (key, value) => (
     <TokenFieldInput
       ref={(c) => { this.inputs[key] = c; }}
@@ -82,33 +107,6 @@ export default class TokenField extends React.Component {
       showTokensOnFocus={this.props.showTokensOnFocus}
     />
   );
-
-  onFocus = () => {
-    console.log('focus');
-    if (this.state.blurred) {
-      this.props.onFocus();
-    }
-    this.setState({
-      focused: true
-    });
-  };
-
-  onBlur = () => {
-    console.log('blur');
-    this.setState({
-      focused: false
-    });
-    setTimeout(() => {
-      console.log('check_blur');
-      if (!this.state.focused) {
-        this.props.onBlur();
-      } else {
-        this.setState({
-          focused: true
-        });
-      }
-    }, 10);
-  };
 
   addInputAndFocus = (key) => {
     const { value } = this.state;

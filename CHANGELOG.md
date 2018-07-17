@@ -1,3 +1,7 @@
+## 0.5.3 - 2018-07-17
+
+* Add onFocus and onBlur on TokenField
+
 ## 0.5.2 - 2018-07-17
 
 * Fix Styling
