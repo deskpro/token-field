@@ -29,6 +29,7 @@ export default class TextInput extends TokenInput {
   };
 
   onFocus = () => {
+    this.props.onFocus();
     if (this.input) {
       this.input.focus();
     }
@@ -41,6 +42,7 @@ export default class TextInput extends TokenInput {
   };
 
   onBlur = () => {
+    this.props.onBlur();
     this.props.onChange(this.state.value);
   };
 

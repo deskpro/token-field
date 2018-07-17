@@ -12,6 +12,8 @@ export default class TokenFieldInput extends React.Component {
     tokenTypes:          PropTypes.arrayOf(PropTypes.object).isRequired,
     tokenKey:            PropTypes.number.isRequired,
     onChange:            PropTypes.func,
+    onFocus:             PropTypes.func,
+    onBlur:              PropTypes.func,
     addToken:            PropTypes.func.isRequired,
     selectPreviousToken: PropTypes.func.isRequired,
     selectNextToken:     PropTypes.func.isRequired,
@@ -23,6 +25,8 @@ export default class TokenFieldInput extends React.Component {
 
   static defaultProps = {
     onChange() {},
+    onFocus() {},
+    onBlur() {},
     zIndex:            100,
     showTokensOnFocus: false,
   };
@@ -98,6 +102,7 @@ export default class TokenFieldInput extends React.Component {
         this.props.removeToken(this.state.tokenKey);
       }
     }
+    this.props.onBlur();
   };
 
   handleFocus = () => {
@@ -126,6 +131,7 @@ export default class TokenFieldInput extends React.Component {
         selectables,
       });
     }
+    this.props.onFocus();
   };
 
   handleChange = (event) => {

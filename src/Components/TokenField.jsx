@@ -23,21 +23,28 @@ export default class TokenField extends React.Component {
       description: PropTypes.string,
     })).isRequired,
     onChange:          PropTypes.func,
+    onFocus:           PropTypes.func,
+    onBlur:            PropTypes.func,
     value:             PropTypes.array.isRequired,
     zIndex:            PropTypes.number,
     showTokensOnFocus: PropTypes.bool,
+    blurTimeout:       PropTypes.number,
   };
 
   static defaultProps = {
     onChange() {},
+    onFocus() {},
+    onBlur() {},
     zIndex:            100,
+    blurTimeout:       300,
     showTokensOnFocus: false,
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      value: props.value
+      value:   props.value,
+      focused: false,
     };
 
     this.inputs = [];
@@ -58,6 +65,30 @@ export default class TokenField extends React.Component {
     }
   }
 
+  onFocus = () => {
+    if (!this.state.focused) {
+      this.props.onFocus();
+      this.setState({
+        focused: true
+      });
+    }
+    if (this.pendingBlur) {
+      window.clearTimeout(this.pendingBlur);
+    }
+  };
+
+  onBlur = () => {
+    if (this.pendingBlur) {
+      window.clearTimeout(this.pendingBlur);
+    }
+    this.pendingBlur = window.setTimeout(() => {
+      this.setState({
+        focused: false
+      });
+      this.props.onBlur();
+    }, this.props.blurTimeout);
+  };
+
   getInputField = (key, value) => (
     <TokenFieldInput
       ref={(c) => { this.inputs[key] = c; }}
@@ -67,6 +98,8 @@ export default class TokenField extends React.Component {
       tokenTypes={this.props.tokenTypes}
       addToken={this.addTokenAndFocus}
       onChange={this.handleTokenChange}
+      onFocus={this.onFocus}
+      onBlur={this.onBlur}
       selectPreviousToken={() => this.selectPreviousToken(key)}
       selectNextToken={() => this.selectNextToken(key)}
       removeToken={this.removeToken}
@@ -163,6 +196,8 @@ export default class TokenField extends React.Component {
               label={label}
               ref={(c) => { this.inputs[index] = c; }}
               onChange={v => this.handleTokenChange(index, v)}
+              onFocus={this.onFocus}
+              onBlur={this.onBlur}
               removeToken={() => this.removeToken(index)}
               selectPreviousToken={() => this.selectPreviousToken(index)}
               selectNextToken={() => this.selectNextToken(index)}

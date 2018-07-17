@@ -39,6 +39,7 @@ export default class SelectInput extends TokenInput {
   }
 
   onFocus = () => {
+    this.props.onFocus();
     if (this.props.showSearch && this.searchInput) {
       this.searchInput.focus();
     }
@@ -46,6 +47,7 @@ export default class SelectInput extends TokenInput {
   };
 
   onBlur = () => {
+    this.props.onBlur();
     window.document.removeEventListener('keydown', this.handleKeyDown);
   };
 

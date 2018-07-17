@@ -13,6 +13,8 @@ export default class TokenInput extends React.Component {
       value: PropTypes.object,
     }).isRequired,
     onChange:            PropTypes.func,
+    onFocus:             PropTypes.func,
+    onBlur:              PropTypes.func,
     selectPreviousToken: PropTypes.func.isRequired,
     selectNextToken:     PropTypes.func.isRequired,
     label:               PropTypes.string.isRequired,
@@ -25,6 +27,8 @@ export default class TokenInput extends React.Component {
   static defaultProps = {
     className: '',
     onChange() {},
+    onFocus() {},
+    onBlur() {},
     zIndex:    100
   };
 

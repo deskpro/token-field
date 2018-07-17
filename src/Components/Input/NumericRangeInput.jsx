@@ -84,6 +84,7 @@ export default class NumericRangeInput extends TokenInput {
   }
 
   focusInput = (end) => {
+    this.props.onFocus();
     if (end) {
       this.inputTo.focus();
     } else {
@@ -98,6 +99,7 @@ export default class NumericRangeInput extends TokenInput {
   };
 
   handleBlur = () => {
+    this.props.onBlur();
     this.props.onChange([this.state.from, this.state.to]);
   };
 
