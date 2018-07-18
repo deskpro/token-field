@@ -1,3 +1,7 @@
+## 0.5.7 - 2018-07-18
+
+* Fix navigating on filter
+
 ## 0.5.6 - 2018-07-18
 
 * Fix blur

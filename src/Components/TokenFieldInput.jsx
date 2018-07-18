@@ -166,6 +166,7 @@ export default class TokenFieldInput extends React.Component {
     this.setState({
       value,
       tokens,
+      selectables: tokens.map(t => t.id),
       keyword,
       selectedToken,
     });
