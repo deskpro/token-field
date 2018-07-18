@@ -409,13 +409,13 @@ export default class TokenFieldInput extends React.Component {
                     key={token.id}
                     onClick={() => this.selectToken(token)}
                     className={classNames(styles['token-suggestion'], selected)}
+                    title={token.description}
                   >
                     <Highlighter
                       highlightClassName={styles.highlight}
                       searchWords={[keyword]}
                       textToHighlight={label}
-                    />:&nbsp;
-                    <span className={styles.description}>{token.description}</span>
+                    />
                   </ListElement>
                 );
               }
@@ -441,9 +441,9 @@ export default class TokenFieldInput extends React.Component {
                   key={token.id}
                   onClick={() => this.selectToken(token)}
                   className={classNames(styles['token-suggestion'], selected)}
+                  title={token.description}
                 >
-                  {label}:&nbsp;
-                  <span className={styles.description}>{token.description}</span>
+                  {label}
                 </ListElement>
               );
             })}
@@ -481,9 +481,9 @@ export default class TokenFieldInput extends React.Component {
                   key={token.id}
                   onClick={() => this.selectToken(token)}
                   className={classNames(styles['token-suggestion'], childSelect)}
+                  title={token.description}
                 >
-                  {childLabel}:&nbsp;
-                  <span className={styles.description}>{token.description}</span>
+                  {childLabel}
                 </ListElement>
               );
             })}

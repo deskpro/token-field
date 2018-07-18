@@ -1,3 +1,7 @@
+## 0.5.8 - 2018-07-18
+
+* Put description in suggestion title
+
 ## 0.5.7 - 2018-07-18
 
 * Fix navigating on filter
