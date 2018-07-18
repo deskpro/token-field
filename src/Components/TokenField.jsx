@@ -129,6 +129,10 @@ export default class TokenField extends React.Component {
     }
   };
 
+  focus = () => {
+    this.addInputAndFocus();
+  };
+
   addTokenAndFocus = (id, key, defaultValue) => {
     const { value } = this.state;
     const inputKey = (!key) ? value.length : key;

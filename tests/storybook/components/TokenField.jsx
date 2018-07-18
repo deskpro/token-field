@@ -170,6 +170,10 @@ class TokenFieldStory extends React.Component {
     this.tokenField.addTokenAndFocus('country', null, 'FR');
   };
 
+  focus = () => {
+    this.tokenField.focus();
+  };
+
   render() {
     const { value } = this.state;
     return (
@@ -186,6 +190,8 @@ class TokenFieldStory extends React.Component {
         />
         <br />
         <Button onClick={this.addCountryToken}>Add country token</Button>
+        &nbsp;
+        <Button onClick={this.focus}>Focus</Button>
         <h4 className={styles.title}>Available types</h4>
         <ul className={styles.title}>
           <li>attach-size (<i>NumericRangeInput</i>)</li>

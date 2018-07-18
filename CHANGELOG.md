@@ -1,3 +1,7 @@
+## 0.5.4 - 2018-07-18
+
+* Add focus() to TokenField
+
 ## 0.5.3 - 2018-07-17
 
 * Add onFocus and onBlur on TokenField
