@@ -71,6 +71,7 @@ export default class TokenInput extends React.Component {
     this.setState({
       editMode: true
     });
+    this.onFocus(this.fromEnd);
   };
 
   disableEditMode = () => {

@@ -163,6 +163,7 @@ export default class TokenFieldInput extends React.Component {
       selectedToken = null;
       this.closePopper();
     }
+    this.props.onChange(this.state.tokenKey, value);
     this.setState({
       value,
       tokens,

@@ -12,11 +12,13 @@ export default class DateTimeInput extends TokenInput {
     super(props);
     this.detached = true;
     const presets = (props.defaultInput === 'date') ? this.getDatePresets() : this.getTimePresets();
+    const selectables = presets.map(p => p.key);
     this.state = {
       ...this.state,
-      active:         props.defaultInput,
-      selectedPreset: presets[0],
-      op:             null,
+      active:   props.defaultInput,
+      selected: selectables[0],
+      selectables,
+      op:       null,
     };
   }
 
@@ -34,11 +36,13 @@ export default class DateTimeInput extends TokenInput {
   }
 
   onFocus = () => {
+    console.log('focus');
     this.props.onFocus();
     window.document.addEventListener('keydown', this.handleKeyDown);
   };
 
   onBlur = () => {
+    console.log('blur');
     this.props.onBlur();
     window.document.removeEventListener('keydown', this.handleKeyDown);
   };
@@ -157,20 +161,21 @@ export default class DateTimeInput extends TokenInput {
   };
 
   handleKeyDown = (e) => {
+    console.log(e.key);
     switch (e.key) {
       case 'ArrowDown':
       case 'ArrowUp': {
         e.preventDefault();
-        const presets = this.state.active === 'time' ? this.getTimePresets() : this.getDatePresets();
-        const index = presets.findIndex(preset => preset.key === this.state.selectedPreset.key);
-        if (e.key === 'ArrowDown' && index < presets.length - 1) {
+        const { selectables, selected } = this.state;
+        const index = selectables.findIndex(s => s === selected);
+        if (e.key === 'ArrowDown' && index < selectables.length - 1) {
           this.setState({
-            selectedPreset: presets[index + 1]
+            selected: selectables[index + 1]
           });
         }
         if (e.key === 'ArrowUp' && index > 0) {
           this.setState({
-            selectedPreset: presets[index - 1]
+            selected: selectables[index - 1]
           });
         }
         break;
@@ -178,10 +183,11 @@ export default class DateTimeInput extends TokenInput {
       case 'ArrowRight': {
         e.preventDefault();
         if (this.props.showSwitcher && this.state.active === 'date') {
-          const timePresets = this.getTimePresets();
+          const selectables = this.getTimePresets().map(p => p.key);
           this.setState({
-            active:         'time',
-            selectedPreset: timePresets[0]
+            active:   'time',
+            selected: selectables[0],
+            selectables,
           });
         }
         break;
@@ -189,10 +195,11 @@ export default class DateTimeInput extends TokenInput {
       case 'ArrowLeft': {
         e.preventDefault();
         if (this.props.showSwitcher && this.state.active === 'time') {
-          const datePresets = this.getDatePresets();
+          const selectables = this.getDatePresets().map(p => p.key);
           this.setState({
-            active:         'date',
-            selectedPreset: datePresets[0]
+            active:   'date',
+            selected: selectables[0],
+            selectables,
           });
         }
         break;
@@ -212,14 +219,14 @@ export default class DateTimeInput extends TokenInput {
           this.props.selectPreviousToken();
         } else {
           this.props.selectNextToken();
-          this.handleChange('preset', this.state.selectedPreset.key);
+          this.handleChange('preset', this.state.selected);
         }
         this.disableEditMode();
         break;
       case 'Enter':
         e.preventDefault();
         this.props.selectNextToken();
-        this.handleChange('preset', this.state.selectedPreset.key);
+        this.handleChange('preset', this.state.selected);
         break;
       default:
         return true;
@@ -228,15 +235,15 @@ export default class DateTimeInput extends TokenInput {
   };
 
   renderPresets = (presets) => {
-    const { value, selectedPreset } = this.state;
+    const { value, selected } = this.state;
     const valuePreset = (value) ? value.preset : null;
     return presets.map((preset) => {
       const currentValue = JSON.stringify(preset.key) === valuePreset ? styles['current-value'] : '';
-      const selected = (preset.key === selectedPreset.key) ? styles.selected : '';
+      const selectedClass = (preset.key === selected) ? styles.selected : '';
       return (
         <ListElement
           key={preset.key}
-          className={classNames(currentValue, selected)}
+          className={classNames(currentValue, selectedClass)}
           onClick={() => this.handleChange('preset', preset.key)}
         >
           {preset.label}

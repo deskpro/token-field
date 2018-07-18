@@ -1,3 +1,9 @@
+## 0.5.9 - 2018-07-18
+
+* Fix navigation in DateTimeInput
+* Fix value prop
+* Fix ghost value on deleting with backspace
+
 ## 0.5.8 - 2018-07-18
 
 * Put description in suggestion title
