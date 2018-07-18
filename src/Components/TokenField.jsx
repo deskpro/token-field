@@ -129,7 +129,7 @@ export default class TokenField extends React.Component {
 
   blur = () => {
     this.inputs.forEach((input) => {
-      if (input.blur) {
+      if (input && input.blur) {
         input.blur();
       }
     });

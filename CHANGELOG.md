@@ -1,3 +1,7 @@
+## 0.5.6 - 2018-07-18
+
+* Fix blur
+
 ## 0.5.5 - 2018-07-18
 
 * Add blur() to TokenField
