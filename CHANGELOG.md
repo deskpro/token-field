@@ -1,3 +1,7 @@
+## 0.5.5 - 2018-07-18
+
+* Add blur() to TokenField
+
 ## 0.5.4 - 2018-07-18
 
 * Add focus() to TokenField

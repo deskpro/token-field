@@ -53,6 +53,10 @@ export default class TokenFieldInput extends React.Component {
     this.input.focus();
   }
 
+  blur() {
+    this.closePopper();
+  }
+
   selectToken(token) {
     let value = '';
     const { tokenKey } = this.state;

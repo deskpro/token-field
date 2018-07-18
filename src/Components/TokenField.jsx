@@ -111,12 +111,6 @@ export default class TokenField extends React.Component {
   addInputAndFocus = (key) => {
     const { value } = this.state;
     const inputKey = (!key) ? value.length : key;
-    // if (this.inputs[0] === null) {
-    //   value.push({ type: 'TEXT', value: '' });
-    //   this.focusInput = 0;
-    //   // setTimeout(() => this.addInputAndFocus(key), 10);
-    //   return;
-    // }
     if (value.length && inputKey === value.length && value[inputKey - 1].type === 'TEXT') {
       this.inputs[inputKey - 1].focus();
     } else {
@@ -131,6 +125,14 @@ export default class TokenField extends React.Component {
 
   focus = () => {
     this.addInputAndFocus();
+  };
+
+  blur = () => {
+    this.inputs.forEach((input) => {
+      if (input.blur) {
+        input.blur();
+      }
+    });
   };
 
   addTokenAndFocus = (id, key, defaultValue) => {
