@@ -165,7 +165,6 @@ export default class DateTimeInput extends TokenInput {
     switch (e.key) {
       case 'ArrowDown':
       case 'ArrowUp': {
-        e.preventDefault();
         const { selectables, selected } = this.state;
         const index = selectables.findIndex(s => s === selected);
         if (e.key === 'ArrowDown' && index < selectables.length - 1) {
@@ -181,7 +180,6 @@ export default class DateTimeInput extends TokenInput {
         break;
       }
       case 'ArrowRight': {
-        e.preventDefault();
         if (this.props.showSwitcher && this.state.active === 'date') {
           const selectables = this.getTimePresets().map(p => p.key);
           this.setState({
@@ -193,7 +191,6 @@ export default class DateTimeInput extends TokenInput {
         break;
       }
       case 'ArrowLeft': {
-        e.preventDefault();
         if (this.props.showSwitcher && this.state.active === 'time') {
           const selectables = this.getDatePresets().map(p => p.key);
           this.setState({
@@ -205,7 +202,6 @@ export default class DateTimeInput extends TokenInput {
         break;
       }
       case 'Escape': {
-        e.preventDefault();
         const value = this.props.token.value ? this.props.token.value : { time: null };
         this.setState({
           value,
@@ -214,7 +210,6 @@ export default class DateTimeInput extends TokenInput {
         break;
       }
       case 'Tab':
-        e.preventDefault();
         if (e.shiftKey) {
           this.props.selectPreviousToken();
         } else {
@@ -224,14 +219,15 @@ export default class DateTimeInput extends TokenInput {
         this.disableEditMode();
         break;
       case 'Enter':
-        e.preventDefault();
         this.props.selectNextToken();
         this.handleChange('preset', this.state.selected);
         break;
       default:
         return true;
     }
-    return true;
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
   };
 
   renderPresets = (presets) => {

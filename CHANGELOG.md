@@ -1,3 +1,7 @@
+## 0.5.10 - 2018-07-19
+
+* Fix keydown events leakage on DateTimeInput
+
 ## 0.5.9 - 2018-07-18
 
 * Fix navigation in DateTimeInput
