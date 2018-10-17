@@ -1,3 +1,7 @@
+## 0.5.11 - 2018-10-17
+
+* Update dependencies
+
 ## 0.5.10 - 2018-07-19
 
 * Fix keydown events leakage on DateTimeInput
