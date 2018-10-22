@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 const cssnext = require('postcss-cssnext');
+const modulesValues = require('postcss-modules-values');
 var path = require('path');
 
 
@@ -31,6 +32,7 @@ module.exports = {
               ident: 'postcss',
               plugins: () => [
                 cssnext(),
+                modulesValues(),
               ],
               sourceMap: true,
             },

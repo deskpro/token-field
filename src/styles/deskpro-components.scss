@@ -1,7 +1,3 @@
-$dp-styles-font-path: '../../node_modules/@deskpro/react-components/src/styles/fonts/';
-$fa-font-path: "//netdna.bootstrapcdn.com/font-awesome/4.7.0/fonts" !default;
-
-@import "../../node_modules/@deskpro/react-components/node_modules/font-awesome/scss/font-awesome";
 :global {
-  @import '~@deskpro/react-components/src/styles/main';
+  @import '~@deskpro/react-components/dist/main.css';
 }

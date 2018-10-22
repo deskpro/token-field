@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import AutosizeInput from 'react-input-autosize';
 import Highlighter from 'react-highlight-words';
+import { faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { Icon, List, ListElement, Scrollbar } from '@deskpro/react-components';
 import Tether from 'react-tether';
-import styles from 'styles/style.css';
+import styles from '../styles/style.css';
 
 export default class TokenFieldInput extends React.Component {
   static propTypes = {
@@ -453,7 +454,7 @@ export default class TokenFieldInput extends React.Component {
                 onClick={this.handleAllTokens}
                 className={classNames(styles['extend-tokens'], { selected: selectedToken === 'extend' })}
               >
-                <Icon name="caret-down" />
+                <Icon name={faCaretDown} />
               </ListElement>
               : this.renderCategories()
             }
@@ -472,7 +473,7 @@ export default class TokenFieldInput extends React.Component {
           key={label}
           className={classNames(styles['token-suggestion'], styles.category, selected)}
         >
-          {label} <Icon name="caret-right" />
+          {label} <Icon name={faCaretRight} />
           <List className={classNames(styles['token-subcategory'], 'dp-selectable-list')}>
             {categories[label].children.map((token) => {
               const childLabel = token.label ? token.label : token.id;

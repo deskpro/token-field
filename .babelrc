@@ -1,13 +1,16 @@
 {
-    "presets": ["env", "react", "stage-0"],
-    "plugins": [
-      "add-module-exports",
-      ["transform-decorators-legacy", "transform-flow-strip-types"],
-      ["react-intl", {"messagesDir": "./build/messages/"}],
-      ["module-resolver", {
-        "root": ["./src"],
-        "extensions": [".js", ".jsx"]
-      }]
-    ]
-  }
-  
+  "presets": [
+    ["env", {"modules": false}],
+    "react",
+    "stage-0"
+  ],
+  "plugins": [
+    "add-module-exports",
+    ["transform-decorators-legacy", "transform-flow-strip-types"],
+    ["react-intl", {"messagesDir": "./build/messages/"}],
+    ["module-resolver", {
+      "root": ["./src"],
+      "extensions": [".js", ".jsx"]
+    }]
+  ]
+}

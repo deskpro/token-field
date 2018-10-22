@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { List, ListElement, Scrollbar } from '@deskpro/react-components';
-import styles from 'styles/style.css';
+import styles from '../../styles/style.css';
 import TokenInput from './TokenInput';
 
 export default class BooleanInput extends TokenInput {
