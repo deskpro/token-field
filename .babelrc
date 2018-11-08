@@ -11,5 +11,10 @@
       "root": ["./src"],
       "extensions": [".js", ".jsx"]
     }]
-  ]
+  ],
+  "env": {
+    "test": {
+      "plugins": ["transform-es2015-modules-commonjs"]
+    }
+  }
 }
