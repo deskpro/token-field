@@ -1,4 +1,4 @@
-import '../../src/styles/deskpro-components.scss';
+import '@deskpro/react-components/dist/main.css';
 import './components/TokenField';
 import './components/input/BooleanInput';
 import './components/input/DateTimeInput';

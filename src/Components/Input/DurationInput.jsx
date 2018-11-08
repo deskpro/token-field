@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import classNames from 'classnames';
 import { Label, Input, List, ListElement } from '@deskpro/react-components';
-import styles from 'styles/style.css';
+import styles from '../../styles/style.css';
 import TokenInput from './TokenInput';
 
 export default class DurationInput extends TokenInput {
@@ -118,7 +118,7 @@ export default class DurationInput extends TokenInput {
     const translations = this.getTranslations();
     const timeObject = Object.assign(DurationInput.getEmptyTimeObject(), this.state.value.time);
     return (
-      <div className={classNames('dp-select', styles['dp-select'])}>
+      <div className={classNames('dp-select')}>
         <div className="dp-select__content custom-list">
           <List>
             {['minutes', 'hours', 'days', 'weeks', 'months', 'years']
@@ -248,7 +248,7 @@ export default class DurationInput extends TokenInput {
       return this.getCustomInput();
     }
     return (
-      <div className={classNames('dp-select', styles['dp-select'])}>
+      <div className={classNames('dp-select')}>
         <div className="dp-select__content">
           <List className="dp-selectable-list">
             {this.renderPresets()}

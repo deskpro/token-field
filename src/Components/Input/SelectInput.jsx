@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
+import { faSearch, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { Checkbox, Input, Icon, List, ListElement, Scrollbar } from '@deskpro/react-components';
-import styles from 'styles/style.css';
+import styles from '../../styles/style.css';
 import TokenInput from './TokenInput';
 
 export default class SelectInput extends TokenInput {
@@ -212,7 +213,7 @@ export default class SelectInput extends TokenInput {
               { showSearch ?
                 <Input
                   name="search"
-                  icon="search"
+                  icon={faSearch}
                   value={this.state.filter}
                   ref={(c) => { this.searchInput = c; }}
                   onChange={this.handleFilter}
@@ -259,7 +260,7 @@ export default class SelectInput extends TokenInput {
     return renderHeader;
   };
 
-  renderLoading = () => <ListElement className={styles.loading}><Icon name="spinner" size="large" spin /></ListElement>;
+  renderLoading = () => <ListElement className={styles.loading}><Icon name={faSpinner} size="large" spin /></ListElement>;
 
 
   renderOptions = () => {

@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
-import { objects, noop } from '@deskpro/react-components/dist/utils';
-import styles from 'styles/style.css';
+import * as objects from '@deskpro/js-utils/dist/objects';
+import noop from '@deskpro/js-utils/dist/noop';
+import styles from '../../styles/style.css';
 
 class InputContent extends React.Component {
   static propTypes = {

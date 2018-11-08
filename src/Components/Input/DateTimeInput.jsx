@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import classNames from 'classnames';
 import { Datepicker, Tabs, TabLink, Section, List, ListElement } from '@deskpro/react-components';
-import styles from 'styles/style.css';
+import styles from '../../styles/style.css';
 import TokenInput from './TokenInput';
 
 
@@ -256,7 +256,7 @@ export default class DateTimeInput extends TokenInput {
       return this.getDatePicker();
     }
     return (
-      <div className={classNames('dp-select', styles['dp-select'])}>
+      <div className={classNames('dp-select')}>
         <div className="dp-select__content">
           {
             showSwitcher ?
