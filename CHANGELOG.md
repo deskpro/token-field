@@ -1,3 +1,7 @@
+## 0.6.1 - 2018-11-08
+
+* Update `react-components` to `1.4.0`
+
 ## 0.6.0 - 2018-11-08
 
 * Compile with RollUp

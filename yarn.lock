@@ -97,10 +97,10 @@
   resolved "https://registry.yarnpkg.com/@deskpro/js-utils/-/js-utils-1.0.6.tgz#5562440fb85284a1f4cf666a0b3a56f84e66e586"
   integrity sha512-Xlr7YbrUUT59dZ6Nndxy+Ve3PYSyF4vmEc4nI48pgmC0y8qMtf1tp2J+N5gOpMoNmb/dzjEZKigIcQp9zUFn4A==
 
-"@deskpro/react-components@1.4.0-beta.5":
-  version "1.4.0-beta.5"
-  resolved "https://registry.yarnpkg.com/@deskpro/react-components/-/react-components-1.4.0-beta.5.tgz#d6e42fdbdd82888480084c27a4241831e76ceb7e"
-  integrity sha512-xNzQP4ELAUGr5mFhQWWbE15Wh1s2XFQiz9dQ77hmMJkhiLHN4k76UzYDNeCSQN6Ml+uMws6c2kuGB1k/ry5Uvg==
+"@deskpro/react-components@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@deskpro/react-components/-/react-components-1.4.0.tgz#3a0e5355dbd34048a84b01be7052e45b8e9a58d2"
+  integrity sha512-qraWldvG+f5w7PkZjxQdOdt/NAg9ib+7ZktMb8gVwF1cBqYF1kmNDpXMBzvAFyD4bAUVmVj2cMQ7ABkl7wxC0Q==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.6"
     "@fortawesome/free-regular-svg-icons" "^5.4.1"
