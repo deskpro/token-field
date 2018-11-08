@@ -5,7 +5,6 @@
     "stage-0"
   ],
   "plugins": [
-    "add-module-exports",
     ["transform-decorators-legacy", "transform-flow-strip-types"],
     ["react-intl", {"messagesDir": "./build/messages/"}],
     ["module-resolver", {

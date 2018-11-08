@@ -1,3 +1,7 @@
+## 0.6.0 - 2018-11-08
+
+* Compile with RollUp
+
 ## 0.5.11 - 2018-10-17
 
 * Update dependencies

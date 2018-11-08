@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { Checkbox, Input, Icon, List, ListElement, Scrollbar } from '@deskpro/react-components';
 import styles from '../../styles/style.css';
 import TokenInput from './TokenInput';
@@ -213,7 +213,7 @@ export default class SelectInput extends TokenInput {
               { showSearch ?
                 <Input
                   name="search"
-                  icon="search"
+                  icon={faSearch}
                   value={this.state.filter}
                   ref={(c) => { this.searchInput = c; }}
                   onChange={this.handleFilter}

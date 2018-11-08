@@ -10,7 +10,8 @@ module.exports = {
   input:  'src/Components/index.js',
   output: {
     file:      'dist/index.js',
-    format:    'cjs',
+    format:    'umd',
+    name:      'tokenField',
     sourcemap: true,
     globals:   {
       react:       'React',
@@ -26,6 +27,7 @@ module.exports = {
         cssnext(),
         postcssModulesValues
       ],
+      modules:    true,
       extensions: ['.css']
     }),
     resolve({
