@@ -5,6 +5,7 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
+        exclude: /node_modules/,
         use: [
           'style-loader',
           { loader: 'css-loader', options: { modules: true, importLoaders: 1 } },
@@ -19,8 +20,20 @@ module.exports = {
             },
           },
         ]
-      },
-      {
+      }, {
+        test: /node_modules.*.css$/, // A file or folder containing CSS you don't want mangled
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            query: {
+              modules: true,
+              localIdentName: '[local]' // This will ensure the classname remains as it is
+            }
+          },
+          'postcss-loader'
+        ]
+      }, {
         test: /\.scss$/,
         use: [
           'style-loader',

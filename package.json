@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/deskpro/token-field#readme",
   "dependencies": {
-    "@deskpro/react-components": "1.3.35",
+    "@deskpro/react-components": "1.4.0-beta.5",
     "classnames": "^2.2.5",
     "moment": "^2.22.2",
     "prop-types": "^15.6.0",
