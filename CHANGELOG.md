@@ -1,3 +1,7 @@
+## 0.6.2 - 2018-11-09
+
+* Update `react-components` to `1.4.1`
+
 ## 0.6.1 - 2018-11-08
 
 * Update `react-components` to `1.4.0`
