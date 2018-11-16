@@ -1,3 +1,7 @@
+## 0.6.3 - 2018-11-16
+
+* Fix SelectInput isMultiple keyboard selection
+
 ## 0.6.2 - 2018-11-09
 
 * Update `react-components` to `1.4.1`

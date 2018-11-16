@@ -151,6 +151,19 @@ export default class SelectInput extends TokenInput {
         this.disableEditMode();
         break;
       case ' ':
+        if (this.props.isMultiple) {
+          const { selectedOption, value } = this.state;
+          const key = selectedOption.id || selectedOption.value;
+          let checked = false;
+          if (value) {
+            checked = value.indexOf(key) !== -1;
+          }
+          this.handleChangeMultiple(!checked, key);
+        } else {
+          this.handleChange(this.state.selectedOption);
+          this.props.selectNextToken();
+        }
+        break;
       case 'Enter':
         this.handleChange(this.state.selectedOption);
         this.props.selectNextToken();
@@ -260,7 +273,11 @@ export default class SelectInput extends TokenInput {
     return renderHeader;
   };
 
-  renderLoading = () => <ListElement className={styles.loading}><Icon name={faSpinner} size="large" spin /></ListElement>;
+  renderLoading = () => (
+    <ListElement className={styles.loading}>
+      <Icon name={faSpinner} size="large" spin />
+    </ListElement>
+  );
 
 
   renderOptions = () => {
@@ -298,7 +315,7 @@ export default class SelectInput extends TokenInput {
   };
 
   renderMultipleOptions() {
-    const { filter, value, loading } = this.state;
+    const { filter, value, loading, selectedOption } = this.state;
     let options;
     if (loading) {
       return this.renderLoading();
@@ -313,6 +330,7 @@ export default class SelectInput extends TokenInput {
     return (options
       .map((option) => {
         const key = option.id || option.value;
+        const selected = option === selectedOption ? styles.selected : '';
         let checked = false;
         if (value) {
           checked = value.indexOf(key) !== -1;
@@ -320,7 +338,7 @@ export default class SelectInput extends TokenInput {
         return (
           <ListElement
             key={key}
-            className={styles.option}
+            className={this.cx(styles.option, selected, 'option')}
           >
             <Checkbox checked={checked} value={key} onChange={this.handleChangeMultiple}>
               {this.renderItem(option)}

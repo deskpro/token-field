@@ -36,13 +36,11 @@ export default class DateTimeInput extends TokenInput {
   }
 
   onFocus = () => {
-    console.log('focus');
     this.props.onFocus();
     window.document.addEventListener('keydown', this.handleKeyDown);
   };
 
   onBlur = () => {
-    console.log('blur');
     this.props.onBlur();
     window.document.removeEventListener('keydown', this.handleKeyDown);
   };
@@ -161,7 +159,6 @@ export default class DateTimeInput extends TokenInput {
   };
 
   handleKeyDown = (e) => {
-    console.log(e.key);
     switch (e.key) {
       case 'ArrowDown':
       case 'ArrowUp': {

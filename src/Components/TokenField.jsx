@@ -49,6 +49,7 @@ export default class TokenField extends React.Component {
     };
 
     this.inputs = [];
+    this.inputField = null;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -82,6 +83,9 @@ export default class TokenField extends React.Component {
     if (this.pendingBlur) {
       window.clearTimeout(this.pendingBlur);
     }
+    if (this.inputField) {
+      this.inputField.closePopper();
+    }
     this.pendingBlur = window.setTimeout(() => {
       this.setState({
         focused: false
@@ -92,7 +96,7 @@ export default class TokenField extends React.Component {
 
   getInputField = (key, value) => (
     <TokenFieldInput
-      ref={(c) => { this.inputs[key] = c; }}
+      ref={(c) => { this.inputs[key] = c; this.inputField = c; }}
       value={value}
       key={key}
       tokenKey={key}

@@ -98,7 +98,9 @@ storiesOf('Inputs', module)
         className="test"
       />
       <SelectInput
-        dataSource={{ getOptions: () => fakeAPI('', 30000, optionsWithIcon), findOptions: filter => fakeAPI(filter, 30000, optionsWithIcon) }}
+        dataSource={{ getOptions: () =>
+          fakeAPI('', 30000, optionsWithIcon),
+        findOptions: filter => fakeAPI(filter, 30000, optionsWithIcon) }}
         token={selectTokenIcon}
         label="temperature"
         selectPreviousToken={action('SelectPreviousToken')}

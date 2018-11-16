@@ -107,7 +107,7 @@ const tokenTypes = [
     }
   },
   {
-    id:     'country',
+    id:     'country-async',
     widget: 'SelectInput',
     props:  {
       dataSource: {
@@ -115,6 +115,18 @@ const tokenTypes = [
       },
       renderHeader: <h3>Countries</h3>,
       showSearch:   false
+    },
+  },
+  {
+    id:     'country',
+    widget: 'SelectInput',
+    props:  {
+      dataSource: {
+        getOptions: countries
+      },
+      renderHeader: <h3>Countries</h3>,
+      showSearch:   false,
+      isMultiple:   true,
     },
   },
   {
@@ -136,7 +148,7 @@ const defaultValue = [
   },
   {
     type:  'country',
-    value: 'GB',
+    value: ['GB'],
     meta:  [
       { label: 'United Kingdom', value: 'GB' }
     ],
