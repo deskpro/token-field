@@ -1,3 +1,7 @@
+## 0.6.5 - 2018-11-20
+
+* Fix blur on SelectInput
+
 ## 0.6.4 - 2018-11-20
 
 * Fix keyboard scroll in SelectInput

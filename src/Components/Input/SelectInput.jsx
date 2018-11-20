@@ -162,6 +162,7 @@ export default class SelectInput extends TokenInput {
           }
           this.handleChangeMultiple(!checked, key);
           if (e.key === 'Enter') {
+            this.disableEditMode();
             this.props.selectNextToken();
           }
         } else {
