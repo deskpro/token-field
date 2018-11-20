@@ -1,3 +1,7 @@
+## 0.6.4 - 2018-11-20
+
+* Fix keyboard scroll in SelectInput
+
 ## 0.6.3 - 2018-11-16
 
 * Fix SelectInput isMultiple keyboard selection

@@ -133,6 +133,7 @@ export default class SelectInput extends TokenInput {
             selectedOption: options[index - 1]
           });
         }
+        this.checkScroll(e.key);
         break;
       }
       case 'Escape':
@@ -151,6 +152,7 @@ export default class SelectInput extends TokenInput {
         this.disableEditMode();
         break;
       case ' ':
+      case 'Enter':
         if (this.props.isMultiple) {
           const { selectedOption, value } = this.state;
           const key = selectedOption.id || selectedOption.value;
@@ -159,14 +161,13 @@ export default class SelectInput extends TokenInput {
             checked = value.indexOf(key) !== -1;
           }
           this.handleChangeMultiple(!checked, key);
+          if (e.key === 'Enter') {
+            this.props.selectNextToken();
+          }
         } else {
           this.handleChange(this.state.selectedOption);
           this.props.selectNextToken();
         }
-        break;
-      case 'Enter':
-        this.handleChange(this.state.selectedOption);
-        this.props.selectNextToken();
         break;
       default:
         return true;
@@ -216,13 +217,27 @@ export default class SelectInput extends TokenInput {
     });
   };
 
+  checkScroll = (key) => {
+    if (this.selected) {
+      const scrollZone = this.list.parentElement.getBoundingClientRect();
+      const selected = this.selected.getBoundingClientRect();
+      if (key === 'ArrowUp' && this.selected.offsetTop < this.list.parentElement.scrollTop) {
+        this.list.parentElement.scrollTop = this.selected.offsetTop - selected.height;
+      }
+      if (key === 'ArrowDown' && (this.selected.offsetTop > (this.list.parentElement.scrollTop + scrollZone.height - selected.height))) {
+        this.list.parentElement.scrollTop = this.selected.offsetTop - scrollZone.height + selected.height;
+      }
+    }
+  };
+
+
   renderInput = () => {
     const { isMultiple, showSearch } = this.props;
     return (
       <div className="dp-select">
         <div className="dp-select__content">
           <Scrollbar>
-            <List className="dp-selectable-list">
+            <List className="dp-selectable-list" ref={(c) => { this.list = c; }}>
               { showSearch ?
                 <Input
                   name="search"
@@ -295,6 +310,7 @@ export default class SelectInput extends TokenInput {
             key={key}
             className={this.cx(currentValue, selected, 'option')}
             onClick={() => this.handleChange(option)}
+            ref={(c) => { if (selected) { this.selected = c; } }}
           >
             {this.renderItem(option)}
           </ListElement>
@@ -339,6 +355,7 @@ export default class SelectInput extends TokenInput {
           <ListElement
             key={key}
             className={this.cx(styles.option, selected, 'option')}
+            ref={(c) => { if (selected) { this.selected = c; } }}
           >
             <Checkbox checked={checked} value={key} onChange={this.handleChangeMultiple}>
               {this.renderItem(option)}

@@ -143,6 +143,9 @@
     vertical-align: baseline;
     display: inline-block;
 }
+.option {
+    white-space: nowrap;
+}
 .option :global(.dp-icon) {
     position: static;
     color: inherit;
