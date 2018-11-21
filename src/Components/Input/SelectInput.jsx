@@ -225,7 +225,9 @@ export default class SelectInput extends TokenInput {
       if (key === 'ArrowUp' && this.selected.offsetTop < this.list.parentElement.scrollTop) {
         this.list.parentElement.scrollTop = this.selected.offsetTop - selected.height;
       }
-      if (key === 'ArrowDown' && (this.selected.offsetTop > (this.list.parentElement.scrollTop + scrollZone.height - selected.height))) {
+      if (key === 'ArrowDown'
+        && (this.selected.offsetTop > (this.list.parentElement.scrollTop + scrollZone.height - selected.height))
+      ) {
         this.list.parentElement.scrollTop = this.selected.offsetTop - scrollZone.height + selected.height;
       }
     }

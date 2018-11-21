@@ -83,14 +83,14 @@ export default class TokenField extends React.Component {
     if (this.pendingBlur) {
       window.clearTimeout(this.pendingBlur);
     }
-    if (this.inputField) {
-      this.inputField.closePopper();
-    }
     this.pendingBlur = window.setTimeout(() => {
       this.setState({
         focused: false
       });
       this.props.onBlur();
+      if (this.inputField) {
+        this.inputField.closePopper();
+      }
     }, this.props.blurTimeout);
   };
 
@@ -101,6 +101,7 @@ export default class TokenField extends React.Component {
       key={key}
       tokenKey={key}
       tokenTypes={this.props.tokenTypes}
+      currentValue={this.state.value}
       addToken={this.addTokenAndFocus}
       onChange={this.handleTokenChange}
       onFocus={this.onFocus}
@@ -108,10 +109,17 @@ export default class TokenField extends React.Component {
       selectPreviousToken={() => this.selectPreviousToken(key)}
       selectNextToken={() => this.selectNextToken(key)}
       removeToken={this.removeToken}
+      cancelBlur={this.cancelBlur}
       zIndex={this.props.zIndex}
       showTokensOnFocus={this.props.showTokensOnFocus}
     />
   );
+
+  cancelBlur = () => {
+    if (this.pendingBlur) {
+      window.clearTimeout(this.pendingBlur);
+    }
+  };
 
   addInputAndFocus = (key) => {
     const { value } = this.state;

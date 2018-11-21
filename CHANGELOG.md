@@ -1,3 +1,8 @@
+## 0.6.6 - 2018-11-21
+
+* Add `allowDuplicate` to prevent the same token from being selected twice
+* Fix onClick on tokens
+
 ## 0.6.5 - 2018-11-20
 
 * Fix blur on SelectInput

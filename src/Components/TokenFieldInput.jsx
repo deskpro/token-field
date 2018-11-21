@@ -19,7 +19,9 @@ export default class TokenFieldInput extends React.Component {
     selectPreviousToken: PropTypes.func.isRequired,
     selectNextToken:     PropTypes.func.isRequired,
     removeToken:         PropTypes.func.isRequired,
+    cancelBlur:          PropTypes.func.isRequired,
     value:               PropTypes.string.isRequired,
+    currentValue:        PropTypes.array,
     showTokensOnFocus:   PropTypes.bool,
     zIndex:              PropTypes.number,
   };
@@ -29,6 +31,7 @@ export default class TokenFieldInput extends React.Component {
     onFocus() {},
     onBlur() {},
     zIndex:            100,
+    currentValue:      [],
     showTokensOnFocus: false,
   };
 
@@ -114,6 +117,12 @@ export default class TokenFieldInput extends React.Component {
     if (this.props.showTokensOnFocus && this.state.value === '') {
       const tokens = this.props.tokenTypes
         .filter(token => token.showOnFocus)
+        .filter((token) => {
+          if (token.allowDuplicate === false) {
+            return !this.props.currentValue.find(e => e.type === token.id);
+          }
+          return true;
+        })
         .sort((a, b) => {
           const aLabel = a.label ? a.label : a.id;
           const bLabel = b.label ? b.label : b.id;
@@ -153,7 +162,12 @@ export default class TokenFieldInput extends React.Component {
         }
         return token.id.match(regexp);
       }
-      );
+      ).filter((token) => {
+        if (token.allowDuplicate === false) {
+          return !this.props.currentValue.find(e => e.type === token.id);
+        }
+        return true;
+      });
     }
     if (tokens.length) {
       if (!selectedToken || tokens.indexOf(selectedToken) === -1) {
@@ -176,8 +190,15 @@ export default class TokenFieldInput extends React.Component {
 
   handleAllTokens = () => {
     let { tokens } = this.state;
+    this.props.cancelBlur();
     tokens = tokens.concat(this.props.tokenTypes
       .filter(token => !token.showOnFocus && !token.category)
+      .filter((token) => {
+        if (token.allowDuplicate === false) {
+          return !this.props.currentValue.find(e => e.type === token.id);
+        }
+        return true;
+      })
       .sort((a, b) => {
         const aLabel = a.label ? a.label : a.id;
         const bLabel = b.label ? b.label : b.id;
@@ -289,6 +310,7 @@ export default class TokenFieldInput extends React.Component {
           e.stopPropagation();
           return false;
         case 'Enter':
+        case ' ':
           e.preventDefault();
           e.stopPropagation();
           if (selectedToken === 'extend') {

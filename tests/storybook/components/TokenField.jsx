@@ -128,6 +128,7 @@ const tokenTypes = [
       showSearch:   false,
       isMultiple:   true,
     },
+    allowDuplicate: false,
   },
   {
     id:          'user-waiting',
