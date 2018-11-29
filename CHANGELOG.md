@@ -1,3 +1,11 @@
+## 0.6.8 - 2018-11-29
+
+* Move `moment` to peerDependencies
+
+## 0.6.7 - 2018-11-29
+
+* Move `@deskpro/react-components` to peerDependencies
+
 ## 0.6.6 - 2018-11-21
 
 * Add `allowDuplicate` to prevent the same token from being selected twice
