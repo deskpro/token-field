@@ -1,6 +1,6 @@
 {
   "name": "@deskpro/token-field",
-  "version": "0.6.8-beta.0",
+  "version": "0.6.8-beta.1",
   "description": "",
   "main": "dist/index.js",
   "private": false,
@@ -17,10 +17,10 @@
     "travis-test": "npm run test -- --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "peerDependencies": {
-    "moment": "^2.22.2",
+    "moment": ">=2.22.2",
     "react": "^16.0",
     "react-dom": "^16.0",
-    "@deskpro/react-components": "^1.4.2"
+    "@deskpro/react-components": ">=1.4.2"
   },
   "repository": {
     "type": "git",
