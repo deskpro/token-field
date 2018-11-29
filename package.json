@@ -1,6 +1,6 @@
 {
   "name": "@deskpro/token-field",
-  "version": "0.6.6",
+  "version": "0.6.7",
   "description": "",
   "main": "dist/index.js",
   "private": false,
@@ -18,7 +18,8 @@
   },
   "peerDependencies": {
     "react": "^16.0",
-    "react-dom": "^16.0"
+    "react-dom": "^16.0",
+    "@deskpro/react-components": "^1.4.2"
   },
   "repository": {
     "type": "git",
@@ -32,7 +33,6 @@
   "homepage": "https://github.com/deskpro/token-field#readme",
   "dependencies": {
     "@deskpro/js-utils": "^1.0.6",
-    "@deskpro/react-components": "1.4.2",
     "@fortawesome/free-solid-svg-icons": "^5.4.1",
     "classnames": "^2.2.5",
     "moment": "^2.22.2",
@@ -43,6 +43,7 @@
     "react-tether": "1.0.2"
   },
   "devDependencies": {
+    "@deskpro/react-components": "1.4.2",
     "@storybook/addon-actions": "3.4.11",
     "@storybook/addon-info": "3.4.11",
     "@storybook/addons": "3.4.11",
