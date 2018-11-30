@@ -216,3 +216,11 @@
         display: block;
     }
 }
+
+.datetime-picker {
+    & :global(.dp-input) input {
+        height: 20px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}

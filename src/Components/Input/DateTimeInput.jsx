@@ -106,6 +106,7 @@ export default class DateTimeInput extends TokenInput {
     return (
       <Datepicker
         ref={(c) => { this.datePicker = c; }}
+        className={styles['datetime-picker']}
         date={date.toDate()}
         value={date.format('L')}
         onSelect={d => this.handleChange('absolute', d)}
