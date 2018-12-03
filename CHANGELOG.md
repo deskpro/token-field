@@ -1,5 +1,6 @@
 ## 0.6.8 - 2018-11-29
 
+* Add `scopes` to limit visible tokens
 * Move `moment` to peerDependencies
 
 ## 0.6.7 - 2018-11-29

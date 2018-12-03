@@ -53,6 +53,21 @@ export default class TokenFieldInput extends React.Component {
     };
   }
 
+  getCurrentScopes() {
+    let currentScopes = [];
+    this.props.currentValue.forEach((e) => {
+      const token = this.props.tokenTypes.find(t => t.id === e.type);
+      if (token && token.scopes) {
+        if (!currentScopes.length) {
+          currentScopes = token.scopes;
+        } else {
+          currentScopes = currentScopes.filter(value => token.scopes.indexOf(value) !== -1);
+        }
+      }
+    });
+    return currentScopes;
+  }
+
   focus() {
     this.input.focus();
   }
@@ -115,11 +130,15 @@ export default class TokenFieldInput extends React.Component {
 
   handleFocus = () => {
     if (this.props.showTokensOnFocus && this.state.value === '') {
+      const currentScopes = this.getCurrentScopes();
       const tokens = this.props.tokenTypes
         .filter(token => token.showOnFocus)
         .filter((token) => {
           if (token.allowDuplicate === false) {
             return !this.props.currentValue.find(e => e.type === token.id);
+          }
+          if (currentScopes.length && token.scopes) {
+            return currentScopes.filter(scope => token.scopes.indexOf(scope) !== -1).length > 1;
           }
           return true;
         })
@@ -156,6 +175,7 @@ export default class TokenFieldInput extends React.Component {
     const keyword = '';
     if (match) {
       const regexp = new RegExp(match[1], 'i');
+      const currentScopes = this.getCurrentScopes();
       tokens = this.props.tokenTypes.filter((token) => {
         if (token.label) {
           return token.label.match(regexp);
@@ -165,6 +185,9 @@ export default class TokenFieldInput extends React.Component {
       ).filter((token) => {
         if (token.allowDuplicate === false) {
           return !this.props.currentValue.find(e => e.type === token.id);
+        }
+        if (currentScopes.length && token.scopes) {
+          return currentScopes.filter(scope => token.scopes.indexOf(scope) !== -1).length > 1;
         }
         return true;
       });
@@ -191,11 +214,15 @@ export default class TokenFieldInput extends React.Component {
   handleAllTokens = () => {
     let { tokens } = this.state;
     this.props.cancelBlur();
+    const currentScopes = this.getCurrentScopes();
     tokens = tokens.concat(this.props.tokenTypes
       .filter(token => !token.showOnFocus && !token.category)
       .filter((token) => {
         if (token.allowDuplicate === false) {
           return !this.props.currentValue.find(e => e.type === token.id);
+        }
+        if (currentScopes.length && token.scopes) {
+          return currentScopes.filter(scope => token.scopes.indexOf(scope) !== -1).length > 1;
         }
         return true;
       })

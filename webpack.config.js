@@ -1,5 +1,5 @@
 var webpack = require('webpack');
-const cssnext = require('postcss-cssnext');
+const postcssPresetEnv = require('postcss-preset-env');
 const modulesValues = require('postcss-modules-values');
 var path = require('path');
 
@@ -31,7 +31,7 @@ module.exports = {
             options: {
               ident: 'postcss',
               plugins: () => [
-                cssnext(),
+                postcssPresetEnv({ stage: 4 }),
                 modulesValues(),
               ],
               sourceMap: true,

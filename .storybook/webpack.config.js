@@ -1,4 +1,4 @@
-const cssnext = require('postcss-cssnext');
+const postcssPresetEnv = require('postcss-preset-env');
 const modulesValues = require('postcss-modules-values');
 
 module.exports = {
@@ -15,7 +15,7 @@ module.exports = {
             options: {
               ident: 'postcss',
               plugins: () => [
-                cssnext(),
+                postcssPresetEnv({ stage: 4 }),
                 modulesValues()
               ],
               sourceMap: true,

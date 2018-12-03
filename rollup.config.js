@@ -2,7 +2,7 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import babel from 'rollup-plugin-babel';
 import postcss from 'rollup-plugin-postcss';
-import cssnext from 'postcss-cssnext';
+import postcssPresetEnv from 'postcss-preset-env';
 import simplevars from 'postcss-simple-vars';
 import postcssModulesValues from 'postcss-modules-values';
 
@@ -24,7 +24,7 @@ module.exports = {
       parser:  false,
       plugins: [
         simplevars(),
-        cssnext(),
+        postcssPresetEnv({ stage: 4 }),
         postcssModulesValues
       ],
       modules:    true,

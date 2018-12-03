@@ -48,14 +48,16 @@ const tokenTypes = [
     widget:      'DateTimeInput',
     props:       {},
     showOnFocus: true,
-    description: 'Date the ticket was submitted'
+    description: 'Date the ticket was submitted',
+    scopes:      ['ticket']
   },
   {
     id:          'date-ticket-created',
     widget:      'DateTimeInput',
     showOnFocus: true,
     props:       {},
-    description: 'When the ticket was created'
+    description: 'When the ticket was created',
+    scopes:      ['ticket']
   },
   {
     id:          'date-ticket-resolved',
@@ -88,7 +90,8 @@ const tokenTypes = [
     widget:      'TextInput',
     props:       {},
     description: 'Name of the organisation',
-    category:    'organisation'
+    category:    'organisation',
+    scopes:      ['organisation']
   },
   {
     id:          'organization-domain',
@@ -129,6 +132,7 @@ const tokenTypes = [
       isMultiple:   true,
     },
     allowDuplicate: false,
+    scopes:         ['ticket', 'chat']
   },
   {
     id:          'user-waiting',
@@ -235,6 +239,9 @@ storiesOf('TokenField', module)
     <TokenFieldStory defaultValue={defaultValue} />
   ))
   .add('TokenField empty', () => (
+    <TokenFieldStory defaultValue={[]} showTokensOnFocus />
+  ))
+  .add('TokenField by scope', () => (
     <TokenFieldStory defaultValue={[]} showTokensOnFocus />
   ))
 ;
