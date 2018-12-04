@@ -233,7 +233,6 @@ export default class SelectInput extends TokenInput {
     }
   };
 
-
   renderInput = () => {
     const { isMultiple, showSearch } = this.props;
     return (
@@ -334,20 +333,12 @@ export default class SelectInput extends TokenInput {
   };
 
   renderMultipleOptions() {
-    const { filter, value, loading, selectedOption } = this.state;
-    let options;
+    const { value, loading, options, selectedOption } = this.state;
     if (loading) {
       return this.renderLoading();
     }
-    if (this.props.dataSource.getOptions instanceof Function) {
-      options = this.props.dataSource.getOptions(filter);
-    } else {
-      options = this.props.dataSource.getOptions
-        .filter(option => filter === ''
-          || SelectInput.getLabel(option).toLowerCase().indexOf(filter.toLowerCase()) !== -1);
-    }
-    return (options
-      .map((option) => {
+    return (
+      options.map((option) => {
         const key = option.id || option.value;
         const selected = option === selectedOption ? styles.selected : '';
         let checked = false;

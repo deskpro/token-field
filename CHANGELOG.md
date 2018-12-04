@@ -2,6 +2,7 @@
 
 * Add `scopes` to limit visible tokens
 * Move `moment` to peerDependencies
+* Fix renderMultipleOptions with Promise
 
 ## 0.6.7 - 2018-11-29
 
