@@ -4,6 +4,7 @@
 * Add className to tokenInput tether
 * Move `moment` to peerDependencies
 * Fix renderMultipleOptions with Promise
+* Fix visible scrollbars in `SelectInput`
 
 ## 0.6.7 - 2018-11-29
 

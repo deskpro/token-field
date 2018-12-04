@@ -238,7 +238,7 @@ export default class SelectInput extends TokenInput {
     return (
       <div className="dp-select">
         <div className="dp-select__content">
-          <Scrollbar>
+          <Scrollbar autoHide>
             <List className="dp-selectable-list" ref={(c) => { this.list = c; }}>
               { showSearch ?
                 <Input
