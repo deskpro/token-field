@@ -101,6 +101,7 @@ export default class TokenInput extends React.Component {
             style={{ zIndex: this.props.zIndex }}
             attachment="top left"
             targetAttachment="top right"
+            className="token-field-input-tether"
           >
             <div className={classNames(styles.label, 'dp-code', 'label', 'edit')}>
               {label}:

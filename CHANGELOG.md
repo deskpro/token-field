@@ -1,6 +1,7 @@
 ## 0.6.8 - 2018-11-29
 
 * Add `scopes` to limit visible tokens
+* Add className to tokenInput tether
 * Move `moment` to peerDependencies
 * Fix renderMultipleOptions with Promise
 
