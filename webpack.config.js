@@ -31,7 +31,7 @@ module.exports = {
             options: {
               ident: 'postcss',
               plugins: () => [
-                postcssPresetEnv({ stage: 4 }),
+                postcssPresetEnv({ stage: 0 }),
                 modulesValues(),
               ],
               sourceMap: true,

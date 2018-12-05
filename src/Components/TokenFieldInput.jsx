@@ -23,6 +23,7 @@ export default class TokenFieldInput extends React.Component {
     value:               PropTypes.string.isRequired,
     currentValue:        PropTypes.array,
     showTokensOnFocus:   PropTypes.bool,
+    isOpen:              PropTypes.bool,
     zIndex:              PropTypes.number,
   };
 
@@ -32,7 +33,8 @@ export default class TokenFieldInput extends React.Component {
     onBlur() {},
     zIndex:            100,
     currentValue:      [],
-    showTokensOnFocus: false,
+    showTokensOnFocus: true,
+    isOpen:            false,
   };
 
   constructor(props) {
@@ -548,6 +550,7 @@ export default class TokenFieldInput extends React.Component {
 
   render() {
     const { value, popupOpen } = this.state;
+    const { isOpen } = this.props;
     return (
       <Tether
         style={{ display: 'inline-block', zIndex: this.props.zIndex }}
@@ -564,7 +567,7 @@ export default class TokenFieldInput extends React.Component {
           onKeyDown={this.handleKeyDown}
         />
         {
-          popupOpen ?
+          popupOpen || isOpen ?
             <div className="token-field__popup">
               {this.renderTokens()}
             </div> : null

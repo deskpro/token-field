@@ -29,6 +29,7 @@ export default class TokenField extends React.Component {
     zIndex:            PropTypes.number,
     showTokensOnFocus: PropTypes.bool,
     blurTimeout:       PropTypes.number,
+    popupOpen:         PropTypes.bool,
   };
 
   static defaultProps = {
@@ -39,6 +40,7 @@ export default class TokenField extends React.Component {
     zIndex:            100,
     blurTimeout:       300,
     showTokensOnFocus: false,
+    popupOpen:         false,
   };
 
   constructor(props) {
@@ -111,6 +113,7 @@ export default class TokenField extends React.Component {
       removeToken={this.removeToken}
       cancelBlur={this.cancelBlur}
       zIndex={this.props.zIndex}
+      isOpen={this.props.popupOpen}
       showTokensOnFocus={this.props.showTokensOnFocus}
     />
   );

@@ -24,7 +24,7 @@ module.exports = {
       parser:  false,
       plugins: [
         simplevars(),
-        postcssPresetEnv({ stage: 4 }),
+        postcssPresetEnv({ stage: 0 }),
         postcssModulesValues
       ],
       modules:    true,
