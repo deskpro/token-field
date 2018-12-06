@@ -103,8 +103,6 @@ export default class DateTimeInput extends TokenInput {
     if (this.state.value && this.state.value.date) {
       date = moment(this.state.value.date);
     }
-    console.log(this.props.locale);
-    console.log(moment.months());
     return (
       <Datepicker
         ref={(c) => { this.datePicker = c; }}

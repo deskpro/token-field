@@ -249,8 +249,8 @@ export default class DurationInput extends TokenInput {
     }
     return (
       <div className={classNames('dp-select')}>
-        <div className="dp-select__content">
-          <List className="dp-selectable-list">
+        <div className={classNames(styles.select_content, 'dp-select__content')}>
+          <List className={classNames(styles.selectable_list, 'dp-selectable-list')}>
             {this.renderPresets()}
             <hr />
             <ListElement className="custom" onClick={() => this.handleCustom(true)}>
@@ -263,12 +263,6 @@ export default class DurationInput extends TokenInput {
   };
 
   renderValue = () => {
-    const translations = this.getTranslations();
-    if (this.state.value.op === 'range') {
-      const time = this.getDisplayFromTimeObject(this.state.value.time);
-      const timeEnd = this.getDisplayFromTimeObject(this.state.value.timeEnd);
-      return `${time} ${translations.to} ${timeEnd}`;
-    }
     return this.getDisplayFromTimeObject(this.state.value.time);
   };
 }

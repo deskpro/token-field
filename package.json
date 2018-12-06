@@ -1,6 +1,6 @@
 {
   "name": "@deskpro/token-field",
-  "version": "0.6.9-beta.0",
+  "version": "0.6.9-beta.1",
   "description": "",
   "main": "dist/index.js",
   "private": false,
@@ -44,7 +44,7 @@
     "react-tether": "1.0.2"
   },
   "devDependencies": {
-    "@deskpro/react-components": "1.4.4-beta.7",
+    "@deskpro/react-components": "1.4.4",
     "@storybook/addon-actions": "3.4.11",
     "@storybook/addon-info": "3.4.11",
     "@storybook/addons": "3.4.11",

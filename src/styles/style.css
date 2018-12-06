@@ -191,6 +191,16 @@
 :global(.dp-selectable-list) .root_option {
     font-weight: bold;
 }
+:global(.dp-select) .select_content {
+    padding: 0;
+}
+.selectable_list li {
+    white-space: nowrap;
+    padding: 0 6px;
+}
+.selectable_list hr {
+    margin: 0;
+}
 .loading {
     text-align: center;
 }
