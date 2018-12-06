@@ -263,6 +263,12 @@ export default class DurationInput extends TokenInput {
   };
 
   renderValue = () => {
+    const translations = this.getTranslations();
+    if (this.state.value.op === 'range') {
+      const time = this.getDisplayFromTimeObject(this.state.value.time);
+      const timeEnd = this.getDisplayFromTimeObject(this.state.value.timeEnd);
+      return `${time} ${translations.to} ${timeEnd}`;
+    }
     return this.getDisplayFromTimeObject(this.state.value.time);
   };
 }
