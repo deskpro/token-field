@@ -1,5 +1,6 @@
 ## 0.6.8 - 2018-11-29
 
+* Add `DepartmentInput`
 * Add `scopes` to limit visible tokens
 * Add className to tokenInput tether
 * Move `moment` to peerDependencies

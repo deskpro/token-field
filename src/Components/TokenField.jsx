@@ -13,6 +13,7 @@ export default class TokenField extends React.Component {
         [
           'BooleanInput',
           'DateTimeInput',
+          'DepartmentInput',
           'DurationInput',
           'NumericRangeInput',
           'SelectInput',

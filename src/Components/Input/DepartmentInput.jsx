@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
+import Immutable from 'immutable';
 import { faSearch, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { Checkbox, Input, Icon, List, ListElement, Scrollbar } from '@deskpro/react-components';
 import styles from '../../styles/style.css';
 import TokenInput from './TokenInput';
 
-export default class SelectInput extends TokenInput {
+export default class DepartmentInput extends TokenInput {
   constructor(props) {
     super(props);
     this.detached = true;
@@ -63,26 +64,7 @@ export default class SelectInput extends TokenInput {
   };
 
   static getLabel(option) {
-    if (option.label) {
-      return option.label;
-    }
-    if (option.title) {
-      return option.title;
-    }
-    if (option.name) {
-      return option.name;
-    }
-    if (option.id) {
-      return option.id;
-    }
-    return option.value;
-  }
-
-  static getIcon(option) {
-    if (typeof option.icon === 'string') {
-      return [<Icon key="icon" name={option.icon} />, <span key="space">&nbsp;</span>];
-    }
-    return null;
+    return option.get('title');
   }
 
   loadData = () => {
@@ -122,15 +104,16 @@ export default class SelectInput extends TokenInput {
       case 'ArrowDown':
       case 'ArrowUp': {
         const { options } = this.state;
-        const index = options.findIndex(option => option === this.state.selectedOption);
-        if (e.key === 'ArrowDown' && index < options.length - 1) {
+        const departments = options.toArray();
+        const index = departments.findIndex(option => option[1] === this.state.selectedOption);
+        if (e.key === 'ArrowDown' && index < departments.length - 1) {
           this.setState({
-            selectedOption: options[index + 1]
+            selectedOption: departments[index + 1][1]
           });
         }
         if (e.key === 'ArrowUp' && index > 0) {
           this.setState({
-            selectedOption: options[index - 1]
+            selectedOption: departments[index - 1][1]
           });
         }
         this.checkScroll(e.key);
@@ -152,24 +135,21 @@ export default class SelectInput extends TokenInput {
         this.disableEditMode();
         break;
       case ' ':
-      case 'Enter':
-        if (this.props.isMultiple) {
-          const { selectedOption, value } = this.state;
-          const key = selectedOption.id || selectedOption.value;
-          let checked = false;
-          if (value) {
-            checked = value.indexOf(key) !== -1;
-          }
-          this.handleChangeMultiple(!checked, key);
-          if (e.key === 'Enter') {
-            this.disableEditMode();
-            this.props.selectNextToken();
-          }
-        } else {
-          this.handleChange(this.state.selectedOption);
+      case 'Enter': {
+        const { selectedOption, value } = this.state;
+        console.log(selectedOption);
+        const key = selectedOption.get('id');
+        let checked = false;
+        if (value) {
+          checked = value.indexOf(key) !== -1;
+        }
+        this.onCheckboxChange(!checked, key, selectedOption);
+        if (e.key === 'Enter') {
+          this.disableEditMode();
           this.props.selectNextToken();
         }
         break;
+      }
       default:
         return true;
     }
@@ -178,20 +158,28 @@ export default class SelectInput extends TokenInput {
     return true;
   };
 
-  handleChangeMultiple = (checked, value) => {
-    let values = this.state.value;
-    if (!values) {
-      values = [];
-    }
+  onCheckboxChange = (checked, value, department) => {
+    const selectedDepartments = new Set(this.state.value);
     if (checked) {
-      values.push(value);
+      selectedDepartments.add(value);
+      department.get('children').forEach(child => selectedDepartments.add(child));
+      if (department.get('parent')) {
+        const parent = this.state.options.get(department.get('parent'));
+        if (parent && parent.get('children').filter(child => !selectedDepartments.has(child)).size === 0) {
+          selectedDepartments.add(parent.get('id'));
+        }
+      }
     } else {
-      const index = values.indexOf(value);
-      values.splice(index, 1);
+      selectedDepartments.delete(value);
+      department.get('children').forEach(child => selectedDepartments.delete(child));
+      if (department.get('parent')) {
+        selectedDepartments.delete(department.get('parent'));
+      }
     }
     this.setState({
-      value: values
+      value: Array.from(selectedDepartments)
     });
+    this.forceUpdate();
   };
 
   handleFilter = (filter) => {
@@ -202,7 +190,7 @@ export default class SelectInput extends TokenInput {
     });
     this.getOptions(filter).then((result) => {
       const options = result.filter(option => filter === ''
-        || SelectInput.getLabel(option).toLowerCase().indexOf(filter.toLowerCase()) !== -1);
+        || DepartmentInput.getLabel(option).toLowerCase().indexOf(filter.toLowerCase()) !== -1);
       if (options.length) {
         if (!selectedOption || options.indexOf(selectedOption) === -1) {
           selectedOption = options[0];
@@ -234,7 +222,7 @@ export default class SelectInput extends TokenInput {
   };
 
   renderInput = () => {
-    const { isMultiple, showSearch } = this.props;
+    const { showSearch } = this.props;
     return (
       <div className={classNames(styles.select, 'dp-select')}>
         <div className="dp-select__content">
@@ -251,7 +239,7 @@ export default class SelectInput extends TokenInput {
                 />
                 : null }
               {this.renderHeader()}
-              {isMultiple ? this.renderMultipleOptions() : this.renderOptions()}
+              {this.renderMultipleOptions()}
               {this.renderFooter()}
             </List>
           </Scrollbar>
@@ -262,7 +250,7 @@ export default class SelectInput extends TokenInput {
 
   renderValue = () => {
     let value;
-    if (this.props.isMultiple && this.state.value) {
+    if (this.state.value) {
       if (this.state.value.length > 1) {
         return `${this.state.value.length} ${this.props.selectionsTranslation}`;
       }
@@ -297,37 +285,15 @@ export default class SelectInput extends TokenInput {
     </ListElement>
   );
 
-  renderOptions = () => {
-    const { value, selectedOption, options, loading } = this.state;
-    if (loading) {
-      return this.renderLoading();
-    }
-    return (
-      options.map((option) => {
-        const key = option.id || option.value;
-        const currentValue = key === value ? styles['current-value'] : '';
-        const selected = option === selectedOption ? styles.selected : '';
-        return (
-          <ListElement
-            key={key}
-            className={this.cx(currentValue, selected, 'option')}
-            onClick={() => this.handleChange(option)}
-            ref={(c) => { if (selected) { this.selected = c; } }}
-          >
-            {this.renderItem(option)}
-          </ListElement>
-        );
-      }));
-  };
-
   renderItem = (option) => {
     if (this.props.renderItem) {
       return this.props.renderItem(option);
     }
+
+    const rootOption = option.get('parent') === null ? styles.root_option : '';
     return (
-      <span>
-        {SelectInput.getIcon(option)}
-        {SelectInput.getLabel(option)}
+      <span className={this.cx(rootOption)}>
+        {DepartmentInput.getLabel(option)}
       </span>
     );
   };
@@ -338,8 +304,9 @@ export default class SelectInput extends TokenInput {
       return this.renderLoading();
     }
     return (
-      options.map((option) => {
-        const key = option.id || option.value;
+      options.toArray().map((dep) => {
+        const option = dep[1];
+        const key = option.get('id');
         const selected = option === selectedOption ? styles.selected : '';
         let checked = false;
         if (value) {
@@ -351,7 +318,7 @@ export default class SelectInput extends TokenInput {
             className={this.cx(styles.option, selected, 'option')}
             ref={(c) => { if (selected) { this.selected = c; } }}
           >
-            <Checkbox checked={checked} value={key} onChange={this.handleChangeMultiple}>
+            <Checkbox checked={checked} value={key} onChange={(c, v) => this.onCheckboxChange(c, v, option)}>
               {this.renderItem(option)}
             </Checkbox>
           </ListElement>
@@ -368,7 +335,7 @@ export default class SelectInput extends TokenInput {
   };
 }
 
-SelectInput.propTypes = {
+DepartmentInput.propTypes = {
   ...TokenInput.propTypes,
   token: PropTypes.shape({
     type:  PropTypes.string,
@@ -376,10 +343,9 @@ SelectInput.propTypes = {
     meta:  PropTypes.array,
   }).isRequired,
   dataSource: PropTypes.shape({
-    getOptions:  PropTypes.oneOfType([PropTypes.func, PropTypes.array]).isRequired,
+    getOptions:  PropTypes.instanceOf(Immutable.Map).isRequired,
     findOptions: PropTypes.func,
   }).isRequired,
-  isMultiple:   PropTypes.bool,
   renderHeader: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.node,
@@ -393,9 +359,8 @@ SelectInput.propTypes = {
   selectionsTranslation: PropTypes.string,
 };
 
-SelectInput.defaultProps = {
+DepartmentInput.defaultProps = {
   ...TokenInput.defaultProps,
-  isMultiple:            false,
   renderHeader:          null,
   renderItem:            null,
   renderFooter:          null,

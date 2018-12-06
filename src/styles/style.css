@@ -144,6 +144,7 @@
     display: inline-block;
 }
 .option {
+    padding: 0 6px;
     white-space: nowrap;
 }
 .option :global(.dp-icon) {
@@ -171,6 +172,24 @@
             }
         }
     }
+}
+.select {
+    & > :global(.dp-select__content) {
+        padding: 0;
+    }
+}
+.select-input {
+    margin-bottom: 5px;
+    width: 100%;
+    & input {
+        border-collapse: collapse;
+        border-width: 0 0 1px 0;
+        border-radius: 0;
+        width: 100%;
+    }
+}
+:global(.dp-selectable-list) .root_option {
+    font-weight: bold;
 }
 .loading {
     text-align: center;
