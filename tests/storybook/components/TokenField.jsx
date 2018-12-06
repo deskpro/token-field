@@ -38,8 +38,8 @@ const countries = [
   { label: 'United Kingdom', value: 'GB' }
 ];
 
-const departments = {
-  1: {
+const departments = [
+  {
     user_title:         'Support',
     parent:             null,
     brands:             [1],
@@ -55,7 +55,7 @@ const departments = {
     id:       1,
     children: []
   },
-  2: {
+  {
     user_title:         'Sales',
     parent:             null,
     brands:             [1],
@@ -71,7 +71,7 @@ const departments = {
     id:       2,
     children: []
   },
-  5: {
+  {
     user_title:         'Widgets',
     parent:             null,
     brands:             [1],
@@ -87,7 +87,7 @@ const departments = {
     id:       5,
     children: []
   },
-  6: {
+  {
     user_title:         'Regulation and Control of Magical Creatures',
     parent:             null,
     brands:             [],
@@ -103,7 +103,7 @@ const departments = {
     id:       6,
     children: [7, 8]
   },
-  7: {
+  {
     user_title:         'Regulation',
     parent:             6,
     brands:             [1],
@@ -119,7 +119,7 @@ const departments = {
     id:       7,
     children: []
   },
-  8: {
+  {
     user_title:         'Control',
     parent:             6,
     brands:             [1],
@@ -135,7 +135,7 @@ const departments = {
     id:       8,
     children: []
   },
-  9: {
+  {
     user_title:         'Hotdogs',
     parent:             null,
     brands:             [1],
@@ -151,7 +151,7 @@ const departments = {
     id:       9,
     children: []
   }
-};
+];
 
 const fakeAPI = (filter, delay, value) => new Promise(((resolve) => {
   setTimeout(resolve, delay, value.filter(o => o.title === filter || filter === ''));

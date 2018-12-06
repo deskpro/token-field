@@ -1,3 +1,7 @@
+## 0.6.9 - 2018-12-06
+
+* Fix Wrong Map schema for departments
+
 ## 0.6.8 - 2018-11-29
 
 * Add `DepartmentInput`

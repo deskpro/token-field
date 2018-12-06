@@ -105,15 +105,15 @@ export default class DepartmentInput extends TokenInput {
       case 'ArrowUp': {
         const { options } = this.state;
         const departments = options.toArray();
-        const index = departments.findIndex(option => option[1] === this.state.selectedOption);
+        const index = departments.findIndex(option => option === this.state.selectedOption);
         if (e.key === 'ArrowDown' && index < departments.length - 1) {
           this.setState({
-            selectedOption: departments[index + 1][1]
+            selectedOption: departments[index + 1]
           });
         }
         if (e.key === 'ArrowUp' && index > 0) {
           this.setState({
-            selectedOption: departments[index - 1][1]
+            selectedOption: departments[index - 1]
           });
         }
         this.checkScroll(e.key);
@@ -137,7 +137,6 @@ export default class DepartmentInput extends TokenInput {
       case ' ':
       case 'Enter': {
         const { selectedOption, value } = this.state;
-        console.log(selectedOption);
         const key = selectedOption.get('id');
         let checked = false;
         if (value) {
@@ -304,8 +303,7 @@ export default class DepartmentInput extends TokenInput {
       return this.renderLoading();
     }
     return (
-      options.toArray().map((dep) => {
-        const option = dep[1];
+      options.toArray().map((option) => {
         const key = option.get('id');
         const selected = option === selectedOption ? styles.selected : '';
         let checked = false;

@@ -4,8 +4,8 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import DepartmentInput from 'Components/Input/DepartmentInput';
 
-const options = {
-  1: {
+const options = [
+  {
     user_title:         'Support',
     parent:             null,
     brands:             [1],
@@ -20,8 +20,7 @@ const options = {
     },
     id:       1,
     children: []
-  },
-  2: {
+  }, {
     user_title:         'Sales',
     parent:             null,
     brands:             [1],
@@ -36,8 +35,7 @@ const options = {
     },
     id:       2,
     children: []
-  },
-  5: {
+  }, {
     user_title:         'Widgets',
     parent:             null,
     brands:             [1],
@@ -52,8 +50,7 @@ const options = {
     },
     id:       5,
     children: []
-  },
-  6: {
+  }, {
     user_title:         'Regulation and Control of Magical Creatures',
     parent:             null,
     brands:             [],
@@ -68,8 +65,7 @@ const options = {
     },
     id:       6,
     children: [7, 8]
-  },
-  7: {
+  }, {
     user_title:         'Regulation',
     parent:             6,
     brands:             [1],
@@ -84,8 +80,7 @@ const options = {
     },
     id:       7,
     children: []
-  },
-  8: {
+  }, {
     user_title:         'Control',
     parent:             6,
     brands:             [1],
@@ -100,8 +95,7 @@ const options = {
     },
     id:       8,
     children: []
-  },
-  9: {
+  }, {
     user_title:         'Hotdogs',
     parent:             null,
     brands:             [1],
@@ -117,7 +111,7 @@ const options = {
     id:       9,
     children: []
   }
-};
+];
 
 const selectToken = {
   type:  'department',
