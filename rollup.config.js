@@ -45,6 +45,7 @@ module.exports = {
           'List',
           'ListElement',
           'Section',
+          'Select',
           'Scrollbar',
           'Tabs',
           'TabLink',

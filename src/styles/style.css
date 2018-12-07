@@ -162,10 +162,11 @@
             &.category {
                 position: relative;
                 z-index: 2;
+                padding-right: 14px;
                 & :global(.dp-icon) {
-                    position: relative;
-                    float: right;
-                    margin-right: 5px;
+                    position: absolute;
+                    right: 5px;
+                    left: auto;
                     color: greyscale850;
                     top: 3px;
                 }
@@ -251,5 +252,14 @@
         height: 20px;
         padding-top: 0;
         padding-bottom: 0;
+    }
+}
+:global(.dp-select) .sla_status {
+    padding: 5px;
+    width: 234px;
+    height: 60px;
+    & :global(.dp-select) {
+        display: inline-block;
+        width: 100px;
     }
 }

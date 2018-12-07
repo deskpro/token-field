@@ -6,4 +6,5 @@ import './components/input/DepartmentInput';
 import './components/input/DurationInput';
 import './components/input/NumericRangeInput';
 import './components/input/SelectInput';
+import './components/input/SlaStatusInput';
 import './components/input/TextInput';

@@ -153,6 +153,57 @@ const departments = [
   }
 ];
 
+const slas = [
+  {
+    id:             1,
+    title:          'First',
+    sla_type:       'first_response',
+    active_time:    'default',
+    work_start:     null,
+    work_end:       null,
+    work_days:      [],
+    work_timezone:  null,
+    work_holidays:  [],
+    apply_type:     'all',
+    warn_time:      1,
+    warn_time_unit: 'days',
+    fail_time:      1,
+    fail_time_unit: 'days'
+  },
+  {
+    id:             2,
+    title:          'Second',
+    sla_type:       'resolution',
+    active_time:    'default',
+    work_start:     null,
+    work_end:       null,
+    work_days:      [],
+    work_timezone:  null,
+    work_holidays:  [],
+    apply_type:     'manual',
+    warn_time:      1,
+    warn_time_unit: 'days',
+    fail_time:      1,
+    fail_time_unit: 'days'
+  },
+  {
+    id:             3,
+    title:          'Third',
+    sla_type:       'waiting_time',
+    active_time:    'default',
+    work_start:     null,
+    work_end:       null,
+    work_days:      [],
+    work_timezone:  null,
+    work_holidays:  [],
+    apply_type:     'manual',
+    warn_time:      1,
+    warn_time_unit: 'days',
+    fail_time:      1,
+    fail_time_unit: 'days'
+  }
+];
+
 const fakeAPI = (filter, delay, value) => new Promise(((resolve) => {
   setTimeout(resolve, delay, value.filter(o => o.title === filter || filter === ''));
 }));
@@ -264,6 +315,15 @@ const tokenTypes = [
     widget:      'DurationInput',
     props:       {},
     description: 'Time waited by user'
+  },
+  {
+    id:     'sla_status',
+    widget: 'SlaStatusInput',
+    props:  {
+      dataSource: {
+        getOptions: Immutable.fromJS(slas)
+      },
+    }
   }
 ];
 

@@ -17,6 +17,7 @@ export default class TokenField extends React.Component {
           'DurationInput',
           'NumericRangeInput',
           'SelectInput',
+          'SlaStatusInput',
           'TextInput',
         ]
       ).isRequired,

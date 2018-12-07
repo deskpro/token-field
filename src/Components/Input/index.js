@@ -4,6 +4,7 @@ import DepartmentInput from './DepartmentInput';
 import DurationInput from './DurationInput';
 import NumericRangeInput from './NumericRangeInput';
 import SelectInput from './SelectInput';
+import SlaStatusInput from './SlaStatusInput';
 import TextInput from './TextInput';
 
 export {
@@ -13,5 +14,6 @@ export {
   DurationInput,
   NumericRangeInput,
   SelectInput,
+  SlaStatusInput,
   TextInput,
 };
