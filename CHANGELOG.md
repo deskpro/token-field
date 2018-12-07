@@ -1,6 +1,6 @@
 ## 0.7.0 - 2018-12-07
 
-* * Add `SlaStatusInput`
+* Add `SlaStatusInput`
 
 ## 0.6.9 - 2018-12-06
 

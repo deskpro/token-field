@@ -254,12 +254,14 @@
         padding-bottom: 0;
     }
 }
-:global(.dp-select) .sla_status {
-    padding: 5px;
-    width: 234px;
-    height: 60px;
-    & :global(.dp-select) {
-        display: inline-block;
-        width: 100px;
+:global(.token-field-input-tether) {
+    & :global(.dp-select) > .sla_status {
+        padding: 5px;
+        width: 234px;
+        height: 60px;
+        & :global(.dp-select) {
+            display: inline-block;
+            width: 100px;
+        }
     }
 }
