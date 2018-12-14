@@ -78,6 +78,13 @@ export default class SelectInput extends TokenInput {
     return option.value;
   }
 
+  static getContent(option) {
+    if (option.content) {
+      return option.content;
+    }
+    return SelectInput.getLabel(option);
+  }
+
   static getIcon(option) {
     if (typeof option.icon === 'string') {
       return [<Icon key="icon" name={option.icon} />, <span key="space">&nbsp;</span>];
@@ -206,7 +213,7 @@ export default class SelectInput extends TokenInput {
     });
     this.getOptions(filter).then((result) => {
       const options = result.filter(option => filter === ''
-        || SelectInput.getLabel(option).toLowerCase().indexOf(filter.toLowerCase()) !== -1);
+        || SelectInput.getContent(option).toLowerCase().indexOf(filter.toLowerCase()) !== -1);
       if (options.length) {
         if (!selectedOption || options.indexOf(selectedOption) === -1) {
           selectedOption = options[0];

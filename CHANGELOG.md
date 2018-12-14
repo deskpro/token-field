@@ -3,6 +3,7 @@
 * Add `SlaStatusInput`
 * Fix tab on SelectInput
 * Fixes on DepartmentInput
+* Fix search on SelectInput
 
 ## 0.6.9 - 2018-12-06
 

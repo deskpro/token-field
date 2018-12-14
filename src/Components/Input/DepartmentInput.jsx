@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
-import Immutable from 'immutable';
 import { faSearch, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { Checkbox, Input, Icon, List, ListElement, Scrollbar } from '@deskpro/react-components';
 import styles from '../../styles/style.css';
