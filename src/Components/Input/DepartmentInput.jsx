@@ -126,10 +126,10 @@ export default class DepartmentInput extends TokenInput {
         this.disableEditMode();
         break;
       case 'Tab':
+        this.props.onChange(this.state.value);
         if (e.shiftKey) {
           this.props.selectPreviousToken();
         } else {
-          this.handleChange(this.state.selectedOption);
           this.props.selectNextToken();
         }
         this.disableEditMode();

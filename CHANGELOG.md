@@ -2,6 +2,7 @@
 
 * Add `SlaStatusInput`
 * Fix tab on SelectInput
+* Fix tab on DepartmentInput
 
 ## 0.6.9 - 2018-12-06
 
