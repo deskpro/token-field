@@ -146,7 +146,11 @@ export default class SelectInput extends TokenInput {
         if (e.shiftKey) {
           this.props.selectPreviousToken();
         } else {
-          this.handleChange(this.state.selectedOption);
+          if (this.props.isMultiple) {
+            this.props.onChange(this.state.value);
+          } else {
+            this.handleChange(this.state.selectedOption);
+          }
           this.props.selectNextToken();
         }
         this.disableEditMode();
