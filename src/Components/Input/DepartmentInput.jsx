@@ -163,7 +163,7 @@ export default class DepartmentInput extends TokenInput {
       selectedDepartments.add(value);
       department.get('children').forEach(child => selectedDepartments.add(child));
       if (department.get('parent')) {
-        const parent = this.state.options.get(department.get('parent'));
+        const parent = this.state.options.find(p => p.get('id') === department.get('parent'));
         if (parent && parent.get('children').filter(child => !selectedDepartments.has(child)).size === 0) {
           selectedDepartments.add(parent.get('id'));
         }
@@ -258,12 +258,7 @@ export default class DepartmentInput extends TokenInput {
       value = this.state.value;
     }
     const { options } = this.state;
-    const valueOption = options.find((option) => {
-      if (option.id) {
-        return option.id === value;
-      }
-      return option.value === value;
-    });
+    const valueOption = options.find(option => option.get('id') === value);
     if (!valueOption) {
       return '________';
     }
@@ -341,7 +336,7 @@ DepartmentInput.propTypes = {
     meta:  PropTypes.array,
   }).isRequired,
   dataSource: PropTypes.shape({
-    getOptions:  PropTypes.instanceOf(Immutable.Map).isRequired,
+    getOptions:  PropTypes.object.isRequired,
     findOptions: PropTypes.func,
   }).isRequired,
   renderHeader: PropTypes.oneOfType([

@@ -185,7 +185,6 @@ export default class SlaStatusInput extends TokenInput {
   };
 
   updateValue = (newValue, field, index) => {
-    console.log('updateValue');
     const { value = {} } = this.state;
     value[field] = newValue.value;
     this.setState({
