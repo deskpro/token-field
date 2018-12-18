@@ -222,7 +222,7 @@ export default class DepartmentInput extends TokenInput {
   renderInput = () => {
     const { showSearch } = this.props;
     return (
-      <div className={classNames(styles.select, 'dp-select')}>
+      <div className={classNames(styles.select, styles.department_select, 'dp-select')}>
         <div className="dp-select__content">
           <Scrollbar autoHide>
             <List className="dp-selectable-list" ref={(c) => { this.list = c; }}>
@@ -236,9 +236,7 @@ export default class DepartmentInput extends TokenInput {
                   onChange={this.handleFilter}
                 />
                 : null }
-              {this.renderHeader()}
-              {this.renderMultipleOptions()}
-              {this.renderFooter()}
+              {this.renderDepartments()}
             </List>
           </Scrollbar>
         </div>
@@ -264,14 +262,6 @@ export default class DepartmentInput extends TokenInput {
     return this.renderItem(valueOption);
   };
 
-  renderHeader = () => {
-    const { renderHeader } = this.props;
-    if (typeof renderHeader === 'function') {
-      return renderHeader();
-    }
-    return renderHeader;
-  };
-
   renderLoading = () => (
     <ListElement className={styles.loading}>
       <Icon name={faSpinner} size="large" spin />
@@ -283,15 +273,14 @@ export default class DepartmentInput extends TokenInput {
       return this.props.renderItem(option);
     }
 
-    const rootOption = option.get('parent') === null ? styles.root_option : '';
     return (
-      <span className={this.cx(rootOption)}>
+      <span>
         {DepartmentInput.getLabel(option)}
       </span>
     );
   };
 
-  renderMultipleOptions() {
+  renderDepartments() {
     const { value, loading, options, selectedOption } = this.state;
     if (loading) {
       return this.renderLoading();
@@ -300,6 +289,7 @@ export default class DepartmentInput extends TokenInput {
       options.toArray().map((option) => {
         const key = option.get('id');
         const selected = option === selectedOption ? styles.selected : '';
+        const rootOption = option.get('parent') === null ? styles.root_option : '';
         let checked = false;
         if (value) {
           checked = value.indexOf(key) !== -1;
@@ -307,7 +297,7 @@ export default class DepartmentInput extends TokenInput {
         return (
           <ListElement
             key={key}
-            className={this.cx(styles.option, selected, 'option')}
+            className={this.cx(styles.option, rootOption, selected, 'option')}
             ref={(c) => { if (selected) { this.selected = c; } }}
           >
             <Checkbox checked={checked} value={key} onChange={(c, v) => this.onCheckboxChange(c, v, option)}>
@@ -317,14 +307,6 @@ export default class DepartmentInput extends TokenInput {
         );
       }));
   }
-
-  renderFooter = () => {
-    const { renderFooter } = this.props;
-    if (typeof renderFooter === 'function') {
-      return renderFooter();
-    }
-    return renderFooter;
-  };
 }
 
 DepartmentInput.propTypes = {
@@ -338,24 +320,14 @@ DepartmentInput.propTypes = {
     getOptions:  PropTypes.object.isRequired,
     findOptions: PropTypes.func,
   }).isRequired,
-  renderHeader: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.node,
-  ]),
-  renderItem:   PropTypes.func,
-  renderFooter: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.node,
-  ]),
+  renderItem:            PropTypes.func,
   showSearch:            PropTypes.bool,
   selectionsTranslation: PropTypes.string,
 };
 
 DepartmentInput.defaultProps = {
   ...TokenInput.defaultProps,
-  renderHeader:          null,
   renderItem:            null,
-  renderFooter:          null,
   showSearch:            true,
   selectionsTranslation: 'selections',
 };
