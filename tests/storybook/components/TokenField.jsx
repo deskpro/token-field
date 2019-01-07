@@ -216,7 +216,7 @@ const tokenTypes = [
     props:       {},
     showOnFocus: true,
     description: 'Date the ticket was submitted',
-    scopes:      ['ticket']
+    scope:       'Ticket'
   },
   {
     id:          'date-ticket-created',
@@ -243,12 +243,14 @@ const tokenTypes = [
     widget:      'TextInput',
     props:       {},
     description: 'Name of the person who opened the ticket',
+    scope:       'Person',
   },
   {
     id:          'person-cc',
     widget:      'TextInput',
     props:       {},
     description: 'Name of the person cc to the ticket',
+    scope:       'Person',
   },
   {
     id:          'organization-name',

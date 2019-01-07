@@ -27,6 +27,7 @@ export default class TokenFieldInput extends React.Component {
     showTokensOnFocus:   PropTypes.bool,
     isOpen:              PropTypes.bool,
     zIndex:              PropTypes.number,
+    scope:               PropTypes.string,
   };
 
   static defaultProps = {
@@ -39,6 +40,7 @@ export default class TokenFieldInput extends React.Component {
     isOpen:            false,
     menuStructure:     [],
     nbCollapsed:       3,
+    scope:             'global',
   };
 
   constructor(props) {
@@ -133,15 +135,32 @@ export default class TokenFieldInput extends React.Component {
 
   handleFocus = () => {
     if (this.props.showTokensOnFocus && this.state.value === '') {
-      const currentScopes = this.getCurrentScopes();
+      const { scope } = this.props;
       let tokens = this.props.menuStructure
         .filter((menu) => {
           const token = this.props.tokenTypes.find(t => t.id === menu.token);
-          if (token && token.allowDuplicate === false) {
-            return !this.props.currentValue.find(e => e.type === token.id);
+          if (token && token.allowDuplicate !== true) {
+            if (this.props.currentValue.find(e => e.type === token.id)) {
+              return false;
+            }
           }
-          if (token && currentScopes.length && token.scopes) {
-            return currentScopes.filter(scope => token.scopes.indexOf(scope) !== -1).length > 1;
+          if (token && scope && token.scope) {
+            return scope === 'global' || token.scope === scope;
+          }
+          if (menu.children) {
+            const children = menu.children.filter((child) => {
+              const childToken = this.props.tokenTypes.find(t => t.id === child.token);
+              if (childToken && childToken.allowDuplicate !== true) {
+                if (this.props.currentValue.find(e => e.type === childToken.id)) {
+                  return false;
+                }
+              }
+              if (childToken && scope && childToken.scope) {
+                return scope === 'global' || childToken.scope === scope;
+              }
+              return true;
+            });
+            return children.length > 0;
           }
           return true;
         })
@@ -173,13 +192,13 @@ export default class TokenFieldInput extends React.Component {
 
   handleChange = (event) => {
     let { selectedToken } = this.state;
+    const { scope } = this.props;
     const value = event.currentTarget.value;
     const match = value.match(/ ?([-a-z:]{1,})$/i);
     let tokens = [];
     const keyword = '';
     if (match) {
       const regexp = new RegExp(match[1], 'i');
-      const currentScopes = this.getCurrentScopes();
       tokens = this.props.tokenTypes.filter((token) => {
         if (token.label) {
           return token.label.match(regexp);
@@ -187,11 +206,13 @@ export default class TokenFieldInput extends React.Component {
         return token.id.match(regexp);
       }
       ).filter((token) => {
-        if (token && token.allowDuplicate === false) {
-          return !this.props.currentValue.find(e => e.type === token.id);
+        if (token && token.allowDuplicate !== true) {
+          if (this.props.currentValue.find(e => e.type === token.id)) {
+            return false;
+          }
         }
-        if (token && currentScopes.length && token.scopes) {
-          return currentScopes.filter(scope => token.scopes.indexOf(scope) !== -1).length > 1;
+        if (token && scope && token.scope) {
+          return scope === global || token.scope === scope;
         }
         return true;
       });
@@ -216,15 +237,31 @@ export default class TokenFieldInput extends React.Component {
 
   handleAllTokens = () => {
     this.props.cancelBlur();
-    const currentScopes = this.getCurrentScopes();
+    const { scope } = this.props;
     const tokens = this.props.menuStructure
       .filter((menu) => {
         const token = this.props.tokenTypes.find(t => t.id === menu.token);
-        if (token && token.allowDuplicate === false) {
-          return !this.props.currentValue.find(e => e.type === token.id);
+        if (token && token.allowDuplicate !== true) {
+          if (this.props.currentValue.find(e => e.type === token.id)) {
+            return false;
+          }
         }
-        if (token && currentScopes.length && token.scopes) {
-          return currentScopes.filter(scope => token.scopes.indexOf(scope) !== -1).length > 1;
+        if (token && scope && token.scope) {
+          return scope === 'global' || token.scope === scope;
+        }
+        if (menu.children) {
+          return menu.children.filter((child) => {
+            const childToken = this.props.tokenTypes.find(t => t.id === child.token);
+            if (childToken && childToken.allowDuplicate !== true) {
+              if (this.props.currentValue.find(e => e.type === childToken.id)) {
+                return false;
+              }
+            }
+            if (childToken && scope && childToken.scope) {
+              return scope === 'global' || childToken.scope === scope;
+            }
+            return true;
+          }).length > 0;
         }
         return true;
       })
@@ -463,6 +500,7 @@ export default class TokenFieldInput extends React.Component {
 
   renderAllTokens() {
     const { selectedToken, subSelected, selectLevel } = this.state;
+    const { scope } = this.props;
     return (
       <div className={classNames(styles['dp-select__all-tokens'], 'dp-select')}>
         <div className="dp-select__content">
@@ -488,21 +526,35 @@ export default class TokenFieldInput extends React.Component {
                   >
                     {menu.label} <Icon name={faCaretRight} />
                     <List className={classNames(styles['token-subcategory'], 'dp-selectable-list')}>
-                      {menu.children.map((child) => {
-                        const token = this.props.tokenTypes.find(t => t.id === child.token);
-                        const childLabel = token.label ? token.label : token.id;
-                        const childSelect = (selectLevel === 1 && subSelected === child) ? styles.selected : '';
-                        return (
-                          <ListElement
-                            key={token.id}
-                            onClick={() => this.selectToken(token)}
-                            className={classNames(styles['token-suggestion'], childSelect)}
-                            title={token.description}
-                          >
-                            {childLabel}
-                          </ListElement>
-                        );
-                      })}
+                      {menu.children
+                        .filter((child) => {
+                          const childToken = this.props.tokenTypes.find(t => t.id === child.token);
+                          if (childToken && childToken.allowDuplicate !== true) {
+                            if (this.props.currentValue.find(e => e.type === childToken.id)) {
+                              return false;
+                            }
+                          }
+                          if (childToken && scope && childToken.scope) {
+                            return scope === 'global' || childToken.scope === scope;
+                          }
+                          return true;
+                        })
+                        .map((child) => {
+                          const token = this.props.tokenTypes.find(t => t.id === child.token);
+                          const childLabel = token.label ? token.label : token.id;
+                          const childSelect = (selectLevel === 1 && subSelected === child) ? styles.selected : '';
+                          return (
+                            <ListElement
+                              key={token.id}
+                              onClick={() => this.selectToken(token)}
+                              className={classNames(styles['token-suggestion'], childSelect)}
+                              title={token.description}
+                            >
+                              {childLabel}
+                            </ListElement>
+                          );
+                        })
+                      }
                     </List>
                   </ListElement>
                 );

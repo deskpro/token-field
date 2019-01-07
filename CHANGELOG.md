@@ -1,3 +1,7 @@
+## 0.8.1 - 2019-01-07
+
+* Fix scope
+
 ## 0.8.0 - 2019-01-07
 
 * Use menuStructure array to declare menu

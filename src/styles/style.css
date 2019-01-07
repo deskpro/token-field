@@ -303,3 +303,12 @@
         }
     }
 }
+
+.scope {
+    font-family: "Courier10 BT", Courier, monospace;
+    border: solid 1px #6c6f70;
+    color: #6c6f70;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 14px;
+}
