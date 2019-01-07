@@ -210,7 +210,7 @@ const fakeAPI = (filter, delay, value) => new Promise(((resolve) => {
 
 const tokenTypes = [
   {
-    id:          'date',
+    id:          'ticket-date',
     label:       'ticket-date',
     widget:      'DateTimeInput',
     props:       {},
@@ -243,21 +243,18 @@ const tokenTypes = [
     widget:      'TextInput',
     props:       {},
     description: 'Name of the person who opened the ticket',
-    category:    'person'
   },
   {
     id:          'person-cc',
     widget:      'TextInput',
     props:       {},
     description: 'Name of the person cc to the ticket',
-    category:    'person'
   },
   {
     id:          'organization-name',
     widget:      'TextInput',
     props:       {},
     description: 'Name of the organisation',
-    category:    'organisation',
     scopes:      ['organisation']
   },
   {
@@ -265,7 +262,6 @@ const tokenTypes = [
     widget:      'TextInput',
     props:       {},
     description: 'Domain name of the organisation',
-    category:    'organisation'
   },
   {
     id:     'attach-size',
@@ -324,6 +320,26 @@ const tokenTypes = [
         getOptions: Immutable.fromJS(slas)
       },
     }
+  }
+];
+
+const menuStructure = [
+  {
+    label: 'ticket-date',
+    token: 'ticket-date',
+  },
+  {
+    label:    'Person',
+    children: [
+      {
+        label: 'person CC',
+        token: 'person-cc',
+      },
+      {
+        label: 'person Name',
+        token: 'person-name',
+      }
+    ]
   }
 ];
 
@@ -387,6 +403,7 @@ class TokenFieldStory extends React.Component {
         <TokenField
           ref={(c) => { this.tokenField = c; }}
           tokenTypes={tokenTypes}
+          menuStructure={menuStructure}
           value={value}
           onChange={this.handleChange}
           onFocus={action('Focus')}

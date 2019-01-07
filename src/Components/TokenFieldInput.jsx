@@ -11,6 +11,7 @@ import styles from '../styles/style.css';
 export default class TokenFieldInput extends React.Component {
   static propTypes = {
     tokenTypes:          PropTypes.arrayOf(PropTypes.object).isRequired,
+    menuStructure:       PropTypes.array,
     tokenKey:            PropTypes.number.isRequired,
     onChange:            PropTypes.func,
     onFocus:             PropTypes.func,
@@ -21,6 +22,7 @@ export default class TokenFieldInput extends React.Component {
     removeToken:         PropTypes.func.isRequired,
     cancelBlur:          PropTypes.func.isRequired,
     value:               PropTypes.string.isRequired,
+    nbCollapsed:         PropTypes.number,
     currentValue:        PropTypes.array,
     showTokensOnFocus:   PropTypes.bool,
     isOpen:              PropTypes.bool,
@@ -35,6 +37,8 @@ export default class TokenFieldInput extends React.Component {
     currentValue:      [],
     showTokensOnFocus: true,
     isOpen:            false,
+    menuStructure:     [],
+    nbCollapsed:       3,
   };
 
   constructor(props) {
@@ -43,9 +47,7 @@ export default class TokenFieldInput extends React.Component {
       value:          props.value,
       tokenKey:       props.tokenKey,
       tokens:         [],
-      categories:     [],
       selectables:    [],
-      subSelectables: [],
       keyword:        '',
       selectedToken:  '',
       subSelected:    '',
@@ -114,7 +116,6 @@ export default class TokenFieldInput extends React.Component {
     this.setState({
       tokens:         [],
       tokensExtended: false,
-      categories:     [],
     });
   };
 
@@ -133,13 +134,13 @@ export default class TokenFieldInput extends React.Component {
   handleFocus = () => {
     if (this.props.showTokensOnFocus && this.state.value === '') {
       const currentScopes = this.getCurrentScopes();
-      const tokens = this.props.tokenTypes
-        .filter(token => token.showOnFocus)
-        .filter((token) => {
-          if (token.allowDuplicate === false) {
+      let tokens = this.props.menuStructure
+        .filter((menu) => {
+          const token = this.props.tokenTypes.find(t => t.id === menu.token);
+          if (token && token.allowDuplicate === false) {
             return !this.props.currentValue.find(e => e.type === token.id);
           }
-          if (currentScopes.length && token.scopes) {
+          if (token && currentScopes.length && token.scopes) {
             return currentScopes.filter(scope => token.scopes.indexOf(scope) !== -1).length > 1;
           }
           return true;
@@ -150,11 +151,13 @@ export default class TokenFieldInput extends React.Component {
           return aLabel > bLabel;
         });
       let selectedToken = null;
-      const selectables = tokens.map(token => token.id);
-      selectables.push('extend');
+      if (tokens.length > this.props.nbCollapsed) {
+        tokens = tokens.slice(0, this.props.nbCollapsed);
+        tokens.push('extend');
+      }
       if (tokens.length) {
-        if (!selectedToken || selectables.indexOf(selectedToken) === -1) {
-          selectedToken = selectables[0];
+        if (!selectedToken || tokens.indexOf(selectedToken) === -1) {
+          selectedToken = tokens[0];
         }
         this.openPopper();
       }
@@ -163,7 +166,6 @@ export default class TokenFieldInput extends React.Component {
         tokens,
         tokensExtended: false,
         categories:     [],
-        selectables,
       });
     }
     this.props.onFocus();
@@ -185,10 +187,10 @@ export default class TokenFieldInput extends React.Component {
         return token.id.match(regexp);
       }
       ).filter((token) => {
-        if (token.allowDuplicate === false) {
+        if (token && token.allowDuplicate === false) {
           return !this.props.currentValue.find(e => e.type === token.id);
         }
-        if (currentScopes.length && token.scopes) {
+        if (token && currentScopes.length && token.scopes) {
           return currentScopes.filter(scope => token.scopes.indexOf(scope) !== -1).length > 1;
         }
         return true;
@@ -207,23 +209,21 @@ export default class TokenFieldInput extends React.Component {
     this.setState({
       value,
       tokens,
-      selectables: tokens.map(t => t.id),
       keyword,
       selectedToken,
     });
   };
 
   handleAllTokens = () => {
-    let { tokens } = this.state;
     this.props.cancelBlur();
     const currentScopes = this.getCurrentScopes();
-    tokens = tokens.concat(this.props.tokenTypes
-      .filter(token => !token.showOnFocus && !token.category)
-      .filter((token) => {
-        if (token.allowDuplicate === false) {
+    const tokens = this.props.menuStructure
+      .filter((menu) => {
+        const token = this.props.tokenTypes.find(t => t.id === menu.token);
+        if (token && token.allowDuplicate === false) {
           return !this.props.currentValue.find(e => e.type === token.id);
         }
-        if (currentScopes.length && token.scopes) {
+        if (token && currentScopes.length && token.scopes) {
           return currentScopes.filter(scope => token.scopes.indexOf(scope) !== -1).length > 1;
         }
         return true;
@@ -233,21 +233,8 @@ export default class TokenFieldInput extends React.Component {
         const bLabel = b.label ? b.label : b.id;
         return aLabel > bLabel;
       }
-      ));
-    let selectables = tokens.map(token => token.id);
-    const categories = [];
-    this.props.tokenTypes
-      .filter(token => token.category)
-      .forEach((token) => {
-        if (!categories[token.category]) {
-          categories[token.category] = { label: token.category, children: [] };
-        }
-        categories[token.category].children.push(token);
-      });
-    selectables = selectables.concat(Object.keys(categories).map(category => category));
+      );
     this.setState({
-      categories,
-      selectables,
       tokens,
       tokensExtended: true,
     });
@@ -255,11 +242,8 @@ export default class TokenFieldInput extends React.Component {
 
   handleKeyDown = (e) => {
     const {
-      categories,
-      selectables,
       selectedToken,
       selectLevel,
-      subSelectables,
       subSelected,
       tokens,
     } = this.state;
@@ -267,21 +251,21 @@ export default class TokenFieldInput extends React.Component {
       let index = 0;
       if (['ArrowDown', 'ArrowUp'].indexOf(e.key) !== -1) {
         if (selectLevel === 0) {
-          index = selectables.findIndex(id => id === selectedToken);
-        } else {
-          index = subSelectables.findIndex(id => id === subSelected);
+          index = tokens.findIndex(token => token === selectedToken);
+        } else if (selectedToken.children) {
+          index = selectedToken.children.findIndex(token => token === subSelected);
         }
       }
       switch (e.key) {
         case 'ArrowDown':
-          if (index < selectables.length - 1) {
+          if (index < tokens.length - 1) {
             if (selectLevel === 0) {
               this.setState({
-                selectedToken: selectables[index + 1]
+                selectedToken: tokens[index + 1]
               });
             } else {
               this.setState({
-                subSelected: subSelectables[index + 1]
+                subSelected: selectedToken.children[index + 1]
               });
             }
           }
@@ -292,11 +276,11 @@ export default class TokenFieldInput extends React.Component {
           if (index > 0) {
             if (selectLevel === 0) {
               this.setState({
-                selectedToken: selectables[index - 1]
+                selectedToken: tokens[index - 1]
               });
             } else {
               this.setState({
-                subSelected: subSelectables[index - 1]
+                subSelected: selectedToken.children[index - 1]
               });
             }
           }
@@ -304,15 +288,14 @@ export default class TokenFieldInput extends React.Component {
           e.stopPropagation();
           return false;
         case 'ArrowRight':
-          if (this.state.selectLevel === 0 && categories[selectedToken]) {
-            this.selectCategory(categories[selectedToken]);
+          if (selectLevel === 0 && selectedToken.children) {
+            this.selectCategory(selectedToken.children);
             e.preventDefault();
             e.stopPropagation();
-            return false;
           }
-          break;
+          return false;
         case 'ArrowLeft':
-          if (this.state.selectLevel === 1) {
+          if (selectLevel === 1) {
             this.setState({
               selectLevel: 0
             });
@@ -324,13 +307,13 @@ export default class TokenFieldInput extends React.Component {
         case 'Tab':
           if (e.shiftKey) {
             this.props.selectPreviousToken();
-          } else if (selectLevel === 1 && categories[selectedToken]) {
-            const token = categories[selectedToken].children.find(t => t.id === subSelected);
+          } else if (selectLevel === 1 && tokens[index].children) {
+            const token = this.props.tokenTypes.find(t => t.id === subSelected.token);
             if (token) {
               this.selectToken(token);
             }
           } else {
-            const token = tokens.find(t => t.id === selectedToken);
+            const token = this.props.tokenTypes.find(t => t.id === selectedToken.token);
             if (token) {
               this.selectToken(token);
             }
@@ -344,15 +327,15 @@ export default class TokenFieldInput extends React.Component {
           e.stopPropagation();
           if (selectedToken === 'extend') {
             this.handleAllTokens();
-          } else if (selectLevel === 0 && categories[selectedToken]) {
-            this.selectCategory(categories[selectedToken]);
-          } else if (selectLevel === 1 && categories[selectedToken]) {
-            const token = categories[selectedToken].children.find(t => t.id === subSelected);
+          } else if (selectLevel === 0 && selectedToken.children) {
+            this.selectCategory(selectedToken.children);
+          } else if (selectLevel === 1 && selectedToken.children) {
+            const token = this.props.tokenTypes.find(t => t.id === subSelected.token);
             if (token) {
               this.selectToken(token);
             }
           } else {
-            const token = tokens.find(t => t.id === selectedToken);
+            const token = this.props.tokenTypes.find(t => t.id === selectedToken.token);
             if (token) {
               this.selectToken(token);
             }
@@ -434,12 +417,10 @@ export default class TokenFieldInput extends React.Component {
     return true;
   };
 
-  selectCategory(category) {
-    const subSelectables = category.children.map(child => child.id);
-    const subSelected = subSelectables[0];
+  selectCategory(children) {
+    const subSelected = children[0];
     this.setState({
       selectLevel: 1,
-      subSelectables,
       subSelected,
     });
   }
@@ -481,15 +462,59 @@ export default class TokenFieldInput extends React.Component {
   }
 
   renderAllTokens() {
-    const { selectedToken } = this.state;
+    const { selectedToken, subSelected, selectLevel } = this.state;
     return (
       <div className={classNames(styles['dp-select__all-tokens'], 'dp-select')}>
         <div className="dp-select__content">
           <List className="dp-selectable-list">
-            {this.state.tokens.map((token) => {
-              const selected = (token.id === selectedToken) ? styles.selected : '';
+            {this.state.tokens.reduce((result, menu) => {
+              if (menu === 'extend') {
+                result.push(
+                  <ListElement
+                    onClick={this.handleAllTokens}
+                    className={classNames(styles['extend-tokens'], { selected: selectedToken === 'extend' })}
+                  >
+                    <Icon name={faCaretDown} />
+                  </ListElement>
+                );
+                return result;
+              }
+              if (menu.children) {
+                const selected = (selectedToken === menu) ? styles.selected : '';
+                result.push(
+                  <ListElement
+                    key={menu.label}
+                    className={classNames(styles['token-suggestion'], styles.category, selected)}
+                  >
+                    {menu.label} <Icon name={faCaretRight} />
+                    <List className={classNames(styles['token-subcategory'], 'dp-selectable-list')}>
+                      {menu.children.map((child) => {
+                        const token = this.props.tokenTypes.find(t => t.id === child.token);
+                        const childLabel = token.label ? token.label : token.id;
+                        const childSelect = (selectLevel === 1 && subSelected === child) ? styles.selected : '';
+                        return (
+                          <ListElement
+                            key={token.id}
+                            onClick={() => this.selectToken(token)}
+                            className={classNames(styles['token-suggestion'], childSelect)}
+                            title={token.description}
+                          >
+                            {childLabel}
+                          </ListElement>
+                        );
+                      })}
+                    </List>
+                  </ListElement>
+                );
+                return result;
+              }
+              const token = this.props.tokenTypes.find(t => t.id === menu.token);
+              if (!token) {
+                return result;
+              }
+              const selected = (menu === selectedToken) ? styles.selected : '';
               const label = token.label ? token.label : token.id;
-              return (
+              result.push(
                 <ListElement
                   key={token.id}
                   onClick={() => this.selectToken(token)}
@@ -499,53 +524,12 @@ export default class TokenFieldInput extends React.Component {
                   {label}
                 </ListElement>
               );
-            })}
-            {!this.state.tokensExtended ?
-              <ListElement
-                onClick={this.handleAllTokens}
-                className={classNames(styles['extend-tokens'], { selected: selectedToken === 'extend' })}
-              >
-                <Icon name={faCaretDown} />
-              </ListElement>
-              : this.renderCategories()
-            }
+              return result;
+            }, [])}
           </List>
         </div>
       </div>
     );
-  }
-
-  renderCategories() {
-    const { categories, selectedToken, subSelected, selectLevel } = this.state;
-    const elements = Object.keys(categories).map((label) => {
-      const selected = (selectedToken === label) ? styles.selected : '';
-      return (
-        <ListElement
-          key={label}
-          className={classNames(styles['token-suggestion'], styles.category, selected)}
-        >
-          {label} <Icon name={faCaretRight} />
-          <List className={classNames(styles['token-subcategory'], 'dp-selectable-list')}>
-            {categories[label].children.map((token) => {
-              const childLabel = token.label ? token.label : token.id;
-              const childSelect = (selectLevel === 1 && subSelected === token.id) ? styles.selected : '';
-              return (
-                <ListElement
-                  key={token.id}
-                  onClick={() => this.selectToken(token)}
-                  className={classNames(styles['token-suggestion'], childSelect)}
-                  title={token.description}
-                >
-                  {childLabel}
-                </ListElement>
-              );
-            })}
-          </List>
-        </ListElement>
-      );
-    });
-    elements.unshift(<ListElement key="separator" className="separator" />);
-    return elements;
   }
 
   render() {

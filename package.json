@@ -1,6 +1,6 @@
 {
   "name": "@deskpro/token-field",
-  "version": "0.7.0-beta.5",
+  "version": "0.8.0",
   "description": "",
   "main": "dist/index.js",
   "private": false,

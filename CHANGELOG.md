@@ -1,3 +1,7 @@
+## 0.8.0 - 2019-01-07
+
+* Use menuStructure array to declare menu
+
 ## 0.7.0 - 2018-12-07
 
 * Add `SlaStatusInput`

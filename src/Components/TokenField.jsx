@@ -24,6 +24,7 @@ export default class TokenField extends React.Component {
       props:       PropTypes.object,
       description: PropTypes.string,
     })).isRequired,
+    menuStructure:     PropTypes.array,
     onChange:          PropTypes.func,
     onFocus:           PropTypes.func,
     onBlur:            PropTypes.func,
@@ -43,6 +44,7 @@ export default class TokenField extends React.Component {
     blurTimeout:       300,
     showTokensOnFocus: false,
     popupOpen:         false,
+    menuStructure:     [],
   };
 
   constructor(props) {
@@ -105,6 +107,7 @@ export default class TokenField extends React.Component {
       key={key}
       tokenKey={key}
       tokenTypes={this.props.tokenTypes}
+      menuStructure={this.props.menuStructure}
       currentValue={this.state.value}
       addToken={this.addTokenAndFocus}
       onChange={this.handleTokenChange}
