@@ -148,6 +148,9 @@ export default class TokenFieldInput extends React.Component {
             return scopes.length === 0 || token.scopes.filter(v => scopes.indexOf(v) !== -1).length > 0;
           }
           if (menu.children) {
+            if (menu.scope && scopes && scopes.find(v => v === menu.scope) === -1) {
+              return false;
+            }
             const children = menu.children.filter((child) => {
               const childToken = this.props.tokenTypes.find(t => t.id === child.token);
               if (childToken && childToken.allowDuplicate !== true) {
@@ -250,6 +253,9 @@ export default class TokenFieldInput extends React.Component {
           return scopes.length === 0 || token.scopes.filter(v => scopes.indexOf(v) !== -1).length > 0;
         }
         if (menu.children) {
+          if (menu.scope && scopes && scopes.find(v => v === menu.scope) === -1) {
+            return false;
+          }
           return menu.children.filter((child) => {
             const childToken = this.props.tokenTypes.find(t => t.id === child.token);
             if (childToken && childToken.allowDuplicate !== true) {
