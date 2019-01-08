@@ -57,7 +57,7 @@ export default class TokenField extends React.Component {
     super(props);
     this.state = {
       value:   props.value,
-      scope:   'global',
+      scopes:  [],
       focused: false,
     };
 
@@ -127,7 +127,7 @@ export default class TokenField extends React.Component {
       zIndex={this.props.zIndex}
       isOpen={this.props.popupOpen}
       showTokensOnFocus={this.props.showTokensOnFocus}
-      scope={this.state.scope}
+      scopes={this.state.scopes}
     />
   );
 
@@ -164,23 +164,31 @@ export default class TokenField extends React.Component {
     });
   };
 
-  addTokenAndFocus = (id, key, defaultValue) => {
+  addTokenAndFocus = (id, key, scope = undefined, defaultValue = undefined) => {
     const { value } = this.state;
     const inputKey = (!key) ? value.length : key;
-    value.splice(inputKey, 0, { type: id, value: defaultValue });
-    let scope = 'global';
+    value.splice(inputKey, 0, { type: id, value: defaultValue, scope });
+    let scopes = [];
     value.forEach((t) => {
       if (t.type) {
         const token = this.props.tokenTypes.find(e => e.id === t.type);
-        if (token && token.scope && scope === 'global') {
-          scope = token.scope;
+        let valueScope = [];
+        if (t.scope) {
+          valueScope = [t.scope];
+        } else if (token.scopes) {
+          valueScope = token.scopes;
+        }
+        if (token && valueScope.length && scopes.length === 0) {
+          scopes = valueScope;
+        } else if (token && valueScope.length) {
+          scopes = scopes.filter(v => valueScope.indexOf(v) !== -1);
         }
       }
     });
     this.focusInput = inputKey;
     this.setState({
       value,
-      scope,
+      scopes,
     });
   };
 
@@ -191,18 +199,26 @@ export default class TokenField extends React.Component {
     if (focusKey !== undefined) {
       this.focusInput = focusKey;
     }
-    let scope = 'global';
+    let scopes = [];
     value.forEach((t) => {
       if (t.type) {
         const token = this.props.tokenTypes.find(e => e.id === t.type);
-        if (token && token.scope && scope === 'global') {
-          scope = token.scope;
+        let valueScope = [];
+        if (t.scope) {
+          valueScope = [t.scope];
+        } else if (token.scopes) {
+          valueScope = token.scopes;
+        }
+        if (token && valueScope.length && scopes.length === 0) {
+          scopes = valueScope;
+        } else if (token && valueScope.length) {
+          scopes = scopes.filter(v => valueScope.indexOf(v) !== -1);
         }
       }
     });
     this.setState({
       value,
-      scope
+      scopes
     });
     this.props.onChange(value);
   };
@@ -268,7 +284,7 @@ export default class TokenField extends React.Component {
   }
 
   render() {
-    const { scope } = this.state;
+    const { scopes } = this.state;
     const { translations } = this.props;
     return (
       <div className={classNames(styles['token-field'], 'token-field')}>
@@ -276,7 +292,13 @@ export default class TokenField extends React.Component {
           {this.renderInputs()}
         </div>
         <div onClick={() => this.addInputAndFocus()} className={classNames(styles['input-box'], 'input-box')} />
-        {scope !== 'global' ? <div className={styles.scope} title={translations['scope-title']}>{scope}</div> : null}
+        {
+          scopes.length === 1 ?
+            <div className={classNames(styles.scope, 'scope')} title={translations['scope-title']}>
+              {scopes[0]}
+            </div>
+            : null
+        }
       </div>
     );
   }

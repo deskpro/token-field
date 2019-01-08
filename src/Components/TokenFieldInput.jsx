@@ -27,7 +27,7 @@ export default class TokenFieldInput extends React.Component {
     showTokensOnFocus:   PropTypes.bool,
     isOpen:              PropTypes.bool,
     zIndex:              PropTypes.number,
-    scope:               PropTypes.string,
+    scopes:              PropTypes.array,
   };
 
   static defaultProps = {
@@ -40,7 +40,7 @@ export default class TokenFieldInput extends React.Component {
     isOpen:            false,
     menuStructure:     [],
     nbCollapsed:       3,
-    scope:             'global',
+    scopes:            [],
   };
 
   constructor(props) {
@@ -82,7 +82,7 @@ export default class TokenFieldInput extends React.Component {
     this.closePopper();
   }
 
-  selectToken(token) {
+  selectToken(token, scope = undefined) {
     let value = '';
     const { tokenKey } = this.state;
     const match = this.state.value.match(/(.*) [-a-z:]{2,}$/i);
@@ -95,12 +95,12 @@ export default class TokenFieldInput extends React.Component {
         tokenKey,
         tokens: [],
       }, () => {
-        this.props.addToken(token.id, tokenKey + 1);
+        this.props.addToken(token.id, tokenKey + 1, scope);
         this.input.blur();
       });
     } else {
       this.props.removeToken(tokenKey);
-      this.props.addToken(token.id, tokenKey);
+      this.props.addToken(token.id, tokenKey, scope);
     }
     this.closePopper();
   }
@@ -135,7 +135,7 @@ export default class TokenFieldInput extends React.Component {
 
   handleFocus = () => {
     if (this.props.showTokensOnFocus && this.state.value === '') {
-      const { scope } = this.props;
+      const { scopes } = this.props;
       let tokens = this.props.menuStructure
         .filter((menu) => {
           const token = this.props.tokenTypes.find(t => t.id === menu.token);
@@ -144,8 +144,8 @@ export default class TokenFieldInput extends React.Component {
               return false;
             }
           }
-          if (token && scope && token.scope) {
-            return scope === 'global' || token.scope === scope;
+          if (token && scopes && token.scopes) {
+            return scopes.length === 0 || token.scopes.filter(v => scopes.indexOf(v) !== -1).length > 0;
           }
           if (menu.children) {
             const children = menu.children.filter((child) => {
@@ -155,8 +155,8 @@ export default class TokenFieldInput extends React.Component {
                   return false;
                 }
               }
-              if (childToken && scope && childToken.scope) {
-                return scope === 'global' || childToken.scope === scope;
+              if (childToken && scopes && childToken.scopes) {
+                return scopes.length === 0 || childToken.scopes.filter(v => scopes.indexOf(v) !== -1).length > 0;
               }
               return true;
             });
@@ -192,7 +192,7 @@ export default class TokenFieldInput extends React.Component {
 
   handleChange = (event) => {
     let { selectedToken } = this.state;
-    const { scope } = this.props;
+    const { scopes } = this.props;
     const value = event.currentTarget.value;
     const match = value.match(/ ?([-a-z:]{1,})$/i);
     let tokens = [];
@@ -211,8 +211,8 @@ export default class TokenFieldInput extends React.Component {
             return false;
           }
         }
-        if (token && scope && token.scope) {
-          return scope === global || token.scope === scope;
+        if (token && scopes && token.scopes) {
+          return scopes.length === 0 || token.scopes.filter(v => scopes.indexOf(v) !== -1).length > 0;
         }
         return true;
       });
@@ -237,7 +237,7 @@ export default class TokenFieldInput extends React.Component {
 
   handleAllTokens = () => {
     this.props.cancelBlur();
-    const { scope } = this.props;
+    const { scopes } = this.props;
     const tokens = this.props.menuStructure
       .filter((menu) => {
         const token = this.props.tokenTypes.find(t => t.id === menu.token);
@@ -246,8 +246,8 @@ export default class TokenFieldInput extends React.Component {
             return false;
           }
         }
-        if (token && scope && token.scope) {
-          return scope === 'global' || token.scope === scope;
+        if (token && scopes && token.scopes) {
+          return scopes.length === 0 || token.scopes.filter(v => scopes.indexOf(v) !== -1).length > 0;
         }
         if (menu.children) {
           return menu.children.filter((child) => {
@@ -257,8 +257,8 @@ export default class TokenFieldInput extends React.Component {
                 return false;
               }
             }
-            if (childToken && scope && childToken.scope) {
-              return scope === 'global' || childToken.scope === scope;
+            if (childToken && scopes && childToken.scopes) {
+              return scopes.length === 0 || childToken.scopes.filter(v => scopes.indexOf(v) !== -1).length > 0;
             }
             return true;
           }).length > 0;
@@ -347,7 +347,8 @@ export default class TokenFieldInput extends React.Component {
           } else if (selectLevel === 1 && tokens[index].children) {
             const token = this.props.tokenTypes.find(t => t.id === subSelected.token);
             if (token) {
-              this.selectToken(token);
+              const scope = selectedToken.scope || undefined;
+              this.selectToken(token, scope);
             }
           } else {
             const token = this.props.tokenTypes.find(t => t.id === selectedToken.token);
@@ -369,7 +370,8 @@ export default class TokenFieldInput extends React.Component {
           } else if (selectLevel === 1 && selectedToken.children) {
             const token = this.props.tokenTypes.find(t => t.id === subSelected.token);
             if (token) {
-              this.selectToken(token);
+              const scope = selectedToken.scope || undefined;
+              this.selectToken(token, scope);
             }
           } else {
             const token = this.props.tokenTypes.find(t => t.id === selectedToken.token);
@@ -500,7 +502,7 @@ export default class TokenFieldInput extends React.Component {
 
   renderAllTokens() {
     const { selectedToken, subSelected, selectLevel } = this.state;
-    const { scope } = this.props;
+    const { scopes } = this.props;
     return (
       <div className={classNames(styles['dp-select__all-tokens'], 'dp-select')}>
         <div className="dp-select__content">
@@ -518,6 +520,7 @@ export default class TokenFieldInput extends React.Component {
                 return result;
               }
               if (menu.children) {
+                const menuScope = menu.scope || undefined;
                 const selected = (selectedToken === menu) ? styles.selected : '';
                 result.push(
                   <ListElement
@@ -534,8 +537,9 @@ export default class TokenFieldInput extends React.Component {
                               return false;
                             }
                           }
-                          if (childToken && scope && childToken.scope) {
-                            return scope === 'global' || childToken.scope === scope;
+                          if (childToken && scopes && childToken.scopes) {
+                            return scopes.length === 0
+                              || childToken.scopes.filter(v => scopes.indexOf(v) !== -1).length > 0;
                           }
                           return true;
                         })
@@ -549,7 +553,7 @@ export default class TokenFieldInput extends React.Component {
                           childResult.push(
                             <ListElement
                               key={token.id}
-                              onClick={() => this.selectToken(token)}
+                              onClick={() => this.selectToken(token, menuScope)}
                               className={classNames(styles['token-suggestion'], childSelect)}
                               title={token.description}
                             >

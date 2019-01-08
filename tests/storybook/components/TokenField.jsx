@@ -216,7 +216,7 @@ const tokenTypes = [
     props:       {},
     showOnFocus: true,
     description: 'Date the ticket was submitted',
-    scope:       'Ticket'
+    scopes:      ['Ticket']
   },
   {
     id:          'date-ticket-created',
@@ -224,7 +224,7 @@ const tokenTypes = [
     showOnFocus: true,
     props:       {},
     description: 'When the ticket was created',
-    scopes:      ['ticket']
+    scopes:      ['Ticket']
   },
   {
     id:          'date-ticket-resolved',
@@ -243,27 +243,34 @@ const tokenTypes = [
     widget:      'TextInput',
     props:       {},
     description: 'Name of the person who opened the ticket',
-    scope:       'Person',
+    scopes:      ['Person'],
   },
   {
     id:          'person-cc',
     widget:      'TextInput',
     props:       {},
     description: 'Name of the person cc to the ticket',
-    scope:       'Person',
+    scopes:      ['Person'],
   },
   {
     id:          'organization-name',
     widget:      'TextInput',
     props:       {},
     description: 'Name of the organisation',
-    scopes:      ['organisation']
+    scopes:      ['Organisation']
   },
   {
     id:          'organization-domain',
     widget:      'TextInput',
     props:       {},
     description: 'Domain name of the organisation',
+  },
+  {
+    id:             'id',
+    label:          'ID',
+    widget:         'TextInput',
+    props:          {},
+    allowDuplicate: false,
   },
   {
     id:     'attach-size',
@@ -306,7 +313,7 @@ const tokenTypes = [
       isMultiple:   true,
     },
     allowDuplicate: false,
-    scopes:         ['ticket', 'chat']
+    scopes:         ['Ticket', 'Chat']
   },
   {
     id:          'user-waiting',
@@ -327,11 +334,16 @@ const tokenTypes = [
 
 const menuStructure = [
   {
+    label: 'ID',
+    token: 'id'
+  },
+  {
     label: 'ticket-date',
     token: 'ticket-date',
   },
   {
     label:    'Person',
+    scope:    'Person',
     children: [
       {
         label: 'person CC',
