@@ -1,3 +1,7 @@
+## 0.8.3 - 2019-01-08
+
+* Fix navigation in child menu
+
 ## 0.8.2 - 2019-01-08
 
 * Fix error on missing child in menuStructure

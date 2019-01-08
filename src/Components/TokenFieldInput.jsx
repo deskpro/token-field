@@ -295,16 +295,16 @@ export default class TokenFieldInput extends React.Component {
       }
       switch (e.key) {
         case 'ArrowDown':
-          if (index < tokens.length - 1) {
-            if (selectLevel === 0) {
+          if (selectLevel === 0) {
+            if (index < tokens.length - 1) {
               this.setState({
                 selectedToken: tokens[index + 1]
               });
-            } else {
-              this.setState({
-                subSelected: selectedToken.children[index + 1]
-              });
             }
+          } else if (index < selectedToken.children.length - 1) {
+            this.setState({
+              subSelected: selectedToken.children[index + 1]
+            });
           }
           e.preventDefault();
           e.stopPropagation();
