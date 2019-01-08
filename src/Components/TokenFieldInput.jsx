@@ -539,11 +539,14 @@ export default class TokenFieldInput extends React.Component {
                           }
                           return true;
                         })
-                        .map((child) => {
+                        .reduce((childResult, child) => {
                           const token = this.props.tokenTypes.find(t => t.id === child.token);
+                          if (!token) {
+                            return childResult;
+                          }
                           const childLabel = token.label ? token.label : token.id;
                           const childSelect = (selectLevel === 1 && subSelected === child) ? styles.selected : '';
-                          return (
+                          childResult.push(
                             <ListElement
                               key={token.id}
                               onClick={() => this.selectToken(token)}
@@ -553,7 +556,8 @@ export default class TokenFieldInput extends React.Component {
                               {childLabel}
                             </ListElement>
                           );
-                        })
+                          return childResult;
+                        }, [])
                       }
                     </List>
                   </ListElement>

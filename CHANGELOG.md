@@ -1,3 +1,7 @@
+## 0.8.2 - 2019-01-08
+
+* Fix error on missing child in menuStructure
+
 ## 0.8.1 - 2019-01-07
 
 * Fix scope
