@@ -32,6 +32,7 @@ export default class TokenField extends React.Component {
     zIndex:            PropTypes.number,
     showTokensOnFocus: PropTypes.bool,
     blurTimeout:       PropTypes.number,
+    nbCollapsed:       PropTypes.number,
     popupOpen:         PropTypes.bool,
     translations:      PropTypes.shape({
       'scope-title': PropTypes.string
@@ -48,6 +49,7 @@ export default class TokenField extends React.Component {
     showTokensOnFocus: false,
     popupOpen:         false,
     menuStructure:     [],
+    nbCollapsed:       3,
     translations:      {
       'scope-title': 'Current scope of the search'
     }
@@ -127,6 +129,7 @@ export default class TokenField extends React.Component {
       zIndex={this.props.zIndex}
       isOpen={this.props.popupOpen}
       showTokensOnFocus={this.props.showTokensOnFocus}
+      nbCollapsed={this.props.nbCollapsed}
       scopes={this.state.scopes}
     />
   );

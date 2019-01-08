@@ -148,7 +148,7 @@ export default class TokenFieldInput extends React.Component {
             return scopes.length === 0 || token.scopes.filter(v => scopes.indexOf(v) !== -1).length > 0;
           }
           if (menu.children) {
-            if (menu.scope && scopes && scopes.find(v => v === menu.scope) === -1) {
+            if (menu.scope && scopes.length && scopes.find(v => v === menu.scope) === undefined) {
               return false;
             }
             const children = menu.children.filter((child) => {
@@ -253,7 +253,7 @@ export default class TokenFieldInput extends React.Component {
           return scopes.length === 0 || token.scopes.filter(v => scopes.indexOf(v) !== -1).length > 0;
         }
         if (menu.children) {
-          if (menu.scope && scopes && scopes.find(v => v === menu.scope) === -1) {
+          if (menu.scope && scopes.length && scopes.find(v => v === menu.scope) === undefined) {
             return false;
           }
           return menu.children.filter((child) => {

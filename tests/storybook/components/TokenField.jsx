@@ -38,6 +38,10 @@ const countries = [
   { label: 'United Kingdom', value: 'GB' }
 ];
 
+const brands = [
+  { label: 'Default', value: 1},
+];
+
 const departments = [
   {
     user_title:         'Support',
@@ -316,6 +320,20 @@ const tokenTypes = [
     scopes:         ['Ticket', 'Chat']
   },
   {
+    id:     'brand',
+    label:  'Brand',
+    widget: 'SelectInput',
+    props:  {
+      dataSource: {
+        getOptions: brands
+      },
+      showSearch: true,
+      isMultiple: true,
+    },
+    allowDuplicate: false,
+    scopes:         ['Ticket', 'Content', 'Organization', 'Person'],
+  },
+  {
     id:          'user-waiting',
     widget:      'DurationInput',
     props:       {},
@@ -338,8 +356,19 @@ const menuStructure = [
     token: 'id'
   },
   {
-    label: 'ticket-date',
-    token: 'ticket-date',
+    label:    'Ticket',
+    scope:    'Ticket',
+    children: [
+      {
+        label: 'ticket-date',
+        token: 'ticket-date',
+      },
+      {
+        label: 'Brand',
+        token: 'brand',
+      },
+
+    ]
   },
   {
     label:    'Person',
@@ -352,6 +381,10 @@ const menuStructure = [
       {
         label: 'person Name',
         token: 'person-name',
+      },
+      {
+        label: 'Brand',
+        token: 'brand',
       }
     ]
   }
