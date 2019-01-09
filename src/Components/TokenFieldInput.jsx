@@ -59,21 +59,6 @@ export default class TokenFieldInput extends React.Component {
     };
   }
 
-  getCurrentScopes() {
-    let currentScopes = [];
-    this.props.currentValue.forEach((e) => {
-      const token = this.props.tokenTypes.find(t => t.id === e.type);
-      if (token && token.scopes) {
-        if (!currentScopes.length) {
-          currentScopes = token.scopes;
-        } else {
-          currentScopes = currentScopes.filter(value => token.scopes.indexOf(value) !== -1);
-        }
-      }
-    });
-    return currentScopes;
-  }
-
   focus() {
     this.input.focus();
   }
@@ -166,11 +151,6 @@ export default class TokenFieldInput extends React.Component {
             return children.length > 0;
           }
           return true;
-        })
-        .sort((a, b) => {
-          const aLabel = a.label ? a.label : a.id;
-          const bLabel = b.label ? b.label : b.id;
-          return aLabel > bLabel;
         });
       let selectedToken = null;
       if (tokens.length > this.props.nbCollapsed) {
@@ -197,7 +177,7 @@ export default class TokenFieldInput extends React.Component {
     let { selectedToken } = this.state;
     const { scopes } = this.props;
     const value = event.currentTarget.value;
-    const match = value.match(/ ?([-a-z:]{1,})$/i);
+    const match = value.match(/ ?([-a-z:]+)$/i);
     let tokens = [];
     const keyword = '';
     if (match) {
@@ -218,6 +198,17 @@ export default class TokenFieldInput extends React.Component {
           return scopes.length === 0 || token.scopes.filter(v => scopes.indexOf(v) !== -1).length > 0;
         }
         return true;
+      }).map(t => ({
+        label: t.label || t.id,
+        token: t.id,
+      })).sort((a, b) => {
+        if (a.label > b.label) {
+          return 1;
+        }
+        if (a.label < b.label) {
+          return -1;
+        }
+        return 0;
       });
     }
     if (tokens.length) {
@@ -270,13 +261,7 @@ export default class TokenFieldInput extends React.Component {
           }).length > 0;
         }
         return true;
-      })
-      .sort((a, b) => {
-        const aLabel = a.label ? a.label : a.id;
-        const bLabel = b.label ? b.label : b.id;
-        return aLabel > bLabel;
-      }
-      );
+      });
     this.setState({
       tokens,
       tokensExtended: true,
@@ -480,8 +465,9 @@ export default class TokenFieldInput extends React.Component {
         <div className="dp-select__content">
           <Scrollbar>
             <List className="dp-selectable-list">
-              {this.state.tokens.map((token) => {
-                const selected = (token.id === selectedToken) ? styles.selected : '';
+              {this.state.tokens.map((menu) => {
+                const selected = (selectedToken === menu) ? styles.selected : '';
+                const token = this.props.tokenTypes.find(t => t.id === menu.token);
                 const label = token.label ? token.label : token.id;
                 return (
                   <ListElement

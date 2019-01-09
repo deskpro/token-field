@@ -39,7 +39,7 @@ const countries = [
 ];
 
 const brands = [
-  { label: 'Default', value: 1},
+  { label: 'Default', value: 1 },
 ];
 
 const departments = [
@@ -337,7 +337,8 @@ const tokenTypes = [
     id:          'user-waiting',
     widget:      'DurationInput',
     props:       {},
-    description: 'Time waited by user'
+    description: 'Time waited by user',
+    scopes:      ['Ticket']
   },
   {
     id:     'sla_status',
@@ -457,6 +458,7 @@ class TokenFieldStory extends React.Component {
           onBlur={action('Blur')}
           placeholder="Search ..."
           showTokensOnFocus={this.props.showTokensOnFocus}
+          nbCollapsed={3}
         />
         <br />
         <Button onClick={this.addCountryToken}>Add country token</Button>

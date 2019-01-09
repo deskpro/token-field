@@ -2,6 +2,7 @@
 
 * Fix navigation in child menu
 * Improve scope
+* Fix search with menuStructure
 
 ## 0.8.2 - 2019-01-08
 
