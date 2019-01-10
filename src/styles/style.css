@@ -1,5 +1,8 @@
 @value (
+    extendBackground,
+    extendIcon,
     morningSky,
+    selected,
     sunShine,
     sonicPrimary,
     greyscale00,
@@ -111,7 +114,7 @@
 }
 .selected {
     color: sonicPrimary;
-    background-color: morningSky;
+    background-color: selected;
 }
 .current-value {
     color: greyscale00;
@@ -151,11 +154,17 @@
     position: static;
     color: inherit;
 }
+.dp-select,
 .dp-select__all-tokens {
     & > :global(.dp-select__content) {
-        padding: 5px 0 0 !important;
+        padding: 4px 0 0 !important;
+        min-width: 100px;
+        border-radius: 3px;
         & :global(.dp-list__element) {
             padding: 0 6px;
+            &:hover {
+              background-color: selected;
+            }
             &:global(.separator) {
                 border-bottom: solid 1px greyscale500;
             }
@@ -172,6 +181,11 @@
                 }
             }
         }
+    }
+}
+.dp-select {
+    & > :global(.dp-select__content) {
+        padding: 4px 0 !important;
     }
 }
 .select {
@@ -218,7 +232,7 @@
 }
 .extend-tokens {
     text-align: center;
-    background-color: greyscale200;
+    background-color: extendBackground;
     border-top: solid 1px greyscale500;
     &:hover, &:focus {
         background-color: greyscale400;
@@ -229,7 +243,8 @@
 }
 .extend-tokens :global(.dp-icon) {
     position: relative;
-    color: greyscale850;
+    left: 0;
+    color: extendIcon;
 }
 .token-subcategory {
     position: absolute;

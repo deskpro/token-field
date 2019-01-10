@@ -1,8 +1,9 @@
-## 0.8.3 - 2019-01-08
+## 0.8.3 - 2019-01-10
 
 * Fix navigation in child menu
 * Improve scope
 * Fix search with menuStructure
+* Improve styling
 
 ## 0.8.2 - 2019-01-08
 

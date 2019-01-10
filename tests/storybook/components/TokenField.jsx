@@ -458,7 +458,7 @@ class TokenFieldStory extends React.Component {
           onBlur={action('Blur')}
           placeholder="Search ..."
           showTokensOnFocus={this.props.showTokensOnFocus}
-          nbCollapsed={3}
+          nbCollapsed={2}
         />
         <br />
         <Button onClick={this.addCountryToken}>Add country token</Button>

@@ -45,3 +45,7 @@
 @value greyscale150: #f4f5f5;
 @value greyscale100: #fcfcfc;
 @value greyscale00: #ffffff;
+
+@value selected: #e9eef8;
+@value extendIcon: #8e8e8e;
+@value extendBackground: #dee0df;

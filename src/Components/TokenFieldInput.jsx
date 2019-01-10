@@ -180,6 +180,13 @@ export default class TokenFieldInput extends React.Component {
     const match = value.match(/ ?([-a-z:]+)$/i);
     let tokens = [];
     const keyword = '';
+    if (value === '') {
+      this.setState({
+        value
+      });
+      this.handleAllTokens();
+      return true;
+    }
     if (match) {
       const regexp = new RegExp(match[1], 'i');
       tokens = this.props.tokenTypes.filter((token) => {
@@ -227,6 +234,7 @@ export default class TokenFieldInput extends React.Component {
       keyword,
       selectedToken,
     });
+    return true;
   };
 
   handleAllTokens = () => {
@@ -460,8 +468,11 @@ export default class TokenFieldInput extends React.Component {
       return this.renderAllTokens();
     }
     const { keyword, selectedToken } = this.state;
+    if (this.state.tokens.length === 0) {
+      return null;
+    }
     return (
-      <div className="dp-select">
+      <div className={classNames(styles['dp-select'], 'dp-select')}>
         <div className="dp-select__content">
           <Scrollbar>
             <List className="dp-selectable-list">
