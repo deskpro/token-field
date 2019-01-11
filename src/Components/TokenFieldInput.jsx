@@ -321,7 +321,7 @@ export default class TokenFieldInput extends React.Component {
             let newSelected = null;
             do {
               index += 1;
-              if (!tokens[index].notSelectable) {
+              if (tokens[index] && !tokens[index].notSelectable) {
                 newSelected = tokens[index];
               }
             } while (!newSelected && index < tokens.length - 1);
