@@ -68,9 +68,10 @@ export default class TokenFieldInput extends React.Component {
   }
 
   selectScope(token) {
+    this.props.cancelBlur();
     if (!token.scopes || token.scopes.length === 1) {
       this.selectToken(token);
-      return true;
+      return false;
     }
     const tokens = token.scopes.map(scope => ({
       label: scope,
@@ -86,7 +87,7 @@ export default class TokenFieldInput extends React.Component {
       tokens,
       selectedToken: tokens[1]
     });
-    return true;
+    return false;
   }
 
   selectToken(token, scope = undefined) {
@@ -127,6 +128,7 @@ export default class TokenFieldInput extends React.Component {
       tokensExtended: false,
       selectScope:    false,
     });
+    return true;
   };
 
   handleBlur = () => {
@@ -138,7 +140,11 @@ export default class TokenFieldInput extends React.Component {
         this.props.removeToken(this.state.tokenKey);
       }
     }
+    if (this.state.selectScope) {
+      return false;
+    }
     this.props.onBlur();
+    return true;
   };
 
   handleFocus = () => {
@@ -562,6 +568,7 @@ export default class TokenFieldInput extends React.Component {
               if (menu === 'extend') {
                 result.push(
                   <ListElement
+                    key="extend"
                     onClick={this.handleAllTokens}
                     className={classNames(styles['extend-tokens'], { selected: selectedToken === 'extend' })}
                   >
@@ -623,7 +630,7 @@ export default class TokenFieldInput extends React.Component {
               const selected = (menu === selectedToken) ? styles.selected : '';
               let onClick = null;
               if (token) {
-                onClick = () => this.selectToken(token);
+                onClick = () => this.selectToken(token, menu.scope);
               }
               result.push(
                 <ListElement
