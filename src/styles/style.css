@@ -162,7 +162,11 @@
         border-radius: 3px;
         & :global(.dp-list__element) {
             padding: 0 6px;
-            &:hover {
+            &:not(:global(.selectable)):hover {
+              background-color: inherit;
+              color:inherit;
+            }
+            &:global(.selectable):hover {
               background-color: selected;
             }
             &:global(.separator) {
@@ -186,6 +190,11 @@
 .dp-select {
     & > :global(.dp-select__content) {
         padding: 4px 0 !important;
+    }
+}
+.dp-select__all-tokens {
+    & :global(.dp-list__element):not(.extend-tokens):last-child {
+        margin-bottom: 4px;
     }
 }
 .select {

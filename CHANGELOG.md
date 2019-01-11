@@ -1,3 +1,7 @@
+## 0.8.4
+
+* Add scope selection after search
+
 ## 0.8.3 - 2019-01-10
 
 * Fix navigation in child menu

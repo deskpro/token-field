@@ -50,12 +50,12 @@ export default class TokenFieldInput extends React.Component {
       tokenKey:       props.tokenKey,
       tokens:         [],
       selectables:    [],
-      keyword:        '',
       selectedToken:  '',
       subSelected:    '',
       popupOpen:      false,
       tokensExtended: false,
       selectLevel:    0,
+      selectScope:    false,
     };
   }
 
@@ -65,6 +65,28 @@ export default class TokenFieldInput extends React.Component {
 
   blur() {
     this.closePopper();
+  }
+
+  selectScope(token) {
+    if (!token.scopes || token.scopes.length === 1) {
+      this.selectToken(token);
+      return true;
+    }
+    const tokens = token.scopes.map(scope => ({
+      label: scope,
+      scope,
+      token: token.id
+    }));
+    tokens.unshift({
+      label:         'Please select the scope:',
+      notSelectable: true
+    });
+    this.setState({
+      selectScope:   true,
+      tokens,
+      selectedToken: tokens[1]
+    });
+    return true;
   }
 
   selectToken(token, scope = undefined) {
@@ -103,6 +125,7 @@ export default class TokenFieldInput extends React.Component {
     this.setState({
       tokens:         [],
       tokensExtended: false,
+      selectScope:    false,
     });
   };
 
@@ -179,7 +202,6 @@ export default class TokenFieldInput extends React.Component {
     const value = event.currentTarget.value;
     const match = value.match(/ ?([-a-z:]+)$/i);
     let tokens = [];
-    const keyword = '';
     if (value === '') {
       this.setState({
         value
@@ -231,8 +253,8 @@ export default class TokenFieldInput extends React.Component {
     this.setState({
       value,
       tokens,
-      keyword,
       selectedToken,
+      selectScope: false,
     });
     return true;
   };
@@ -280,6 +302,7 @@ export default class TokenFieldInput extends React.Component {
     const {
       selectedToken,
       selectLevel,
+      selectScope,
       subSelected,
       tokens,
     } = this.state;
@@ -295,9 +318,16 @@ export default class TokenFieldInput extends React.Component {
       switch (e.key) {
         case 'ArrowDown':
           if (selectLevel === 0) {
-            if (index < tokens.length - 1) {
+            let newSelected = null;
+            do {
+              index += 1;
+              if (!tokens[index].notSelectable) {
+                newSelected = tokens[index];
+              }
+            } while (!newSelected && index < tokens.length - 1);
+            if (newSelected) {
               this.setState({
-                selectedToken: tokens[index + 1]
+                selectedToken: newSelected
               });
             }
           } else if (index < selectedToken.children.length - 1) {
@@ -311,9 +341,18 @@ export default class TokenFieldInput extends React.Component {
         case 'ArrowUp':
           if (index > 0) {
             if (selectLevel === 0) {
-              this.setState({
-                selectedToken: tokens[index - 1]
-              });
+              let newSelected = null;
+              do {
+                index -= 1;
+                if (!tokens[index].notSelectable) {
+                  newSelected = tokens[index];
+                }
+              } while (!newSelected && index > 0);
+              if (newSelected) {
+                this.setState({
+                  selectedToken: newSelected
+                });
+              }
             } else {
               this.setState({
                 subSelected: selectedToken.children[index - 1]
@@ -375,7 +414,13 @@ export default class TokenFieldInput extends React.Component {
           } else {
             const token = this.props.tokenTypes.find(t => t.id === selectedToken.token);
             if (token) {
-              this.selectToken(token);
+              if (this.state.value && !selectScope) {
+                this.selectScope(token);
+              } else if (this.state.value && selectScope) {
+                this.selectToken(token, selectedToken.scope);
+              } else {
+                this.selectToken(token);
+              }
             }
           }
           return false;
@@ -467,9 +512,12 @@ export default class TokenFieldInput extends React.Component {
     if (this.props.showTokensOnFocus && this.state.value === '') {
       return this.renderAllTokens();
     }
-    const { keyword, selectedToken } = this.state;
+    const { value, selectedToken } = this.state;
     if (this.state.tokens.length === 0) {
       return null;
+    }
+    if (this.state.selectScope) {
+      return this.renderAllTokens();
     }
     return (
       <div className={classNames(styles['dp-select'], 'dp-select')}>
@@ -483,13 +531,13 @@ export default class TokenFieldInput extends React.Component {
                 return (
                   <ListElement
                     key={token.id}
-                    onClick={() => this.selectToken(token)}
+                    onClick={() => this.selectScope(token)}
                     className={classNames(styles['token-suggestion'], selected)}
                     title={token.description}
                   >
                     <Highlighter
                       highlightClassName={styles.highlight}
-                      searchWords={[keyword]}
+                      searchWords={[value]}
                       textToHighlight={label}
                     />
                   </ListElement>
@@ -572,19 +620,19 @@ export default class TokenFieldInput extends React.Component {
                 return result;
               }
               const token = this.props.tokenTypes.find(t => t.id === menu.token);
-              if (!token) {
-                return result;
-              }
               const selected = (menu === selectedToken) ? styles.selected : '';
-              const label = token.label ? token.label : token.id;
+              let onClick = null;
+              if (token) {
+                onClick = () => this.selectToken(token);
+              }
               result.push(
                 <ListElement
-                  key={token.id}
-                  onClick={() => this.selectToken(token)}
-                  className={classNames(styles['token-suggestion'], selected)}
-                  title={token.description}
+                  key={menu.label}
+                  onClick={onClick}
+                  className={classNames(styles['token-suggestion'], selected, { selectable: onClick })}
+                  title={token && token.description}
                 >
-                  {label}
+                  {menu.label}
                 </ListElement>
               );
               return result;
