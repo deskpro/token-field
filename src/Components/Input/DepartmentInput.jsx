@@ -40,7 +40,7 @@ export default class DepartmentInput extends TokenInput {
   }
 
   onFocus = () => {
-    this.props.onFocus();
+    this.props.onFocus(this.props.tokenKey);
     if (this.props.showSearch && this.searchInput) {
       this.searchInput.focus();
     }

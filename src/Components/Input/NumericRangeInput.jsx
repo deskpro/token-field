@@ -84,7 +84,7 @@ export default class NumericRangeInput extends TokenInput {
   }
 
   focusInput = (end) => {
-    this.props.onFocus();
+    this.props.onFocus(this.props.tokenKey);
     if (end) {
       this.inputTo.focus();
     } else {

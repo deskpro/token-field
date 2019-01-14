@@ -36,7 +36,7 @@ export default class DateTimeInput extends TokenInput {
   }
 
   onFocus = () => {
-    this.props.onFocus();
+    this.props.onFocus(this.props.tokenKey);
     window.document.addEventListener('keydown', this.handleKeyDown);
   };
 

@@ -29,7 +29,7 @@ export default class TextInput extends TokenInput {
   };
 
   onFocus = () => {
-    this.props.onFocus();
+    this.props.onFocus(this.props.tokenKey);
     if (this.input) {
       this.input.focus();
     }

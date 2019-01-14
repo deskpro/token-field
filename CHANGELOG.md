@@ -2,6 +2,7 @@
 
 * Add scope selection after search
 * Fix keyboard scroll on token list
+* Fix focus issues
 
 ## 0.8.3 - 2019-01-10
 

@@ -21,6 +21,7 @@ export default class TokenInput extends React.Component {
     className:           PropTypes.string,
     removeToken:         PropTypes.func.isRequired,
     zIndex:              PropTypes.number,
+    tokenKey:            PropTypes.number,
   };
   /* eslint-enable react/no-unused-prop-types */
 
@@ -29,7 +30,8 @@ export default class TokenInput extends React.Component {
     onChange() {},
     onFocus() {},
     onBlur() {},
-    zIndex:    100
+    zIndex:    100,
+    tokenKey:  null,
   };
 
   constructor(props) {

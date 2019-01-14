@@ -44,7 +44,7 @@ export default class SlaStatusInput extends TokenInput {
   }
 
   onFocus = () => {
-    this.props.onFocus();
+    this.props.onFocus(this.props.tokenKey);
     if (this.inputs[0]) {
       this.inputs[0].focus();
     }

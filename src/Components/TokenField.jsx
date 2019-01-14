@@ -58,9 +58,10 @@ export default class TokenField extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value:   props.value,
-      scopes:  [],
-      focused: false,
+      value:        props.value,
+      scopes:       [],
+      focused:      false,
+      focusedInput: null,
     };
 
     this.inputs = [];
@@ -82,12 +83,15 @@ export default class TokenField extends React.Component {
     }
   }
 
-  onFocus = () => {
+  onFocus = (key) => {
     if (!this.state.focused) {
       this.props.onFocus();
       this.setState({
         focused: true
       });
+    }
+    if (this.inputField && this.inputField !== this.inputs[key]) {
+      this.inputField.closePopper();
     }
     if (this.pendingBlur) {
       window.clearTimeout(this.pendingBlur);
@@ -266,6 +270,7 @@ export default class TokenField extends React.Component {
           elements.push(
             <Component
               key={key}
+              tokenKey={key}
               token={token}
               label={label}
               ref={(c) => { this.inputs[index] = c; }}

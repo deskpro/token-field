@@ -199,7 +199,7 @@ export default class TokenFieldInput extends React.Component {
         categories:     [],
       });
     }
-    this.props.onFocus();
+    this.props.onFocus(this.props.tokenKey);
   };
 
   handleChange = (event) => {
@@ -601,7 +601,7 @@ export default class TokenFieldInput extends React.Component {
                 result.push(
                   <ListElement
                     key={menu.label}
-                    className={classNames(styles['token-suggestion'], styles.category, selected)}
+                    className={classNames(styles['token-suggestion'], styles.category, selected, 'selectable')}
                   >
                     {menu.label} <Icon name={faCaretRight} />
                     <List className={classNames(styles['token-subcategory'], 'dp-selectable-list')}>
