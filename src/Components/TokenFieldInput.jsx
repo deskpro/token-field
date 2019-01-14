@@ -516,9 +516,9 @@ export default class TokenFieldInput extends React.Component {
         this.list.parentElement.scrollTop = this.selected.offsetTop - selected.height;
       }
       if (key === 'ArrowDown'
-        && (this.selected.offsetTop > (this.list.parentElement.scrollTop + scrollZone.height - selected.height))
+        && (this.selected.offsetTop > (this.list.parentElement.scrollTop + scrollZone.height - selected.height - 20))
       ) {
-        this.list.parentElement.scrollTop = this.selected.offsetTop - scrollZone.height + selected.height;
+        this.list.parentElement.scrollTop = this.selected.offsetTop - scrollZone.height + selected.height + 20;
       }
     }
   };
@@ -555,7 +555,7 @@ export default class TokenFieldInput extends React.Component {
                   <ListElement
                     key={token.id}
                     onClick={() => this.selectScope(token)}
-                    className={classNames(styles['token-suggestion'], selected)}
+                    className={classNames(styles['token-suggestion'], selected, 'selectable')}
                     ref={(c) => { if (selected) { this.selected = c; } }}
                     title={token.description}
                   >
