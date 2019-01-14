@@ -178,7 +178,7 @@ export default class TokenField extends React.Component {
         let valueScope = [];
         if (t.scope) {
           valueScope = [t.scope];
-        } else if (token.scopes) {
+        } else if (token && token.scopes) {
           valueScope = token.scopes;
         }
         if (token && valueScope.length && scopes.length === 0) {
