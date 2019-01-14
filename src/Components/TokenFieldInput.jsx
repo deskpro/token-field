@@ -341,6 +341,7 @@ export default class TokenFieldInput extends React.Component {
               subSelected: selectedToken.children[index + 1]
             });
           }
+          this.checkScroll(e.key);
           e.preventDefault();
           e.stopPropagation();
           return false;
@@ -365,6 +366,7 @@ export default class TokenFieldInput extends React.Component {
               });
             }
           }
+          this.checkScroll(e.key);
           e.preventDefault();
           e.stopPropagation();
           return false;
@@ -506,6 +508,21 @@ export default class TokenFieldInput extends React.Component {
     return true;
   };
 
+  checkScroll = (key) => {
+    if (this.selected) {
+      const scrollZone = this.list.parentElement.getBoundingClientRect();
+      const selected = this.selected.getBoundingClientRect();
+      if (key === 'ArrowUp' && this.selected.offsetTop < this.list.parentElement.scrollTop) {
+        this.list.parentElement.scrollTop = this.selected.offsetTop - selected.height;
+      }
+      if (key === 'ArrowDown'
+        && (this.selected.offsetTop > (this.list.parentElement.scrollTop + scrollZone.height - selected.height))
+      ) {
+        this.list.parentElement.scrollTop = this.selected.offsetTop - scrollZone.height + selected.height;
+      }
+    }
+  };
+
   selectCategory(children) {
     const subSelected = children[0];
     this.setState({
@@ -529,7 +546,7 @@ export default class TokenFieldInput extends React.Component {
       <div className={classNames(styles['dp-select'], 'dp-select')}>
         <div className="dp-select__content">
           <Scrollbar>
-            <List className="dp-selectable-list">
+            <List className="dp-selectable-list" ref={(c) => { this.list = c; }}>
               {this.state.tokens.map((menu) => {
                 const selected = (selectedToken === menu) ? styles.selected : '';
                 const token = this.props.tokenTypes.find(t => t.id === menu.token);
@@ -539,6 +556,7 @@ export default class TokenFieldInput extends React.Component {
                     key={token.id}
                     onClick={() => this.selectScope(token)}
                     className={classNames(styles['token-suggestion'], selected)}
+                    ref={(c) => { if (selected) { this.selected = c; } }}
                     title={token.description}
                   >
                     <Highlighter

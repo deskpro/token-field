@@ -1,6 +1,7 @@
 ## 0.8.4
 
 * Add scope selection after search
+* Fix keyboard scroll on token list
 
 ## 0.8.3 - 2019-01-10
 
