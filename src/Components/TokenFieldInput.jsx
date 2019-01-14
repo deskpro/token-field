@@ -660,7 +660,7 @@ export default class TokenFieldInput extends React.Component {
       >
         <AutosizeInput
           ref={(c) => { this.input = c; }}
-          inputClassName={styles['raw-text']}
+          inputClassName={classNames(styles['raw-text'], 'raw-text')}
           value={value}
           style={{ fontSize: 14 }}
           onBlur={this.handleBlur}

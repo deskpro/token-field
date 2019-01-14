@@ -40,7 +40,7 @@ exports[`+++capturing Snapshot of TokenField 1`] = `
         }
       >
         <input
-          className={undefined}
+          className="raw-text"
           id={undefined}
           onBlur={[Function]}
           onChange={[Function]}
