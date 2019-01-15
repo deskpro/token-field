@@ -180,7 +180,7 @@ export default class TokenField extends React.Component {
     this.focusInput = inputKey;
     this.setState({
       value,
-      scopes: this.computeScopes(),
+      scopes: this.computeScopes(value),
     });
   };
 
@@ -215,7 +215,7 @@ export default class TokenField extends React.Component {
     }
     this.setState({
       value,
-      scopes: this.computeScopes(),
+      scopes: this.computeScopes(value),
     });
     this.props.onChange(value);
   };
