@@ -28,6 +28,7 @@ export default class TokenField extends React.Component {
     onChange:          PropTypes.func,
     onFocus:           PropTypes.func,
     onBlur:            PropTypes.func,
+    onScopesChange:    PropTypes.func,
     value:             PropTypes.array,
     zIndex:            PropTypes.number,
     showTokensOnFocus: PropTypes.bool,
@@ -43,6 +44,7 @@ export default class TokenField extends React.Component {
     onChange() {},
     onFocus() {},
     onBlur() {},
+    onScopesChange() {},
     value:             [],
     zIndex:            100,
     blurTimeout:       300,
@@ -175,6 +177,14 @@ export default class TokenField extends React.Component {
     const { value } = this.state;
     const inputKey = (!key) ? value.length : key;
     value.splice(inputKey, 0, { type: id, value: defaultValue, scope });
+    this.focusInput = inputKey;
+    this.setState({
+      value,
+      scopes: this.computeScopes(),
+    });
+  };
+
+  computeScopes = (value) => {
     let scopes = [];
     value.forEach((t) => {
       if (t.type) {
@@ -192,11 +202,8 @@ export default class TokenField extends React.Component {
         }
       }
     });
-    this.focusInput = inputKey;
-    this.setState({
-      value,
-      scopes,
-    });
+    this.props.onScopesChange(scopes);
+    return scopes;
   };
 
   removeToken = (key, focusKey) => {
@@ -206,26 +213,9 @@ export default class TokenField extends React.Component {
     if (focusKey !== undefined) {
       this.focusInput = focusKey;
     }
-    let scopes = [];
-    value.forEach((t) => {
-      if (t.type) {
-        const token = this.props.tokenTypes.find(e => e.id === t.type);
-        let valueScope = [];
-        if (t.scope) {
-          valueScope = [t.scope];
-        } else if (token && token.scopes) {
-          valueScope = token.scopes;
-        }
-        if (token && valueScope.length && scopes.length === 0) {
-          scopes = valueScope;
-        } else if (token && valueScope.length) {
-          scopes = scopes.filter(v => valueScope.indexOf(v) !== -1);
-        }
-      }
-    });
     this.setState({
       value,
-      scopes
+      scopes: this.computeScopes(),
     });
     this.props.onChange(value);
   };
