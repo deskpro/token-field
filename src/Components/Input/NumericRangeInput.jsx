@@ -98,7 +98,7 @@ export default class NumericRangeInput extends TokenInput {
     });
   };
 
-  handleBlur = () => {
+  onBlur = () => {
     this.props.onBlur();
     this.props.onChange([this.state.from, this.state.to]);
   };

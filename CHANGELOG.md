@@ -5,6 +5,7 @@
 * Fix focus issues
 * Add onScopesChange method
 * Improve selection in SelectInput
+* Fix value update on NumericRange
 
 ## 0.8.3 - 2019-01-10
 
