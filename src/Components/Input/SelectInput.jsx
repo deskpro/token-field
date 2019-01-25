@@ -150,14 +150,14 @@ export default class SelectInput extends TokenInput {
         this.disableEditMode();
         break;
       case 'Tab':
+        if (this.props.isMultiple) {
+          this.props.onChange(this.state.value);
+        } else {
+          this.handleChange(this.state.selectedOption);
+        }
         if (e.shiftKey) {
           this.props.selectPreviousToken();
         } else {
-          if (this.props.isMultiple) {
-            this.props.onChange(this.state.value);
-          } else {
-            this.handleChange(this.state.selectedOption);
-          }
           this.props.selectNextToken();
         }
         this.disableEditMode();
@@ -171,8 +171,15 @@ export default class SelectInput extends TokenInput {
           if (value) {
             checked = value.indexOf(key) !== -1;
           }
-          this.handleChangeMultiple(!checked, key);
+          if (!checked || e.key === ' ') {
+            this.handleChangeMultiple(!checked, key);
+          }
           if (e.key === 'Enter') {
+            if (this.props.isMultiple) {
+              this.props.onChange(this.state.value);
+            } else {
+              this.handleChange(this.state.selectedOption);
+            }
             this.disableEditMode();
             this.props.selectNextToken();
           }

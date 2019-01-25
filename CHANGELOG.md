@@ -4,6 +4,7 @@
 * Fix keyboard scroll on token list
 * Fix focus issues
 * Add onScopesChange method
+* Improve selection in SelectInput
 
 ## 0.8.3 - 2019-01-10
 
