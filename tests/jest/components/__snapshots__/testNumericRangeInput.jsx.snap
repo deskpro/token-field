@@ -14,7 +14,7 @@ exports[`+++capturing Snapshot of NumericRangeInput 1`] = `
       className="value"
       onClick={[Function]}
     >
-      12582912 MB to 20971520 MB
+      __ MB to __ MB
     </span>
   </div>
   <div
@@ -40,7 +40,7 @@ exports[`+++capturing Snapshot of NumericRangeInput with custom convert 1`] = `
       className="value"
       onClick={[Function]}
     >
-      12 MB to 20 MB
+      __ MB to __ MB
     </span>
   </div>
   <div

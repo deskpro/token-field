@@ -9,7 +9,9 @@ const convertToValue = value => value * 1024 * 1024;
 it('+++capturing Snapshot of NumericRangeInput', () => {
   const token = {
     type:  'user-message',
-    value: [12582912, 20971520]
+    value: {
+      range: [12582912, 20971520]
+    },
   };
   const renderedValue = renderer.create(
     <NumericRangeInput
@@ -26,7 +28,9 @@ it('+++capturing Snapshot of NumericRangeInput', () => {
 it('+++capturing Snapshot of NumericRangeInput with custom convert', () => {
   const token = {
     type:  'user-message',
-    value: [12582912, 20971520]
+    value: {
+      range: [12582912, 20971520]
+    },
   };
   const renderedValue = renderer.create(
     <NumericRangeInput
