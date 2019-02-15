@@ -220,7 +220,7 @@ const tokenTypes = [
     props:       {},
     showOnFocus: true,
     description: 'Date the ticket was submitted',
-    scopes:      ['Ticket']
+    scopes:      ['ticket']
   },
   {
     id:          'date-ticket-created',
@@ -228,7 +228,7 @@ const tokenTypes = [
     showOnFocus: true,
     props:       {},
     description: 'When the ticket was created',
-    scopes:      ['Ticket']
+    scopes:      ['ticket']
   },
   {
     id:          'date-ticket-resolved',
@@ -247,21 +247,21 @@ const tokenTypes = [
     widget:      'TextInput',
     props:       {},
     description: 'Name of the person who opened the ticket',
-    scopes:      ['Person'],
+    scopes:      ['person'],
   },
   {
     id:          'person-cc',
     widget:      'TextInput',
     props:       {},
     description: 'Name of the person cc to the ticket',
-    scopes:      ['Person'],
+    scopes:      ['person'],
   },
   {
     id:          'organization-name',
     widget:      'TextInput',
     props:       {},
     description: 'Name of the organisation',
-    scopes:      ['Organisation']
+    scopes:      ['organisation']
   },
   {
     id:          'organization-domain',
@@ -317,7 +317,7 @@ const tokenTypes = [
       isMultiple:   true,
     },
     allowDuplicate: false,
-    scopes:         ['Ticket', 'Chat']
+    scopes:         ['ticket', 'chat']
   },
   {
     id:     'brand',
@@ -331,14 +331,14 @@ const tokenTypes = [
       isMultiple: true,
     },
     allowDuplicate: false,
-    scopes:         ['Ticket', 'Content', 'Organization', 'Person'],
+    scopes:         ['ticket', 'content', 'organization', 'person'],
   },
   {
     id:          'user-waiting',
     widget:      'DurationInput',
     props:       {},
     description: 'Time waited by user',
-    scopes:      ['Ticket']
+    scopes:      ['ticket']
   },
   {
     id:     'sla_status',
@@ -458,6 +458,7 @@ class TokenFieldStory extends React.Component {
           onBlur={action('Blur')}
           placeholder="Search ..."
           showTokensOnFocus={this.props.showTokensOnFocus}
+          translateScope={(scope) => { return scope[0].toUpperCase() + scope.substring(1)}}
           nbCollapsed={2}
         />
         <br />

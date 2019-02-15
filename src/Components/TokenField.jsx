@@ -29,6 +29,7 @@ export default class TokenField extends React.Component {
     onFocus:           PropTypes.func,
     onBlur:            PropTypes.func,
     onScopesChange:    PropTypes.func,
+    translateScope:    PropTypes.func,
     value:             PropTypes.array,
     zIndex:            PropTypes.number,
     showTokensOnFocus: PropTypes.bool,
@@ -45,6 +46,7 @@ export default class TokenField extends React.Component {
     onFocus() {},
     onBlur() {},
     onScopesChange() {},
+    translateScope(scope) { return scope; },
     value:             [],
     zIndex:            100,
     blurTimeout:       300,
@@ -281,6 +283,10 @@ export default class TokenField extends React.Component {
     return elements;
   }
 
+  renderScope(scope) {
+    return this.props.translateScope(scope);
+  }
+
   render() {
     const { scopes } = this.state;
     const { translations } = this.props;
@@ -293,7 +299,7 @@ export default class TokenField extends React.Component {
         {
           scopes.length === 1 ?
             <div className={classNames(styles.scope, 'scope')} title={translations['scope-title']}>
-              {scopes[0]}
+              {this.renderScope(scopes[0])}
             </div>
             : null
         }

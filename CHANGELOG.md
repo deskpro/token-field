@@ -1,3 +1,7 @@
+## 0.8.5
+
+* Allow to translate scope
+
 ## 0.8.4 - 2019-02-15
 
 * Add scope selection after search
