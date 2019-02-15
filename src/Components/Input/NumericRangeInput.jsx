@@ -17,10 +17,10 @@ export default class NumericRangeInput extends TokenInput {
     let from = '';
     let to = '';
     if (this.props.token.value && this.props.token.value.length) {
-      from = this.props.token.value[0];
+      from = this.props.token.value.range[0];
     }
     if (this.props.token.value && this.props.token.value.length > 1) {
-      to = this.props.token.value[1];
+      to = this.props.token.value.range[1];
     }
     this.state = {
       from,
@@ -100,7 +100,7 @@ export default class NumericRangeInput extends TokenInput {
 
   onBlur = () => {
     this.props.onBlur();
-    this.props.onChange([this.state.from, this.state.to]);
+    this.props.onChange({ range: [this.state.from, this.state.to] });
   };
 
   handleKeyDown = (e) => {

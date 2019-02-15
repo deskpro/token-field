@@ -47,7 +47,10 @@ export default class SelectInput extends TokenInput {
     window.document.addEventListener('keydown', this.handleKeyDown);
   };
 
-  onBlur = () => {
+  onBlur = (passValue = true) => {
+    if (passValue) {
+      this.props.onChange(this.state.value);
+    }
     this.props.onBlur();
     window.document.removeEventListener('keydown', this.handleKeyDown);
   };
@@ -147,7 +150,7 @@ export default class SelectInput extends TokenInput {
         this.setState({
           value: this.props.token.value
         });
-        this.disableEditMode();
+        this.disableEditMode(false);
         break;
       case 'Tab':
         if (this.props.isMultiple) {
@@ -160,7 +163,7 @@ export default class SelectInput extends TokenInput {
         } else {
           this.props.selectNextToken();
         }
-        this.disableEditMode();
+        this.disableEditMode(false);
         break;
       case ' ':
       case 'Enter':
@@ -180,7 +183,7 @@ export default class SelectInput extends TokenInput {
             } else {
               this.handleChange(this.state.selectedOption);
             }
-            this.disableEditMode();
+            this.disableEditMode(false);
             this.props.selectNextToken();
           }
         } else {

@@ -1,4 +1,4 @@
-## 0.8.4
+## 0.8.4 - 2019-02-15
 
 * Add scope selection after search
 * Fix keyboard scroll on token list
@@ -6,6 +6,7 @@
 * Add onScopesChange method
 * Improve selection in SelectInput
 * Fix value update on NumericRange
+* Fix mouse selection on SelectInput
 
 ## 0.8.3 - 2019-01-10
 
