@@ -334,6 +334,32 @@ const tokenTypes = [
     scopes:         ['ticket', 'content', 'organization', 'person'],
   },
   {
+    id:     'label',
+    label:  'Label',
+    widget: 'SelectInput',
+    props:  {
+      dataSource: {
+        getOptions: (filter, scope) => {
+          return [
+            'label 1',
+            'label 2',
+            'label 3',
+            'label 4',
+          ].map(label => (
+            {
+              label: `${label} ${scope}`,
+              value: label
+            })
+          );
+        }
+      },
+      showSearch: true,
+      isMultiple: true,
+    },
+    allowDuplicate: false,
+    scopes:         ['ticket', 'content', 'organization', 'person'],
+  },
+  {
     id:          'user-waiting',
     widget:      'DurationInput',
     props:       {},

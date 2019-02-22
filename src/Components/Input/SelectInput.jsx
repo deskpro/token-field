@@ -57,8 +57,9 @@ export default class SelectInput extends TokenInput {
 
   getOptions = (filter = '') => {
     const { dataSource } = this.props;
+    const { scope = '' } = this.props.token;
     if (this.props.dataSource.getOptions instanceof Function) {
-      return Promise.resolve(dataSource.getOptions(filter));
+      return Promise.resolve(dataSource.getOptions(filter, scope));
     }
     return new Promise(((resolve) => {
       resolve(dataSource.getOptions);

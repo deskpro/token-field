@@ -1,6 +1,7 @@
 ## 0.8.5
 
 * Allow to translate scope
+* Allow scope based select input values
 
 ## 0.8.4 - 2019-02-15
 
