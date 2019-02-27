@@ -14,7 +14,7 @@ exports[`+++capturing Snapshot of DurationInput 1`] = `
       className="value"
       onClick={[Function]}
     >
-      an hour
+      an hour 15 minutes
     </span>
   </div>
   <div

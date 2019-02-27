@@ -61,7 +61,6 @@ export default class TokenInput extends React.Component {
   };
 
   focus = (end) => {
-    console.log('focus');
     this.enableEditMode(end);
   };
 

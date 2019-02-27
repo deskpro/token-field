@@ -2,6 +2,7 @@
 
 * Allow to translate scope
 * Allow scope based select input values
+* Fix and improve DateTimeInput and DurationInput
 
 ## 0.8.4 - 2019-02-15
 

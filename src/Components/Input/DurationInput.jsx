@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { Label, Input, List, ListElement } from '@deskpro/react-components';
 import styles from '../../styles/style.css';
 import TokenInput from './TokenInput';
+import './humanizePrecisely';
 
 export default class DurationInput extends TokenInput {
   constructor(props) {
@@ -111,7 +112,7 @@ export default class DurationInput extends TokenInput {
     }
     moment.locale(this.props.locale);
     const duration = moment.duration(timeObject);
-    return duration.humanize();
+    return duration.humanizePrecisely();
   }
 
   getCustomInput() {
@@ -129,6 +130,7 @@ export default class DurationInput extends TokenInput {
                     name={field}
                     value={timeObject[field]}
                     onChange={this.handleCustomChange}
+                    autocomplete="off"
                   />
                 </ListElement>
               ))
@@ -203,6 +205,9 @@ export default class DurationInput extends TokenInput {
         break;
       }
       case 'Tab':
+        if (this.state.custom) {
+          return true;
+        }
         if (e.shiftKey) {
           this.props.selectPreviousToken();
         } else {
@@ -213,6 +218,11 @@ export default class DurationInput extends TokenInput {
         break;
       case ' ':
       case 'Enter':
+        if (this.state.custom) {
+          this.props.selectNextToken();
+          this.disableEditMode();
+          return true;
+        }
         this.props.selectNextToken();
         this.handleChange(this.state.selectedOption.timeObject);
         break;

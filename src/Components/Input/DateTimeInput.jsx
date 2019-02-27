@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import classNames from 'classnames';
-import { Datepicker, Tabs, TabLink, Section, List, ListElement } from '@deskpro/react-components';
+import { Datepicker, Tabs, TabLink, Section, List, ListElement, Label, Input } from '@deskpro/react-components';
 import styles from '../../styles/style.css';
 import TokenInput from './TokenInput';
-
+import './humanizePrecisely';
 
 export default class DateTimeInput extends TokenInput {
   constructor(props) {
@@ -37,10 +37,16 @@ export default class DateTimeInput extends TokenInput {
   }
 
   onEnable() {
-    if (this.state.value && this.state.value.op) {
+    const { value } = this.state;
+    if (value && value.op) {
       this.setState({
         mode: 'op',
         op:   this.state.value.op
+      });
+    }
+    if (value && value.time) {
+      this.setState({
+        mode: 'custom'
       });
     }
   }
@@ -54,6 +60,17 @@ export default class DateTimeInput extends TokenInput {
     this.props.onBlur();
     window.document.removeEventListener('keydown', this.handleKeyDown);
   };
+
+  static getEmptyTimeObject() {
+    return {
+      minutes: '',
+      hours:   '',
+      days:    '',
+      weeks:   '',
+      months:  '',
+      years:   '',
+    };
+  }
 
   getTimePresets = () => {
     moment.locale(this.props.locale);
@@ -107,6 +124,19 @@ export default class DateTimeInput extends TokenInput {
     );
   };
 
+  getTranslations() {
+    return Object.assign(DateTimeInput.defaultProps.translations, this.props.translations);
+  }
+
+  getDisplayFromTimeObject(timeObject) {
+    if (!timeObject) {
+      return '________';
+    }
+    moment.locale(this.props.locale);
+    const duration = moment.duration(timeObject);
+    return duration.humanizePrecisely();
+  }
+
   handleChange = (inputType, value, field = 'date', disableEdit = true) => {
     let newValue;
     switch (inputType) {
@@ -148,10 +178,35 @@ export default class DateTimeInput extends TokenInput {
     }
   };
 
+  handleCustomChange = (inputValue, name) => {
+    let { value } = this.state;
+
+    if (!value) {
+      value = {};
+    }
+    if (!value.time) {
+      value.time = {};
+    }
+    delete value.preset;
+    value.time[name] = inputValue;
+    value.inputType = 'relative';
+    value.op = '=';
+    this.setState({
+      value
+    });
+    this.props.onChange(value);
+  };
+
   handleOp = (op) => {
     this.setState({
       mode: 'op',
       op
+    });
+  };
+
+  handleMode = (mode) => {
+    this.setState({
+      mode
     });
   };
 
@@ -212,6 +267,9 @@ export default class DateTimeInput extends TokenInput {
         break;
       }
       case 'Tab':
+        if (this.state.mode === 'custom') {
+          return true;
+        }
         if (e.shiftKey) {
           this.props.selectPreviousToken();
         } else {
@@ -221,6 +279,11 @@ export default class DateTimeInput extends TokenInput {
         this.disableEditMode();
         break;
       case 'Enter':
+        if (this.state.mode === 'custom') {
+          this.props.selectNextToken();
+          this.disableEditMode();
+          return true;
+        }
         this.props.selectNextToken();
         this.handleChange('preset', this.state.selected);
         break;
@@ -251,7 +314,7 @@ export default class DateTimeInput extends TokenInput {
   };
 
   renderDateTab = () => {
-    const { translations } = this.props;
+    const translations = this.getTranslations();
     const { mode, op } = this.state;
 
     if (mode === 'op') {
@@ -313,9 +376,51 @@ export default class DateTimeInput extends TokenInput {
     );
   };
 
+  renderTimeTab = () => {
+    const translations = this.getTranslations();
+    const { value } = this.state;
+    const time = value ? value.time : {};
+    const timeObject = Object.assign(DateTimeInput.getEmptyTimeObject(), time);
+    const { mode } = this.state;
+
+    if (mode === 'custom') {
+      return (
+        <List>
+          {['minutes', 'hours', 'days', 'weeks', 'months', 'years']
+            .map(field => (
+              <ListElement key={field}>
+                <Label>{translations[field]}</Label>
+                <Input
+                  name={field}
+                  value={timeObject[field]}
+                  onChange={this.handleCustomChange}
+                  autocomplete="off"
+                />
+              </ListElement>
+            ))
+          }
+          <hr />
+          <ListElement className="back" onClick={() => this.handleMode('home')}>
+            {translations.back}
+          </ListElement>
+        </List>
+      );
+    }
+    return (
+      <List className="dp-selectable-list">
+        {this.renderPresets(this.getTimePresets())}
+        <hr />
+        <ListElement onClick={() => this.handleMode('custom')}>
+          {translations.custom}
+        </ListElement>
+      </List>
+    );
+  };
+
   renderInput = () => {
     const { active } = this.state;
-    const { translations, showSwitcher } = this.props;
+    const translations = this.getTranslations();
+    const { showSwitcher } = this.props;
 
     return (
       <div className={classNames('dp-select')}>
@@ -336,13 +441,7 @@ export default class DateTimeInput extends TokenInput {
             {this.renderDateTab()}
           </Section>
           <Section hidden={active !== 'time'}>
-            <List className="dp-selectable-list">
-              {this.renderPresets(this.getTimePresets())}
-              <hr />
-              <ListElement>
-                {translations.custom}
-              </ListElement>
-            </List>
+            {this.renderTimeTab()}
           </Section>
         </div>
       </div>
@@ -350,7 +449,7 @@ export default class DateTimeInput extends TokenInput {
   };
 
   renderValue = () => {
-    const { translations } = this.props;
+    const translations = this.getTranslations();
     const { value } = this.state;
     if (!value) {
       return '________';
@@ -366,6 +465,8 @@ export default class DateTimeInput extends TokenInput {
         }
         return '________';
       }
+      case 'relative':
+        return this.getDisplayFromTimeObject(this.state.value.time);
       case 'absolute':
         moment.locale(this.props.locale);
         switch (value.op) {
@@ -437,5 +538,12 @@ DateTimeInput.defaultProps = {
     from:      'From',
     to:        'To',
     date:      'Date',
+    minutes:   'Minutes',
+    hours:     'Hours',
+    days:      'Days',
+    weeks:     'Weeks',
+    months:    'Months',
+    years:     'Years',
+    back:      'Back',
   },
 };

@@ -339,19 +339,17 @@ const tokenTypes = [
     widget: 'SelectInput',
     props:  {
       dataSource: {
-        getOptions: (filter, scope) => {
-          return [
-            'label 1',
-            'label 2',
-            'label 3',
-            'label 4',
-          ].map(label => (
-            {
-              label: `${label} ${scope}`,
-              value: label
-            })
-          );
-        }
+        getOptions: (filter, scope) => [
+          'label 1',
+          'label 2',
+          'label 3',
+          'label 4',
+        ].map(label => (
+          {
+            label: `${label} ${scope}`,
+            value: label
+          })
+        )
       },
       showSearch: true,
       isMultiple: true,
@@ -484,7 +482,7 @@ class TokenFieldStory extends React.Component {
           onBlur={action('Blur')}
           placeholder="Search ..."
           showTokensOnFocus={this.props.showTokensOnFocus}
-          translateScope={(scope) => { return scope[0].toUpperCase() + scope.substring(1)}}
+          translateScope={scope => scope[0].toUpperCase() + scope.substring(1)}
           nbCollapsed={2}
         />
         <br />
