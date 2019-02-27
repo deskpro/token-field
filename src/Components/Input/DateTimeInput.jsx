@@ -17,6 +17,7 @@ export default class DateTimeInput extends TokenInput {
       ...this.state,
       active:   props.defaultInput,
       selected: selectables[0],
+      mode:     'home',
       selectables,
       op:       null,
     };
@@ -33,6 +34,15 @@ export default class DateTimeInput extends TokenInput {
 
   componentWillUnmount() {
     window.document.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  onEnable() {
+    if (this.state.value && this.state.value.op) {
+      this.setState({
+        mode: 'op',
+        op:   this.state.value.op
+      });
+    }
   }
 
   onFocus = () => {
@@ -97,26 +107,7 @@ export default class DateTimeInput extends TokenInput {
     );
   };
 
-  getDatePicker = () => {
-    moment.locale(this.props.locale);
-    let date = moment();
-    if (this.state.value && this.state.value.date) {
-      date = moment(this.state.value.date);
-    }
-    return (
-      <Datepicker
-        ref={(c) => { this.datePicker = c; }}
-        className={styles['datetime-picker']}
-        date={date.toDate()}
-        value={date.format('L')}
-        onSelect={d => this.handleChange('absolute', d)}
-        days={moment.weekdaysShort()}
-        months={moment.months()}
-      />
-    );
-  };
-
-  handleChange = (inputType, value) => {
+  handleChange = (inputType, value, field = 'date', disableEdit = true) => {
     let newValue;
     switch (inputType) {
       case 'preset':
@@ -134,28 +125,41 @@ export default class DateTimeInput extends TokenInput {
         break;
       case 'relative':
         break;
+      case 'range':
+        newValue = this.state.value || {};
+        newValue.inputType = 'absolute';
+        newValue.op = 'range';
+        newValue[field] = value;
+        break;
       default:
         newValue = {};
     }
-    this.setState({
-      value: newValue,
-      op:    null,
-    });
     this.props.onChange(newValue);
-    this.disableEditMode();
+    if (disableEdit) {
+      this.setState({
+        value: newValue,
+        op:    null,
+      });
+      this.disableEditMode();
+    } else {
+      this.setState({
+        value: newValue,
+      });
+    }
   };
 
   handleOp = (op) => {
-    this.openDatePicker = true;
     this.setState({
+      mode: 'op',
       op
     });
   };
 
   handleTabChange = (active) => {
     this.setState({
+      mode: 'home',
+      op:   null,
       active,
-      op: null,
     });
   };
 
@@ -246,13 +250,73 @@ export default class DateTimeInput extends TokenInput {
     });
   };
 
+  renderDateTab = () => {
+    const { translations } = this.props;
+    const { mode, op } = this.state;
+
+    if (mode === 'op') {
+      if (op === 'range') {
+        return (
+          <div>
+            {translations.from} <br />
+            {this.renderDatePicker('date', 'range', false)}
+            <br />
+            {translations.to} <br />
+            {this.renderDatePicker('dateEnd', 'range', false)}
+          </div>
+        );
+      }
+      let display = '';
+      if (op !== '=') {
+        display = `${translations.date} ${op}`;
+      }
+      return (
+        <div>{display}{this.renderDatePicker()}</div>
+      );
+    }
+    return (
+      <List className="dp-selectable-list">
+        {this.renderPresets(this.getDatePresets())}
+        <hr />
+        <ListElement onClick={() => this.handleOp('=')}>
+          {translations.is}
+        </ListElement>
+        <ListElement onClick={() => this.handleOp('>')}>
+          {translations.after}
+        </ListElement>
+        <ListElement onClick={() => this.handleOp('<')}>
+          {translations.before}
+        </ListElement>
+        <ListElement onClick={() => this.handleOp('range')}>
+          {translations.range}
+        </ListElement>
+      </List>
+    );
+  };
+
+  renderDatePicker = (field = 'date', inputType = 'absolute', disableEdit = true) => {
+    moment.locale(this.props.locale);
+    let date = moment();
+    if (this.state.value && this.state.value[field]) {
+      date = moment(this.state.value[field]);
+    }
+    return (
+      <Datepicker
+        ref={(c) => { this.datePicker = c; }}
+        className={styles['datetime-picker']}
+        date={date.toDate()}
+        value={date.format('L')}
+        onSelect={d => this.handleChange(inputType, d, field, disableEdit)}
+        days={moment.weekdaysShort()}
+        months={moment.months()}
+      />
+    );
+  };
+
   renderInput = () => {
-    const { active, op } = this.state;
+    const { active } = this.state;
     const { translations, showSwitcher } = this.props;
 
-    if (op) {
-      return this.getDatePicker();
-    }
     return (
       <div className={classNames('dp-select')}>
         <div className="dp-select__content">
@@ -269,22 +333,7 @@ export default class DateTimeInput extends TokenInput {
               : null
           }
           <Section hidden={active !== 'date'}>
-            <List className="dp-selectable-list">
-              {this.renderPresets(this.getDatePresets())}
-              <hr />
-              <ListElement onClick={() => this.handleOp('=')}>
-                {translations.is}
-              </ListElement>
-              <ListElement onClick={() => this.handleOp('>')}>
-                {translations.after}
-              </ListElement>
-              <ListElement onClick={() => this.handleOp('<')}>
-                {translations.before}
-              </ListElement>
-              <ListElement onClick={() => this.handleOp('range')}>
-                {translations.range}
-              </ListElement>
-            </List>
+            {this.renderDateTab()}
           </Section>
           <Section hidden={active !== 'time'}>
             <List className="dp-selectable-list">
@@ -334,6 +383,7 @@ export default class DateTimeInput extends TokenInput {
             }
             return display;
           }
+          case 'range':
           default: {
             let display = '';
             if (value.date) {
@@ -384,5 +434,8 @@ DateTimeInput.defaultProps = {
     before:    '< before',
     range:     'range',
     custom:    'custom',
+    from:      'From',
+    to:        'To',
+    date:      'Date',
   },
 };

@@ -82,6 +82,9 @@
     display: inline-block;
     height: 17px;
 }
+.click-outside :global(.dp-tabs .dp-tabs__tab) {
+    white-space: nowrap;
+}
 .label {
     border: 1px solid greyscale400;
     border-right: 0;
@@ -283,6 +286,13 @@
         height: 20px;
         padding-top: 0;
         padding-bottom: 0;
+    }
+    & :global(.dp-datepicker__calendar__month__icon) svg {
+        position: static;
+    }
+    & :global(.dp-input--with-icon--right .dp-icon) {
+        right: 6px;
+        left: auto;
     }
 }
 :global(.token-field-input-tether) {
