@@ -134,6 +134,7 @@ export default class TokenField extends React.Component {
       selectNextToken={() => this.selectNextToken(key)}
       removeToken={this.removeToken}
       cancelBlur={this.cancelBlur}
+      translateScope={this.props.translateScope}
       zIndex={this.props.zIndex}
       isOpen={this.props.popupOpen}
       showTokensOnFocus={this.props.showTokensOnFocus}

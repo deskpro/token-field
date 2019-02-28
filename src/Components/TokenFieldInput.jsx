@@ -21,6 +21,7 @@ export default class TokenFieldInput extends React.Component {
     selectNextToken:     PropTypes.func.isRequired,
     removeToken:         PropTypes.func.isRequired,
     cancelBlur:          PropTypes.func.isRequired,
+    translateScope:      PropTypes.func.isRequired,
     value:               PropTypes.string.isRequired,
     nbCollapsed:         PropTypes.number,
     currentValue:        PropTypes.array,
@@ -74,7 +75,7 @@ export default class TokenFieldInput extends React.Component {
       return false;
     }
     const tokens = token.scopes.map(scope => ({
-      label: scope,
+      label: this.props.translateScope(scope),
       scope,
       token: token.id
     }));

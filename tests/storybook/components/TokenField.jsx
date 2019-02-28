@@ -382,7 +382,7 @@ const menuStructure = [
   },
   {
     label:    'Ticket',
-    scope:    'Ticket',
+    scope:    'ticket',
     children: [
       {
         label: 'ticket-date',
@@ -397,7 +397,7 @@ const menuStructure = [
   },
   {
     label:    'Person',
-    scope:    'Person',
+    scope:    'person',
     children: [
       {
         label: 'person CC',
