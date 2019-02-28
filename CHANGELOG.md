@@ -4,6 +4,7 @@
 * Allow scope based select input values
 * Fix and improve DateTimeInput and DurationInput
 * Translate scope in token selection
+* Pass scope to DepartmentInput getOptions
 
 ## 0.8.4 - 2019-02-15
 

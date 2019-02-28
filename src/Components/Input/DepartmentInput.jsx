@@ -54,8 +54,9 @@ export default class DepartmentInput extends TokenInput {
 
   getOptions = (filter = '') => {
     const { dataSource } = this.props;
+    const { scope = '' } = this.props.token;
     if (this.props.dataSource.getOptions instanceof Function) {
-      return Promise.resolve(dataSource.getOptions(filter));
+      return Promise.resolve(dataSource.getOptions(filter, scope));
     }
     return new Promise(((resolve) => {
       resolve(dataSource.getOptions);
@@ -317,7 +318,7 @@ DepartmentInput.propTypes = {
     meta:  PropTypes.array,
   }).isRequired,
   dataSource: PropTypes.shape({
-    getOptions:  PropTypes.object.isRequired,
+    getOptions:  PropTypes.func.isRequired,
     findOptions: PropTypes.func,
   }).isRequired,
   renderItem:            PropTypes.func,
