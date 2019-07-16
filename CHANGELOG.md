@@ -5,6 +5,7 @@
 * Fix and improve DateTimeInput and DurationInput
 * Translate scope in token selection
 * Pass scope to DepartmentInput getOptions
+* Upgrade `node-sass`
 
 ## 0.8.4 - 2019-02-15
 
